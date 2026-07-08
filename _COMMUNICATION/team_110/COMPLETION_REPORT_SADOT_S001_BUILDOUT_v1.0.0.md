@@ -39,7 +39,7 @@ unchanged pending this):
   first-ever `inherits_from` archetype mechanism + the `LANDSCAPE_DESIGN` PLA content itself)
 
 **Mid-session: first client materials batch received** (`raw-materials/from-client/`) — licensed plot survey
-(gush 10111/helka 122, 752sqm, 6-point boundary, 24-tree inventory, elevation range), an IFC architectural model
+(gush 10111/helka 122, 752sqm, 6-point boundary, 13-tree inventory [corrected — see amendment], elevation range), an IFC architectural model
 (Revit-exported, project "Niv Sadot"), 2 hand-sketched concept diagrams, and 4 voice-note recordings. Curated into
 `blender/data/site/SITE_GEO.yaml`, updated `design/CANONICAL/02_SPATIAL_SSOT_and_GEOMETRY.md` +
 `08_LANDSCAPE_PLANTING_PLAN.md`, and a new `design/CLIENT_BRIEF_NIV_SADOT_v1.0.0.md` (voice notes transcribed
@@ -55,7 +55,8 @@ authorize it in a follow-up turn.
 ## Deferred / not executed this pass
 
 S002-S004 WPs registered as PLANNED (`spec_ref: TBD`) but not built — correctly BLOCKED on S001 site-analysis/brief
-finalization. `raw-materials/from-client/` still lacks a formal soil lab test and a digitized true-north bearing.
+finalization. `raw-materials/from-client/` still lacks a formal soil lab test (true-north bearing was resolved
+2026-07-08 by computation from the survey's own ITM coordinates — see amendment below).
 
 ## Findings → team_120 (vNext procedure improvements)
 
@@ -70,6 +71,19 @@ finalization. `raw-materials/from-client/` still lacks a formal soil lab test an
 
 ## Open items for team_00
 
-- Push `main` to `https://github.com/WaldNimrod/Sadot` (prepared, needs explicit execution/authorization).
-- Review + confirm the open items in `design/CLIENT_BRIEF_NIV_SADOT_v1.0.0.md` §9 with Niv Sadot.
+- ~~Push `main` to `https://github.com/WaldNimrod/Sadot`~~ — done (team_00 approved; see amendment).
+- Review + confirm the open items in `design/CLIENT_BRIEF_NIV_SADOT_v1.0.0.md` §9 with Niv Sadot (draft WhatsApp
+  message prepared: `_COMMUNICATION/team_70/DRAFT_WHATSAPP_TO_NIV_CLARIFICATIONS_v1.0.0.md`).
 - Review/approve the two filed governance proposals (domain rules canon, archetype inheritance).
+
+## Amendment (2026-07-08, post-audit)
+
+An independent 4-agent adversarial audit against the approved plan found and this team fixed: a **fabricated tree
+count** (originally reported as 24; the survey's own tree schedule documents 13 — corrected in
+`blender/data/site/SITE_GEO.yaml` and everywhere else it was cited, including this report above), an unflagged
+low-confidence plant identification ("guava") presented as confirmed, a real client requirement (pergola
+privacy/light-balance) omitted from the first brief draft, three files that still claimed "no client materials
+received" despite being written in the same commit that processed them, and cosmetic version-stamp mismatches.
+Separately, **true-north orientation was resolved** by computing boundary-edge bearings directly from the survey's
+own ITM coordinates (no visual measurement needed) — see `blender/data/site/SITE_GEO.yaml`. Git commits `7bfb0e5`
+(audit fixes) and subsequent. `git push` has since been executed with team_00's explicit approval.

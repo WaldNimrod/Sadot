@@ -111,7 +111,7 @@ missing from the first draft was added — §2a. Treat this as a live document, 
   a curved pool/water feature, a winding pebble path, a circular gathering structure (pergola/gazebo), and a
   lattice/planter feature — broadly consistent with §4 above. Digitize into `design/CANONICAL/02_SPATIAL_SSOT_and_GEOMETRY.md`
   once S002 concept work formally starts.
-- Plot boundary, elevation range, and existing 24-tree inventory: `blender/data/site/SITE_GEO.yaml`,
+- Plot boundary, elevation range, orientation, and existing 13-tree inventory: `blender/data/site/SITE_GEO.yaml`,
   `design/CANONICAL/02_SPATIAL_SSOT_and_GEOMETRY.md`.
 - Architectural house model (IFC, Revit-exported): `raw-materials/from-client/NSB02.ifc` — basis for the S003 3D
   build.

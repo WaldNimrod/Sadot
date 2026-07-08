@@ -55,7 +55,7 @@ below are genuinely BLOCKED, not just deprioritized, until that arrives.
 | SDT-S001-P003-WP003 | Transcribe + curate client voice-note recordings | 4 recordings transcribed + synthesized | **COMPLETE** 2026-07-08 |
 
 **2026-07-08 update:** first client materials batch received in `raw-materials/from-client/` — licensed survey
-(`10111TD122 (1).pdf`, plot boundary + 24-tree inventory + elevations), architectural IFC model (`NSB02.ifc`), 2
+(`10111TD122 (1).pdf`, plot boundary + 13-tree inventory + elevations + orientation), architectural IFC model (`NSB02.ifc`), 2
 hand-sketched concept diagrams, and 4 voice-note recordings (transcribed + synthesized into
 `design/CLIENT_BRIEF_NIV_SADOT_v1.0.0.md`). Curated into `blender/data/site/SITE_GEO.yaml` and
 `design/CANONICAL/02_SPATIAL_SSOT_and_GEOMETRY.md` / `08_LANDSCAPE_PLANTING_PLAN.md`. This substantially advances

@@ -6,7 +6,8 @@
 # raw-materials/ itself is git-ignored — this file is the CURATED, tracked extraction.
 
 site_id: sadot_niv_pardes_hanna
-status: partial — plot boundary + elevations confirmed by licensed survey; sun/shade + soil-test still pending
+status: partial — plot boundary, elevations, and orientation confirmed by licensed survey; sun/shade + soil-test
+  still pending; more client materials expected in future batches (see hub/data/materials-needed.json)
 updated: '2026-07-08'
 approved_by: team_00
 
@@ -81,8 +82,33 @@ blender_datum:
   status: TBD — set when the first Sadot .blend is created (S003); anchor to boundary_itm point "1G" or plot centroid, team_110/team_10 to decide at that time.
 
 orientation:
-  status: TBD — the survey PDF shows a north arrow but no digitized bearing was extracted from the raster scan.
-  method_pending: "If a DWG/DXF version of the survey becomes available, extract true bearing directly. Otherwise measure the north arrow angle against the plot boundary manually before S003 set-out."
+  status: RESOLVED 2026-07-08 — computed directly from the survey's own ITM boundary coordinates, no visual/manual
+    bearing estimate needed. ITM (Israeli TM, EPSG:2039) is a north-up projected grid — "northing" is grid north by
+    construction; meridian convergence at this location is a small fraction of a degree, negligible for garden-design
+    purposes (not negligible for legal cadastral re-survey, but this isn't that). Cross-check: shoelace-formula area
+    from these 6 points = 751.42 sqm vs. the survey's own registered 752 sqm — 0.08% difference, confirms the
+    coordinates are read correctly and the polygon closes cleanly.
+  boundary_edge_bearings_deg_from_true_north:
+    # bearing = atan2(east2-east1, north2-north1) mod 360, i.e. clockwise from true/grid north
+    - {edge: "1G->2G", length_m: 5.745, bearing_deg: 84.15}
+    - {edge: "2G->3G", length_m: 52.800, bearing_deg: 187.05}
+    - {edge: "3G->4G", length_m: 10.099, bearing_deg: 276.16}
+    - {edge: "4G->5G", length_m: 47.353, bearing_deg: 355.06}
+    - {edge: "5G->6G", length_m: 15.249, bearing_deg: 84.17}
+    - {edge: "6G->1G", length_m: 2.024, bearing_deg: 352.02}
+  summary: "The plot is a long, narrow, slightly kinked hexagon, not a simple rectangle. The two short 'width' edges
+    (1G-2G and 5G-6G) are near-parallel, both bearing ~84°/264° — i.e. the plot's short axis runs almost exactly
+    East-West (6° north of due east). The long 'depth' edges (4G-5G and 6G-1G) run at ~353°-355° (nearly
+    North-South, ~7° west of due north); the third long edge (2G-3G, bearing 187°) is NOT quite parallel to those
+    (a ~6-7° difference) — this is the kinked/angled boundary segment visible on the drawing near 3G/4G."
+  ifc_cross_check: "raw-materials/from-client/NSB02.ifc IFCGEOMETRICREPRESENTATIONCONTEXT (#93) declares TrueNorth
+    = IFCDIRECTION(#92) = (~0, 1) — i.e. the Revit project's own Y+ axis IS true north with zero rotation, per the
+    architect's own model setup. This doesn't by itself give the plot's bearing (that requires knowing how the
+    building is placed within the Revit project coordinates, not attempted here), but it confirms the architectural
+    model was authored on a true-north-aligned grid, consistent with using the boundary bearings above directly."
+  blender_note: "Once the first Sadot .blend exists (S003), pick a `plus_x_bearing_from_true_north_deg` for the
+    model's local axes (e.g. align local +X to the 1G->2G edge at 84.15°) and record it in `blender_datum` below —
+    not set yet since no model/anchor object exists."
 
 architectural_reference:
   ifc_file: "raw-materials/from-client/NSB02.ifc"

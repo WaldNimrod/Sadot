@@ -297,7 +297,7 @@ work_packages:
     stage_mapping: "Stage 0 (Concept)"
     spec_ref: "_aos/work_packages/S001/LOD300_milestone.md"
     gate_history: []
-    notes: "CLASS=RESEARCH — ADR044 Track 4. UNBLOCKED 2026-07-08: first client materials batch received (licensed survey PDF 10111TD122, IFC architectural model, 2 concept sketches, voice-note brief) → curated into blender/data/site/SITE_GEO.yaml + design/CANONICAL/02_SPATIAL_SSOT_and_GEOMETRY.md (plot boundary, 24-tree inventory, elevation range). Still open: no formal soil lab test, no digitized true-north bearing, no direct sun/shade seasonal study — remains IN_PROGRESS, not COMPLETE."
+    notes: "CLASS=RESEARCH — ADR044 Track 4. UNBLOCKED 2026-07-08: first client materials batch received (licensed survey PDF 10111TD122, IFC architectural model, 2 concept sketches, voice-note brief) → curated into blender/data/site/SITE_GEO.yaml + design/CANONICAL/02_SPATIAL_SSOT_and_GEOMETRY.md (plot boundary — corrected 751.42sqm shoelace-check, 13-tree inventory — corrected post-audit from an erroneous 24, elevation range, true-north bearing computed from ITM boundary coords). Still open: no formal soil lab test, no direct sun/shade seasonal study, more client material batches expected — remains IN_PROGRESS, not COMPLETE."
 
   # --- P003: Site analysis + client brief authoring (team_70) ---
 

@@ -6,13 +6,19 @@
 Conflict law: **geometry → this doc wins**, and **the current Sadot .blend is the geometric tiebreaker** — see `blender/CURRENT_MODEL.md` for the version pointer, once a model is authored. Authoritative detail lives in `blender/data/site/SITE_GEO.yaml` (the licensed-survey extraction) until a BUILD_DATA-equivalent is created under S003 (detailed design). This doc is the locked geometric frame, once locked.
 
 ## Datum (world origin)
-**Plot boundary + registry confirmed** (licensed survey `10111TD122`, מודדי עירון, signed 2023-08-22): Gush 10111,
-Helka 122, Pardes Hanna, 752 sqm, 6-point ITM-compatible boundary polygon + ~40 spot elevations (visible range
-54.47-57.59m). Full data: `blender/data/site/SITE_GEO.yaml`. **Still TBD:** true-north bearing (survey shows a north
-arrow but no digitized bearing was extracted from the raster scan — needs a DWG/DXF version or manual measurement
-before S003 set-out), and the Blender world-origin anchor object (created when the first `.blend` exists).
-Reconciliation needed: the architectural IFC model (`raw-materials/from-client/NSB02.ifc`) carries its own
-Revit-authored site lat/long that does not match the client-supplied WGS84 pin — flagged, not yet resolved.
+**Plot boundary + registry + orientation confirmed** (licensed survey `10111TD122`, מודדי עירון, signed 2023-08-22):
+Gush 10111, Helka 122, Pardes Hanna, 752 sqm, 6-point ITM-compatible boundary polygon (shoelace area 751.42 sqm,
+0.08% from registered — confirms coordinates read correctly) + ~40 spot elevations (visible range 54.47-57.59m).
+**True-north bearing resolved 2026-07-08** — computed directly from the ITM boundary coordinates (ITM northing =
+grid north by construction, convergence negligible at this scale), no manual north-arrow measurement needed: short
+"width" edges run ~84°/264° (near E-W), long "depth" edges run ~353-355° (near N-S, one edge kinked ~187° — see
+`blender/data/site/SITE_GEO.yaml` `orientation` for all 6 edge bearings). Cross-checked against the architectural
+IFC model, which declares its own project Y-axis = true north. Full data: `blender/data/site/SITE_GEO.yaml`.
+**Still TBD:** the Blender world-origin anchor object (created when the first `.blend` exists, S003) — pick a
+`plus_x_bearing` for the model's local axes at that point.
+**Open reconciliation:** the architectural IFC model (`raw-materials/from-client/NSB02.ifc`) carries its own
+Revit-authored site lat/long that does not match the client-supplied WGS84 pin — flagged, not yet resolved (does
+not affect the orientation finding above, which is independent of that specific field).
 
 ## Shell & structure (site layout)
 **TBD for hardscape** — no zoning/paths/hardscape layout recorded yet; awaits S002 concept design. However, real
