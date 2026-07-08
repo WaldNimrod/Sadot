@@ -10,7 +10,7 @@ bed. General preference: edible/useful species over purely ornamental — fits t
 circle** (greywater/compost technique).
 
 ## Existing vegetation (survey-confirmed, 2026-07-08)
-24 existing trees on the plot (23 generic + 1 olive @ 6.00m/0.35m diameter) per `blender/data/site/SITE_GEO.yaml`.
+13 existing trees on the plot (12 generic + 1 olive @ 6.00m/0.35m diameter) per `blender/data/site/SITE_GEO.yaml`.
 Preservation vs. removal per tree: **not yet decided** — defer to S002 concept design.
 
 ## Client constraints on planting density/maintenance
@@ -42,4 +42,4 @@ reconciled against Niv Sadot's site survey (`blender/data/site/SITE_GEO.yaml`) a
 - Site zoning, plant palette, bed layout, irrigation demand, seasonal planting calendar — all pending S002/S003.
 
 ---
-*08 · Landscape Planting Plan · v0.1.0 · 2026-07-08 · Team 110. Renamed from 08_AGRICULTURAL_PLAN (microgreens source) — skeleton only, no planting decisions recorded yet; awaits S002 concept + S003 detailed design.*
+*08 · Landscape Planting Plan · v0.2.0 · 2026-07-08 · Team 110. Renamed from 08_AGRICULTURAL_PLAN (microgreens source) — client plant preferences + existing-tree inventory received; zoning/bed layout still pending S002/S003.*

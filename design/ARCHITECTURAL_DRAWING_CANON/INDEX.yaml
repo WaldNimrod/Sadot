@@ -1,9 +1,9 @@
-# Provenance: harvested verbatim from IsraelMicrogreens-BlenderV2-Project on 2026-07-08 —
+# Provenance: harvested from IsraelMicrogreens-BlenderV2-Project on 2026-07-08 —
 # Sadot design/ canon bootstrap (WP: SDT-S001-P001-WP001, architectural-drawing-canon + Blender/geo pipeline harvest).
-# NOTE: `project_bindings` and `pilot` below still show the ORIGIN spoke's paths/IDs verbatim
-# (out of scope for this harvest — only CANON_VERSION.yaml and 06_STANDARDS_PROJECT.md were
-# adapted per the replication guide). Update this file's project_bindings/pilot once Sadot's own
-# DRAWING_SHEET_INDEX.yaml / MODEL_NATIVE_DRAWING_STANDARD.md / first .blend exist.
+# `project_bindings`/`pipeline`/`pilot` below were updated 2026-07-08 (post-audit) to point at Sadot's own
+# design/lib/ + blender/ paths instead of the origin spoke's _communication/team_100_engineering/ tree. Still
+# genuinely TBD: no Sadot DRAWING_SHEET_INDEX.yaml, MODEL_NATIVE_DRAWING_STANDARD.md, or first .blend exist yet
+# (these are real S002/S003 deliverables, not something to fabricate now).
 # Machine-readable index — architectural drawing production canon
 # Used by agents and future hub template tooling. Human entry: 00_ENTRY_POINT.md
 
@@ -54,27 +54,27 @@ terminology_prefixes:
   BLENDER_REP_LOD: "3D proxy fidelity in BUILD_DATA"
 
 project_bindings:
-  model_native_standard: _communication/team_100_engineering/WP_PHASE5_TECHNICAL_DOCS/MODEL_NATIVE_DRAWING_STANDARD.md
-  sheet_index: _communication/team_100_engineering/WP_PHASE5_TECHNICAL_DOCS/DRAWING_SHEET_INDEX.yaml
-  field_execution: _communication/team_100_engineering/WP_PHASE5_TECHNICAL_DOCS/FIELD_EXECUTION_MANDATE.md
-  build_data_lod: _communication/team_110/BLENDER_BUILD_DATA/01_CONVENTIONS_LOD_and_DATUM.md
-  live_blend: blender/IsraelMicrogreens_022.blend
+  model_native_standard: design/ARCHITECTURAL_DRAWING_CANON/06_STANDARDS_PROJECT.md  # TBD — no Sadot-specific MODEL_NATIVE_DRAWING_STANDARD.md authored yet
+  sheet_index: design/DRAWING_SHEET_INDEX.yaml  # TBD — not authored yet, create at S003
+  field_execution: design/CANONICAL/06_CONTRACTOR_PACKAGE_and_OPEN_ROUNDS.md
+  build_data_lod: design/CANONICAL/02_SPATIAL_SSOT_and_GEOMETRY.md
+  live_blend: blender/CURRENT_MODEL.md  # no .blend authored yet — see that file's own pointer convention
 
 pipeline:
-  stage1: drawings/view_presets/
-  stage2: scripts/drawing/export_sheet_views.py
-  stage3: scripts/inspect/measure_sheet.py
-  stage4: scripts/drawing/compose_sheet.py
+  stage1: design/scripts/drawing/  # view_presets/ not yet created — TBD at S003
+  stage2: design/scripts/drawing/export_sheet_views.py
+  stage3: blender/scripts/inspect/  # measure_sheet.py not yet harvested — only session_mcp_verify.py exists so far
+  stage4: design/scripts/drawing/compose_sheet.py
   stage5:
-    - _communication/team_100_engineering/WP_PHASE5_TECHNICAL_DOCS/lib/sheet_qa_checklist.py
-    - _communication/team_100_engineering/WP_PHASE5_TECHNICAL_DOCS/lib/sheet_model_parity.py
-  stage6: _communication/team_100_engineering/WP_PHASE5_TECHNICAL_DOCS/APPROVAL_LOG.md
+    - design/lib/sheet_qa_checklist.py
+    - design/lib/sheet_model_parity.py
+  stage6: design/CANONICAL/06_CONTRACTOR_PACKAGE_and_OPEN_ROUNDS.md  # no dedicated APPROVAL_LOG.md yet
 
 forbidden_locations:
   - _aos/
   - hub work_packages as drawing SSOT
 
 pilot:
-  sheet: P-101
-  preset: P-101_reservoir
-  status: awaiting_nimrod_gate
+  sheet: TBD  # no pilot sheet produced yet — first candidate is S003 (detailed design)
+  preset: TBD
+  status: not_started

@@ -20,7 +20,7 @@ registry:
   plot_area_sqm: 752
   survey_ref: "10111TD122, קנה מידה 1:250, מודדי עירון (מודד מוסמך), חתום 22.08.2023"
   adjacent_parcels: [119, 120, 121, 270, 57, 28]
-  note: "Parcel 28 to the north is marked 'שטח חלקאי' (agricultural/cultivated land)."
+  note: "Parcel 28 is marked 'שטח חלקאי' (agricultural/cultivated land) on the drawing. Compass direction relative to plot 122 NOT asserted here — true-north bearing is still TBD (see `orientation` below); don't infer a cardinal direction from this note alone."
 
 # Client-supplied approximate WGS84 pin (received via chat, 2026-07-08) — for map/orientation reference.
 # NOT construction-grade precision; the survey `boundary_itm` below is the authoritative geometry.
@@ -54,10 +54,26 @@ elevation:
 
 # Existing vegetation — tree schedule from the survey's לוח עצים (tree schedule) table.
 # Columns as given: height_m, diameter_m, species_code (עץ=generic tree, זית=olive), index_no.
+# CORRECTED 2026-07-08 (post-audit): the original extraction claimed 24 trees — re-verified directly against
+# the source PDF table and that count was wrong (not traceable to the printed table). Real count below.
 existing_trees:
-  count: 24
-  species_breakdown: "23 generic trees (coded עץ) + 1 olive tree (coded זית, item #12, height 6.00m diam 0.35m)"
-  note: "Full per-tree height/diameter table is on the source PDF (raw-materials/from-client/10111TD122 (1).pdf) — digitize into a structured table here if/when individual tree preservation decisions are made in S002/S003."
+  count: 13
+  species_breakdown: "12 generic trees (coded עץ, items #1-10 + #13-14) + 1 olive tree (coded זית, item #12, height 6.00m diam 0.35m). Item #11 does not appear anywhere in the printed schedule — numbering skips from #10 to #12."
+  table:
+    - {no: 1, height_m: 4.50, diameter_m: 0.21, species: "עץ"}
+    - {no: 2, height_m: 4.00, diameter_m: 0.13, species: "עץ"}
+    - {no: 3, height_m: 3.00, diameter_m: 0.12, species: "עץ"}
+    - {no: 4, height_m: 3.00, diameter_m: 0.12, species: "עץ"}
+    - {no: 5, height_m: 5.50, diameter_m: 0.21, species: "עץ"}
+    - {no: 6, height_m: 5.00, diameter_m: 0.20, species: "עץ"}
+    - {no: 7, height_m: 3.50, diameter_m: 0.18, species: "עץ"}
+    - {no: 8, height_m: 2.50, diameter_m: 0.11, species: "עץ"}
+    - {no: 9, height_m: 3.00, diameter_m: 0.17, species: "עץ"}
+    - {no: 10, height_m: 4.00, diameter_m: 0.18, species: "עץ"}
+    - {no: 12, height_m: 6.00, diameter_m: 0.35, species: "זית"}
+    - {no: 13, height_m: 6.50, diameter_m: 0.34, species: "עץ"}
+    - {no: 14, height_m: 5.50, diameter_m: 0.32, species: "עץ"}
+  note: "Full table transcribed directly from the source PDF (raw-materials/from-client/10111TD122 (1).pdf) לוח עצים. Species codes beyond 'generic tree' vs. olive are not given by the survey — a proper species ID would need an on-site arborist visit, not inferrable from this drawing."
 
 blender_datum:
   blend_live: "none yet — see blender/CURRENT_MODEL.md"

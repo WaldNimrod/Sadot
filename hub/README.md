@@ -11,9 +11,12 @@ meeting brief, and a prioritized "what we need from you" list. Client decision a
 can be exported as JSON from the browser (no server round-trip) for later ingestion into
 `hub/ssot/`.
 
-Content is currently **empty scaffolding** — every `hub/data/*.json` file is schema-valid
-but has no real project content yet. It will be populated once the landscape-design
-engagement enters its content/decisions phase.
+Most `hub/data/*.json` files are still empty scaffolding (schema-valid, no content yet) —
+`decisions.json`, `tasks.json`, `updates.json`, `roadmap.json`, `meeting-brief.json`,
+`what-we-need.json` will populate once the landscape-design engagement enters its
+content/decisions phase. **Exception:** `materials-needed.json` is already populated —
+the first real client materials batch (survey, IFC model, sketches, voice brief) arrived
+2026-07-08 and is tracked there.
 
 ## Structure
 

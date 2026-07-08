@@ -40,12 +40,13 @@ source file's real credentials (PDC 2014, Havat Adam ecological-agriculture trai
 described in the methodology, this is noted inline as informal grounding — not as if the methodology text itself
 were quoted from the source.
 
-## Known gaps — BLOCKED on client survey
+## Known gaps — partially resolved 2026-07-08
 
-Several sections in `01` and `03` cannot be completed with site-specific content because the real plot survey has
-not yet arrived. Those sections are explicitly marked `BLOCKED — pending raw-materials/from-client/` rather than
-filled with invented plot facts (no fabricated topography, orientation, soil type, or water-table data appears
-anywhere in this KB). See `raw-materials/from-client/` (git-ignored, Drive-synced) for survey intake status.
+A licensed plot survey arrived 2026-07-08 (plot boundary, elevation range, 13-tree inventory — see
+`blender/data/site/SITE_GEO.yaml` and `design/CANONICAL/02_SPATIAL_SSOT_and_GEOMETRY.md`), so this KB is no longer
+fully blocked. Still genuinely missing, and still marked `BLOCKED` inline in `01`/`03` rather than invented: a
+formal soil-composition lab test, a digitized true-north bearing, and direct sun/shade/water-table observation.
+Sector-analysis content specifically needs the bearing before it can be finalized.
 
 ## Interfaces to other Sadot KB folders
 

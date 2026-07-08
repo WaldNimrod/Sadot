@@ -27,6 +27,19 @@ on plant density, lawn area, and irrigation complexity — not just a preference
   recording — verify with client which room). No tall trees/dense vegetation directly in that sightline.
 - A planned storage/work-surface area should NOT block the view from that same window.
 
+## 2a. Storage + work surface + pergola privacy/light balance (recording 14:25:23 — previously omitted, added on audit)
+
+- Wants help with some kind of storage shed/area — to store hoses and similar garden equipment — plus a work
+  surface area.
+- That work surface should NOT block the view from the window referenced as "עינון's" (same name as in §2 — verify
+  spelling/identity with the client).
+- Separately, wants a **planted buffer between two pergolas** (referenced as "עינון's pergola" and "שני's pergola" —
+  both names need verification) using vegetation, not a solid structure — explicitly wants PARTIAL privacy: block
+  enough for privacy on one side, but do NOT fully block light/view on the other side. Client specifically notes the
+  pergola in question has only one window, and enough light should still reach it.
+- This is additional detail on top of the general privacy/screening requirements in §8 — keep both in view together
+  since they may refer to the same or adjacent boundary.
+
 ## 3. Level continuity for gatherings
 
 Wants the yard's lower level near the entrance to connect **homogeneously** (same level, no awkward step) with the
@@ -44,9 +57,11 @@ outdoor terrace, so that opening the garage/car door creates one shared space us
 
 ## 5. Preferred plants (client's own list, to send reference photos separately)
 
-Fruit trees: guava, avocado, mango, pecan, and carob if feasible. Bananas. General preference for edible/useful
-species over purely ornamental ones — consistent with the permaculture-guild approach in
-`knowledge/permaculture/02_GUILDS_AND_PLANTING_STRATEGY.md`.
+Fruit trees: **avocado, mango, pecan, and carob if feasible** (clearly legible in the transcript). Bananas. Plus
+one more fruit tree the client named that the ASR rendered as "נוראים גליים" — **not a recognizable Hebrew word for
+any fruit; do NOT treat this as "guava" (גויאבה) or any other specific species without listening to the original
+audio directly.** Flagged in §9, not assumed. General preference for edible/useful species over purely ornamental
+ones — consistent with the permaculture-guild approach in `knowledge/permaculture/02_GUILDS_AND_PLANTING_STRATEGY.md`.
 
 ## 6. Materials / hardscape preference
 
@@ -72,13 +87,23 @@ on dense ground-cover/rock-pile placement near walkways and seating areas.
 
 ## 9. Open items requiring direct client confirmation before S002 (concept design) proceeds
 
-- [ ] Exact names/rooms referenced for the view-blocking constraint (§2)
+- [ ] Exact names/rooms referenced for the view-blocking constraint (§2) and the pergola-privacy passage (§2a) —
+      "עינון" and "שני" need spelling/identity confirmation, and whether they're the same people/rooms referenced twice
 - [ ] "ברכה צמחייה" — confirm intended meaning (§4)
 - [ ] The rising water-feature mention (§4) — confirm this is a real request, not an ASR artifact
+- [ ] The 5th fruit tree in §5 (ASR: "נוראים גליים") — **listen to the original recording directly**; do not guess a
+      species name from the transcript alone
 - [ ] Neighbor-direction names in §8 — confirm spelling/identity so the privacy-screening plan targets the right
       boundary lines
 - [ ] Reference photos for preferred plants (client said he would send separately — check `raw-materials/from-client/`
       for updates)
+
+## 10. Audit note (2026-07-08)
+
+This document was independently cross-checked against the raw transcripts after initial drafting. Two corrections
+were made: (1) an unverified plant identification ("guava") was removed and re-flagged as uncertain — §5; (2) a
+distinct requirement from recording `14.25.23` (storage/work-surface + pergola privacy-vs-light balance) that was
+missing from the first draft was added — §2a. Treat this as a live document, not a one-shot final brief.
 
 ## Cross-references
 

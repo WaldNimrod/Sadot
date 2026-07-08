@@ -22,8 +22,9 @@ path, a circular pergola/gazebo structure, and a lattice/planter feature. See `d
 for the full synthesized brief these sketches accompany.
 
 ## Existing conditions (as of 2026-07-08)
-- **24 existing trees** per the survey's tree schedule (23 generic + 1 olive, olive at 6.00m height/0.35m diameter)
-  — preservation/removal decisions deferred to S002, but the inventory itself is real, not placeholder.
+- **13 existing trees** per the survey's tree schedule (12 generic + 1 olive, olive at 6.00m height/0.35m diameter;
+  item #11 does not appear in the printed schedule — numbering skips #10→#12) — full per-tree table in
+  `blender/data/site/SITE_GEO.yaml`. Preservation/removal decisions deferred to S002.
 - **House/architectural reference:** `raw-materials/from-client/NSB02.ifc` (Autodesk Revit 2023 export, IFC2X3,
   project name decodes to "ניב שדות") — the house-model basis for the site-anchored Blender build in S003.
 
@@ -33,4 +34,4 @@ for the full synthesized brief these sketches accompany.
 - Built & SSOT-matched: nothing yet.
 
 ---
-*02 · Spatial SSOT & Geometry · v0.1.0 · 2026-07-08 · Team 110. Geometric tiebreaker = the current Sadot .blend, see `blender/CURRENT_MODEL.md` (no model authored yet). Skeleton only.*
+*02 · Spatial SSOT & Geometry · v0.2.0 · 2026-07-08 · Team 110. Geometric tiebreaker = the current Sadot .blend, see `blender/CURRENT_MODEL.md` (no model authored yet). Plot boundary/elevations/tree count confirmed by survey; hardscape layout still pending.*

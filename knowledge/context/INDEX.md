@@ -36,7 +36,7 @@ files-in-folder + what-is-NOT-here + key-facts quick-ref).
 
 | Topic | Where it actually lives |
 |---|---|
-| Plot-specific site survey (topography, sun/shade, drainage, soil test) | `raw-materials/from-client/` once Niv Sadot delivers it — **currently empty, BLOCKED** |
+| Plot-specific site survey (topography, sun/shade, drainage, soil test) | `raw-materials/from-client/` — **received 2026-07-08** (boundary, elevations, 13-tree inventory); soil test + true-north bearing still pending, curated into `blender/data/site/SITE_GEO.yaml` |
 | Design decisions, spatial SSOT, BOQ, contractor package | `design/CANONICAL/` (the dossier front door — "register drives the model") |
 | Architectural drawing production standards | `design/ARCHITECTURAL_DRAWING_CANON/` |
 | 3D model file + geo-anchoring scripts | `blender/` |
@@ -53,7 +53,9 @@ Client:            Niv Sadot — private house, Pardes Hanna
 Domain:            landscape_architecture (lifecycle_archetype: 3D_CREATIVE → LANDSCAPE_DESIGN pending GCR)
 Climate:           Köppen Csa (hot-summer Mediterranean); ~500-650mm/yr rain, Oct-Apr; dry rainless summer
 Regional soil:     "Hamra" — reddish sandy clay loam over kurkar sandstone (regional prior, NOT plot-confirmed)
-Plot survey:       NOT YET RECEIVED — raw-materials/from-client/ empty as of 2026-07-08
+Plot survey:       RECEIVED 2026-07-08 (licensed survey + IFC model + sketches + voice brief) — see
+                   blender/data/site/SITE_GEO.yaml + design/CLIENT_BRIEF_NIV_SADOT_v1.0.0.md.
+                   Still open: formal soil lab test, digitized true-north bearing.
 Harvest sources:   IsraelMicrogreens-BlenderV2-Project (drawing canon+geo+Blender), SmallFarmsAgents (crop KB),
                    EyalAmit.co.il-2026 (hub pattern), nimrod-book (permaculture credentials)
 Permaculture KB:   authored from scratch 2026-07-08 — no prior structured source existed

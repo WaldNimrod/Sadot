@@ -35,10 +35,14 @@ agriculture study, biochar project) per `nimrod-book/chapters/11_ERA_GARDEN_2013
 
 ## WP004 — Plot-specific site analysis
 
-**BLOCKED.** `raw-materials/from-client/` is empty — no plot survey (topography, sun/shade, drainage, soil test,
-existing vegetation) has been received from Niv Sadot. No placeholder/fabricated plot data was produced. Unblock
-condition: client delivers survey materials to `raw-materials/from-client/`; this WP and its downstream dependent
-(`SDT-S001-P003-WP002`, the formal site-analysis dossier + client brief) then become actionable.
+**BLOCKED at time of writing.** `raw-materials/from-client/` was empty — no plot survey (topography, sun/shade,
+drainage, soil test, existing vegetation) had been received from Niv Sadot. No placeholder/fabricated plot data was
+produced. **Update, same day:** a licensed survey + IFC model + sketches + voice brief arrived later in the session
+and were curated into `blender/data/site/SITE_GEO.yaml` — see `roadmap.yaml`'s `SDT-S001-P002-WP004` entry (now
+IN_PROGRESS) for current status; soil test and true-north bearing remain genuinely unreceived. This document is kept
+as the point-in-time record of what team_80 found before that arrival, not retroactively edited. Remaining unblock
+condition: a formal soil lab test + a digitized true-north bearing, before this WP and its downstream dependent
+(`SDT-S001-P003-WP002`, the formal site-analysis dossier + client brief) can be marked COMPLETE.
 
 ## Routing
 
