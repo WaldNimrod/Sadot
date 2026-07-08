@@ -82,13 +82,26 @@ on dense ground-cover/rock-pile placement near walkways and seating areas.
 
 ## 8. Privacy / neighbor boundary
 
-- One direction (ASR: near a name that sounds like "פייר טאסי" — verify): wants a **climbing plant**, not a wall or
-  fence, to create separation from the neighbor.
-- Another direction (ASR: near a name that sounds like "עדאס" — verify): wants a **tree** positioned to screen a
-  neighbor's bedroom window and improve privacy — client explicit that this should be a real screening tree, not
-  just planting for its own sake.
+**Names + directions confirmed by team_00 (2026-07-09):**
+- **טאסי (Tasi)** — neighbor to the **west**, immediately adjacent house.
+- **פייר (Pierre)** — neighbor at the **back**.
+- The original transcript mentions both names together in the same breath ("מכיוון פייר טאסי") for the
+  climbing-plant/no-wall-no-fence request — read as: that request applies to the shared boundary area near
+  Tasi (west) and/or Pierre (back), most likely the closer west-adjacent house (Tasi) given "not a wall or fence"
+  reads as a close-proximity ask. **Still worth a direct confirmation of which boundary this specifically targets.**
+- **"עדאס" (Adas) — still UNCONFIRMED, a third/separate name, not resolved by the Tasi/Pierre clarification.**
+  This is the one associated with the tree/bedroom-window-screening request below. Do not assume it equals
+  Tasi or Pierre without asking.
+
+- Climbing-plant request (Tasi/Pierre direction — see above): wants a **climbing plant**, not a wall or fence, to
+  create separation from the neighbor.
+- Adas direction (still unconfirmed): wants a **tree** positioned to screen a neighbor's bedroom window and
+  improve privacy — client explicit that this should be a real screening tree, not just planting for its own sake.
 - Existing gate + fence gap on the east side (per the client's own earlier sketch annotation) — wants easy access
   maintained toward the east side.
+- Cross-reference: once the IFC-vs-ITM coordinate reconciliation (`HOUSE_IFC_REFERENCE.md` §0.1) resolves, these
+  neighbor directions (west/back/east) can be tied to the real surveyed boundary edges in
+  `blender/data/site/SITE_GEO.yaml` (6 boundary points, bearings already computed).
 
 ## 9. Open items requiring direct client confirmation before S002 (concept design) proceeds
 
@@ -96,15 +109,18 @@ on dense ground-cover/rock-pile placement near walkways and seating areas.
 - [ ] The rising water-feature mention (§4) — confirm this is a real request, not an ASR artifact
 - [ ] The 5th fruit tree in §5 (ASR: "נוראים גליים") — **listen to the original recording directly**; do not guess a
       species name from the transcript alone
-- [ ] Neighbor-direction names in §8 — confirm spelling/identity so the privacy-screening plan targets the right
-      boundary lines
+- [ ] "עדאס" (Adas) in §8 — still unconfirmed (Tasi=west, Pierre=back are now resolved, but Adas is a separate
+      name/direction, associated with the bedroom-window screening-tree request)
+- [ ] Confirm which boundary (Tasi/west vs. Pierre/back) the climbing-plant/no-fence request in §8 specifically
+      targets — transcript mentions both names together
 - [ ] Reference photos for preferred plants (client said he would send separately — check `raw-materials/from-client/`
       for updates)
-- [ ] **RESOLVED by team_00 (2026-07-09):** "עינון"/"שני" = **Yinon and Shani, the children** — each has their own
+- [x] **RESOLVED by team_00 (2026-07-09):** "עינון"/"שני" = **Yinon and Shani, the children** — each has their own
       room + pergola + one window, at the back of the house. IFC re-investigation found a plausible but unproven
       candidate pair (entrance-floor windows, tags 5834063 + 5795233, flanking what looks like a shared bath) —
       see `HOUSE_IFC_REFERENCE.md` §2. Still needs client confirmation before treating as final.
-- [ ] **RESOLVED by team_00 (2026-07-09):** the real deck is at the front, extends from the kitchen, round-ended
+- [x] **RESOLVED by team_00 (2026-07-09):** Tasi (west, adjacent house) and Pierre (back) — see §8.
+- [x] **RESOLVED by team_00 (2026-07-09):** the real deck is at the front, extends from the kitchen, round-ended
       toward the garden — NOT the "מרפסת" IFC element (confirmed ruled out: no curves, ~90m+ offset is real, not
       a bug). IFC re-investigation found a strong candidate instead: `IfcSlab #51836`, unnamed, with a genuine
       multi-arc round edge, adjacent to a gas hob and a 4.2m glass door — see `HOUSE_IFC_REFERENCE.md` §4. High

@@ -3,18 +3,19 @@ id: DRAFT_WHATSAPP_TO_NIV_CLARIFICATIONS_v1.0.0
 type: client-communication draft (NOT sent — for team_00/Nimrod to review, edit, and send via WhatsApp)
 from: team_110 (Domain Architect / landscape architect persona)
 to: Niv Sadot (client)
-date: 2026-07-09 (updated — v1 was 2026-07-08)
+date: 2026-07-09 (updated twice — v1 was 2026-07-08)
 source: open items in design/CLIENT_BRIEF_NIV_SADOT_v1.0.0.md §9
 note: "Q2/Q6/Q7 revised 2026-07-09 after team_00 clarified the 'עינון/שני' pergola passage is about the children
   (Yinon + Shani, each with their own room+pergola at the back) — NOT a neighbor — and after an IFC
-  re-investigation found strong (not yet confirmed) candidates for both the real deck and the children's windows."
+  re-investigation found strong (not yet confirmed) candidates for both the real deck and the children's windows.
+  Q5 revised again 2026-07-09 after team_00 confirmed Tasi (west) and Pierre (back) as real neighbor names/directions."
 ---
 
 # טיוטת הודעת וואטסאפ לניב — שאלות הבהרה
 
-**הערה לניב (המשתמש), לפני שליחה:** זו טיוטה. שמות ינון ושני כבר אושרו (תודה על התיקון). עדיין לא ברורים: שמות
-השכנים בשאלה 5 (פייר טאסי/עדאס — כנראה שיבושי תמלול) והזיהוי של הצמח בשאלה 1 — כדאי להאזין שוב להקלטות המקוריות
-(14.24.19 ו-14.25.23) ולתקן כאן לפני השליחה אם את/ה זוכר/ת את הפרטים המדויקים.
+**הערה לניב (המשתמש), לפני שליחה:** זו טיוטה. שמות ינון, שני, טאסי ופייר כבר אושרו (תודה על התיקונים). עדיין לא
+ברור: השם "עדאס" בשאלה 5 (כנראה שיבוש תמלול) והזיהוי של הצמח בשאלה 1 — כדאי להאזין שוב להקלטות המקוריות (14.24.19
+ו-14.25.23) ולתקן כאן לפני השליחה אם את/ה זוכר/ת את הפרטים המדויקים.
 
 ---
 
@@ -34,8 +35,10 @@ note: "Q2/Q6/Q7 revised 2026-07-09 after team_00 clarified the 'עינון/שנ�
 
 4. **מפל/מזרקה** — היה איזכור של מים שעולים/יורדים למפלס עליון — זה בקשה אמיתית למפל/מזרקה, או שהבנתי לא נכון?
 
-5. **כיוון השכנים** — לגבי הפרטיות מהשכנים — כדי שאדע בדיוק לאיזה גבול/כיוון להתייחס בתכנון, תוכל/י לאשר את שמות
-   השכנים או הכיוונים (מזרח/מערב/צפון/דרום) שהזכרת?
+5. **"עדאס"** — הבנתי שטאסי הוא השכן ממערב ופייר מאחור. איזכרת גם שם שנשמע כמו "עדאס" בהקשר של עץ שיחסום חלון חדר
+   שינה — זה שם שכן נוסף, או שזה בעצם טאסי/פייר שנשמע שונה בהקלטה?
+   **וגם** — בקשת הצמח המטפס (בלי קיר/גדר) שהזכרת ביחד עם טאסי ופייר — זו מיועדת לגבול עם טאסי (מערב) או עם פייר
+   (מאחור), או שניהם?
 
 6. **חדרי ינון ושני** — הבנתי שהחדרים שלהם עם הפרגולות נמצאים מאחור. בדקתי את המודל האדריכלי ומצאתי זוג חלונות
    בקומת הכניסה שנראים כמו שני חדרים שכנים עם חדר אמבטיה/מסדרון ביניהם — זה יכול להתאים? רק כדי לוודא שאני בונה את
