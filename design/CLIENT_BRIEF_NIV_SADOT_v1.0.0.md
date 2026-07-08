@@ -1,8 +1,8 @@
 ---
 id: CLIENT_BRIEF_NIV_SADOT
-version: 1.0.0
-status: DRAFT — synthesized from client voice notes via automated (Whisper/Hebrew) transcription; NOT yet reviewed/confirmed by Niv Sadot or team_00
-date: 2026-07-08
+version: 1.2.0
+status: DRAFT — synthesized from client voice notes via automated (Whisper/Hebrew) transcription; Yinon/Shani identity + deck location confirmed by team_00 2026-07-09; remaining items in §9 still need direct client confirmation
+date: 2026-07-08 (updated 2026-07-09)
 owns: client requirements input to 01_DECISION_REGISTER + 08_LANDSCAPE_PLANTING_PLAN
 ---
 
@@ -23,22 +23,27 @@ on plant density, lawn area, and irrigation complexity — not just a preference
 
 ## 2. View & sightlines
 
-- Do NOT block the view line from upstairs / the upper porch, or from a specific window (referenced by name in the
-  recording — verify with client which room). No tall trees/dense vegetation directly in that sightline.
+- Do NOT block the view line from upstairs / the upper porch, or from **Yinon's window** (one of Niv's children —
+  name confirmed by team_00 2026-07-09; ASR originally rendered this as "עינון"). No tall trees/dense vegetation
+  directly in that sightline.
 - A planned storage/work-surface area should NOT block the view from that same window.
 
 ## 2a. Storage + work surface + pergola privacy/light balance (recording 14:25:23 — previously omitted, added on audit)
 
+**Correction (2026-07-09):** this section is about Niv's OWN family — his children **Yinon and Shani**, each with
+their own room + pergola at the back of the house — NOT a neighbor. Keep this separate from §8 (actual neighbor
+privacy, different names/directions).
+
 - Wants help with some kind of storage shed/area — to store hoses and similar garden equipment — plus a work
   surface area.
-- That work surface should NOT block the view from the window referenced as "עינון's" (same name as in §2 — verify
-  spelling/identity with the client).
-- Separately, wants a **planted buffer between two pergolas** (referenced as "עינון's pergola" and "שני's pergola" —
-  both names need verification) using vegetation, not a solid structure — explicitly wants PARTIAL privacy: block
-  enough for privacy on one side, but do NOT fully block light/view on the other side. Client specifically notes the
-  pergola in question has only one window, and enough light should still reach it.
-- This is additional detail on top of the general privacy/screening requirements in §8 — keep both in view together
-  since they may refer to the same or adjacent boundary.
+- That work surface should NOT block the view from **Yinon's window**.
+- Separately, wants a **planted buffer between his own pergola and the children's pergolas (Yinon's and Shani's)**
+  using vegetation, not a solid structure — explicitly wants PARTIAL privacy: block enough for privacy on one side,
+  but do NOT fully block light/view on the other side. Client specifically notes the pergola in question has only
+  one window, and enough light should still reach it.
+- IFC re-investigation (`HOUSE_IFC_REFERENCE.md` §2) found a plausible candidate pair of entrance-floor windows
+  (tags 5834063 + 5795233) flanking what looks like a shared bathroom — consistent with two children's bedrooms —
+  but this is unconfirmed, not the "יח' הורים" (parents' unit) wing originally guessed.
 
 ## 3. Level continuity for gatherings
 
@@ -87,8 +92,6 @@ on dense ground-cover/rock-pile placement near walkways and seating areas.
 
 ## 9. Open items requiring direct client confirmation before S002 (concept design) proceeds
 
-- [ ] Exact names/rooms referenced for the view-blocking constraint (§2) and the pergola-privacy passage (§2a) —
-      "עינון" and "שני" need spelling/identity confirmation, and whether they're the same people/rooms referenced twice
 - [ ] "ברכה צמחייה" — confirm intended meaning (§4)
 - [ ] The rising water-feature mention (§4) — confirm this is a real request, not an ASR artifact
 - [ ] The 5th fruit tree in §5 (ASR: "נוראים גליים") — **listen to the original recording directly**; do not guess a
@@ -97,12 +100,15 @@ on dense ground-cover/rock-pile placement near walkways and seating areas.
       boundary lines
 - [ ] Reference photos for preferred plants (client said he would send separately — check `raw-materials/from-client/`
       for updates)
-- [ ] Cross-reference against the IFC house model (`design/CANONICAL/HOUSE_IFC_REFERENCE.md`): the "יח' הורים"
-      (parents' unit) wing has 6 windows including the largest in the house — likely the window referenced in §2/§2a,
-      needs client confirmation
-- [ ] The "מרפסת" (deck/terrace) element found in the IFC model sits ~90m+ from the rest of the house geometrically
-      — almost certainly a stale/orphaned Revit tag, not the real deck. Needs the client (or architect) to confirm
-      where the actual exterior deck is before any level-continuity design proceeds
+- [ ] **RESOLVED by team_00 (2026-07-09):** "עינון"/"שני" = **Yinon and Shani, the children** — each has their own
+      room + pergola + one window, at the back of the house. IFC re-investigation found a plausible but unproven
+      candidate pair (entrance-floor windows, tags 5834063 + 5795233, flanking what looks like a shared bath) —
+      see `HOUSE_IFC_REFERENCE.md` §2. Still needs client confirmation before treating as final.
+- [ ] **RESOLVED by team_00 (2026-07-09):** the real deck is at the front, extends from the kitchen, round-ended
+      toward the garden — NOT the "מרפסת" IFC element (confirmed ruled out: no curves, ~90m+ offset is real, not
+      a bug). IFC re-investigation found a strong candidate instead: `IfcSlab #51836`, unnamed, with a genuine
+      multi-arc round edge, adjacent to a gas hob and a 4.2m glass door — see `HOUSE_IFC_REFERENCE.md` §4. High
+      confidence, not yet visually confirmed against the architect's 2D plan.
 
 ## 10. Audit note (2026-07-08)
 

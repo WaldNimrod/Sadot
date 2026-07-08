@@ -1,5 +1,12 @@
 # HOUSE IFC REFERENCE — extracted from the architect's model
-### Sadot · Landscape Architecture · Team 110 · v1.0.0 · 2026-07-08 · **owns: house-model ground truth for landscape design** · status: **REAL DATA, with flagged reconciliation gaps — read the caveats before using positions**
+### Sadot · Landscape Architecture · Team 110 · v1.1.0 · 2026-07-09 · **owns: house-model ground truth for landscape design** · status: **REAL DATA, with flagged reconciliation gaps — read the caveats before using positions**
+
+> **v1.1.0 update (2026-07-09):** team_00 supplied real ground truth that corrected two v1.0.0 hypotheses — the
+> real deck is at the front, extends from the kitchen, with a round end toward the garden; the "window not to
+> block" belongs to one of two children (Yinon/Shani), each with their own room+pergola at the back, not the
+> "parents' unit" wing. A targeted re-investigation (§4, §2) revised both findings below — the old §4 candidate
+> (`IfcSpace #808`) is now **ruled out**, and the window hypothesis is downgraded to an unproven pattern, not
+> retracted outright (see §2).
 
 > Source: `raw-materials/from-client/NSB02.ifc` (Autodesk Revit 2023 export, IFC2X3, author "Michal", exported
 > 2026-07-06). Extracted using `ifcopenshell` (a real IFC-parsing library, not text/regex guessing) — see
@@ -25,8 +32,10 @@
 3. **Window/door type names are generic and don't match actual dimensions.** E.g. many windows share the type
    name "70X190" (70×190cm) but their real per-instance `OverallWidth`/`OverallHeight` range from 1.00×0.50m up
    to 2.76×1.50m. Always use the per-instance dimension (table below), never the type-name-implied size.
-4. **The one deck/terrace-named element found does not spatially match the house.** See §4 — flagged, not used
-   for design yet.
+4. **The one deck/terrace-NAMED element in the file (`IfcSpace #808`) is confirmed NOT the real deck** — no
+   curved geometry at all, and its position offset was independently re-derived by hand (not a tool bug) — it
+   really is orphaned in the model. The real deck candidate found instead (`IfcSlab #51836`, no name tag) is
+   documented in §4.
 5. **Length unit is centimeters** (confirmed via `IfcUnitAssignment` + cross-checked against real dimensions —
    e.g. wall/floor layer thicknesses only make sense as cm). All values below are already converted to meters.
 
@@ -60,12 +69,22 @@ levels used to host different roof-pitch geometry.
 | 5834063 | 1.40×1.20 | entrance | — |
 | 5977949 / 5977979 | 0.50×0.50 (mamad vent pipes ×2) | entrance | yes |
 
-**Client-brief cross-reference:** the client's voice-note brief (`CLIENT_BRIEF_NIV_SADOT_v1.0.0.md` §2/§2a)
-mentions not blocking the view/light from a specific family member's window. **6 of the 13 windows are in the
-"יח' הורים" (parents' unit) wing** — including the largest window in the house (2.76×1.50m, tag 5792190) and a
-round window (tag 5793211). This is the strongest lead for which physical window the client meant — worth
-confirming directly (added to the WhatsApp draft). The two `ממד` (mamad/safe-room) openings are NOT a person's
-window — exclude those from the privacy/view discussion.
+**Correction (v1.1.0):** the v1.0.0 table above has 8 entrance-floor rows and 5 parents'-unit rows (13 total) —
+the v1.0.0 prose said "6 of 13 in the parents' unit," which was a miscount; it's actually **5**. Corrected here.
+
+**Client-brief cross-reference — REVISED.** Team_00 clarified the two names in the voice brief (ASR: "עינון"/
+"שני") are really **Yinon and Shani, the children**, each with their own room+pergola+one window, at the BACK of
+the house — NOT the "יח' הורים" (parents' unit) wing as v1.0.0 guessed. The IFC file carries **no occupant names
+anywhere** (confirmed exhaustively — Revit exports essentially never carry this), so this can't be settled from
+the BIM data alone. A re-investigation found a **plausible but unproven pattern**: of the 8 entrance-floor
+windows, two (tags **5834063** and **5795233**, ~5.75m apart) flank a cluster containing a door + 2 ventilation
+pipes (a bathroom/hall signature) — architecturally consistent with "two bedrooms flanking a shared bath," which
+would fit two children's rooms. One small slab (`Floor:ר3:5618668:2`, #2592, ~9m², entrance-floor level) sits
+right at window 5795233's position — a plausible small-balcony/pergola pad — but no matching second slab was
+found near window 5834063, so the "two matching balconies" reading is only half-supported. **This is a
+hypothesis to confirm with the client, not a settled fact** — added to the WhatsApp draft. The two `ממד`
+(mamad/safe-room) openings and the parents'-unit windows are lower-probability candidates now, not excluded
+entirely.
 
 ## 3. Building envelope (footprint)
 
@@ -84,23 +103,40 @@ registered plot, confirming it over-captures something beyond the house itself.
   decision, not something inherited from the house model.** This directly matters for the client's "homogeneous
   level continuity" request.
 
-## 4. Deck / terrace — found, but flagged, do not use yet
+## 4. Deck / terrace — REVISED (v1.1.0): real candidate found, name-tagged element ruled out
 
-Only one element in the entire file carries a deck/terrace/balcony name in any language (searched Hebrew: דק,
-מרפסת, טרסה, פטיו, ורנדה; English: deck, terrace, patio, balcony, veranda — across all slabs, coverings, proxies,
-roofs, spaces): **`IfcSpace #808`, `LongName="מרפסת"` ("balcony/terrace")**, an L-shaped ~31.6 m² room/volume,
-base elevation 57.69m, on the entrance-floor storey.
+**v1.0.0 candidate `IfcSpace #808` ("מרפסת") is now definitively ruled out** — re-verified 2026-07-09 by 3
+independent methods (ifcopenshell's own world-coords API, a from-scratch hand-composed placement-chain matrix,
+and a local-to-world cross-check): its ~90-115m offset from the rest of the house is real, not an extraction bug.
+Its own boundary was also walked recursively for curved geometry: **zero curves** — a plain straight polygon. The
+client's ground truth (front, kitchen-adjacent, ROUND end toward the garden) rules this element out on both
+counts (wrong place, wrong shape).
 
-**Problem: its footprint sits ~90-115m away from every wall/window/door in the rest of the model** (real, checked
-geometrically, not a units artifact). Two explanations, both plausible, neither confirmed:
-(a) it's a legitimately detached garden terrace, separate from the house structure, consistent with the client
-describing the deck-to-yard connection as something to unify — but 90m+ is very large for a 752 sqm plot;
-(b) it's a stale/orphaned Space tag left over from an earlier design iteration in Revit, whose schedule data
-(name, area) is real but whose 3D position was never updated.
+**New best candidate: `IfcSlab #51836` ("Floor:ר4:5739839"), entrance-floor storey, no deck-indicating name.**
+Found by searching the *entire* file for any element with a genuinely large curved boundary segment (excluding
+mm-scale furniture fillets) — this slab is the only structural/architectural element with a real multi-arc round
+edge (5 distinct arc radii, 1.68m to 7.92m — a compound sweeping curve, not a single filleted corner). Supporting
+evidence, all independently corroborating:
+- **Protrudes ~2.2m past the building's own wall envelope** on the true-north side (Y+ = true north, confirmed
+  via the IFC's own `TrueNorth` declaration) — i.e. it's an exterior projection off the house, not an interior room.
+- **Directly adjacent** (overlapping footprint) to `IfcBuildingElementProxy "UK_Gas Hob - 4 Burner"` — a kitchen
+  appliance sitting right on/against this slab.
+- **2.6m from a 4.20m-wide double-leaf glass door** (`דלת זכוכית דו כנפית 400/240`, tag 5935521) hosted in the
+  bordering wall — a door this wide reads as a kitchen-to-deck opening, not an interior doorway.
+- Surrounded by ~22 small wall segments named `עץ` (**wood** — Hebrew) plus an outdoor sofa (`M_Sofa-Pensi`,
+  found via the same curve-search since its cushions also register small arcs) sitting immediately adjacent —
+  consistent with wood decking/railing + deck furniture.
+- Corroborating detail: `#808`'s (wrong) base elevation (57.6947m) is within 2cm of this slab's top elevation
+  (57.6747m) — suggesting #808's Revit room-tag inherited the right *floor level* while its *horizontal* position
+  drifted/corrupted during design iteration — a plausible root cause for the original stale tag, and further
+  evidence the real design intent for "deck at this level" lives at this slab's location.
 
-**Do not use these coordinates for landscape design until confirmed with the architect.** No `IfcSlab` or
-`IfcCovering` (the usual "solid deck" element types) carries any deck-indicating name anywhere in the file — the
-physical deck, if modeled at all, exists without a name tag, or isn't a distinct object in this export.
+No room in the file is explicitly tagged "מטבח" (kitchen) anywhere — Revit exports frequently omit this label;
+the hob+door+slab spatial cluster is the evidence, not a name match.
+
+**Status: high-confidence candidate, not yet visually confirmed against the architect's 2D plan.** Recommend
+confirming with Niv/the architect before finalizing (question added to the WhatsApp draft) — but this is now the
+working assumption for S003 3D-modeling purposes rather than an open unknown.
 
 ## 5. Materials (63 total) — relevant to landscape hardscape matching
 
@@ -134,7 +170,7 @@ the independently-computed boundary-edge bearings in `blender/data/site/SITE_GEO
 - Import via Bonsai (once installed — see open item) will bring in real geometry, but the model will need to be
   **manually re-anchored** to the real ITM survey coordinates (§0.1) — do not trust the file's native XY/Z for
   site placement.
-- The 3 real exterior doors + the stair data (§3) are the actual house-to-garden connection points to design
-  the level-continuity/hardscape transition around — more reliable than the flagged deck space (§4).
-- Confirm the deck/terrace question directly with the architect or Niv before committing to any specific deck
-  geometry in the landscape model.
+- The 3 real exterior doors + the stair data (§3) plus the newly-identified deck slab (§4, `IfcSlab #51836`) are
+  the actual house-to-garden connection points to design the level-continuity/hardscape transition around.
+- Confirm the §4 deck candidate and the §2 children's-window hypothesis directly with Niv before finalizing
+  either in the landscape model — both are strong leads, not settled facts.
