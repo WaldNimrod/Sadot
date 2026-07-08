@@ -1,5 +1,13 @@
 # HOUSE IFC REFERENCE — extracted from the architect's model
-### Sadot · Landscape Architecture · Team 110 · v1.1.0 · 2026-07-09 · **owns: house-model ground truth for landscape design** · status: **REAL DATA, with flagged reconciliation gaps — read the caveats before using positions**
+### Sadot · Landscape Architecture · Team 110 · v1.2.0 · 2026-07-09 · **owns: house-model ground truth for landscape design** · status: **REAL DATA, with flagged reconciliation gaps — read the caveats before using positions**
+
+> **v1.2.0 update (2026-07-09):** team_00 clarified the survey PDF (`10111TD122`) is authoritative ONLY for the
+> plot boundary + elevations — every building/structure it shows (house outline, storage shed, pergola, etc.)
+> depicts the OLD, now-replaced house. The current house — including its real deck — stands roughly where the
+> survey's old storage shed was, and is represented ONLY in this IFC model. This document's findings were always
+> derived purely from the IFC (never from the survey's stale structure labels), so nothing here needed
+> retracting on that account — but see `blender/data/site/SITE_GEO.yaml`'s scope note for a retraction of an
+> unrelated survey-label observation made in chat (not previously written into this file).
 
 > **v1.1.0 update (2026-07-09):** team_00 supplied real ground truth that corrected two v1.0.0 hypotheses — the
 > real deck is at the front, extends from the kitchen, with a round end toward the garden; the "window not to
@@ -24,7 +32,10 @@
    / ~350,000-1,250,000). **Do not assume this file's absolute X/Y/Z can be directly overlaid on the real site
    survey without reconciliation** — ask the architect (Michal) for the Revit "Shared Coordinates" / true
    Survey Point setup, or plan to manually re-anchor the house model once imported, using the real front-door
-   position relative to the surveyed boundary as the anchor.
+   position relative to the surveyed boundary as the anchor. **The survey PDF's own building outlines cannot be
+   used as an anchoring shortcut** — they show the OLD house, not the current one this IFC represents (see
+   `blender/data/site/SITE_GEO.yaml`'s scope note). An updated/as-built survey, or specific reference
+   measurements from the architect/client, is the only reliable path to real reconciliation.
 2. **`IsExternal` property is unreliable.** Every one of the 111 walls reads `IsExternal=True` (should be
    impossible for a real house — interior partitions exist). Do not use this flag to separate exterior envelope
    from interior walls. On `IfcWindow`/`IfcDoor`, the same flag is inconsistent even between two windows in the

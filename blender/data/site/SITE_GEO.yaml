@@ -8,8 +8,19 @@
 site_id: sadot_niv_pardes_hanna
 status: partial — plot boundary, elevations, and orientation confirmed by licensed survey; sun/shade + soil-test
   still pending; more client materials expected in future batches (see hub/data/materials-needed.json)
-updated: '2026-07-08'
+updated: '2026-07-09'
 approved_by: team_00
+
+# CRITICAL SCOPE NOTE (team_00, 2026-07-09): the survey PDF (10111TD122) is authoritative ONLY for the plot
+# BOUNDARY and ELEVATION/topography data below — the ground doesn't change. It is NOT authoritative for any
+# BUILDING/STRUCTURE it shows (house outline, pergola, "מחסן" storage shed, "משטח דק" deck-surface label, etc.) —
+# those depict the OLD, previously-existing house, which has since been replaced. The storage shed shown on the
+# survey no longer exists; the CURRENT (new) house — including its real deck — now stands roughly where that old
+# storage was, and is represented ONLY in the architectural IFC model (NSB02.ifc), not in this survey PDF.
+# Do NOT use any structure/room label from the survey PDF as evidence of the current house layout — use IFC data
+# for that (see `architectural_reference` below and design/CANONICAL/HOUSE_IFC_REFERENCE.md).
+# OPEN ITEM: precisely anchoring the current (IFC) house within the real surveyed boundary still needs either an
+# updated/as-built survey, or specific reference measurements from the client/architect — not yet available.
 
 # Legal/registry identity (from the survey title block)
 registry:
@@ -112,7 +123,17 @@ orientation:
 
 architectural_reference:
   ifc_file: "raw-materials/from-client/NSB02.ifc"
+  status: "THE authoritative source for the CURRENT house structure (see scope note above) — the survey PDF's
+    building labels are obsolete/superseded."
   note: "IFCPROJECT name fields decode to Hebrew 'ניב שדות' (Niv Sadot); IFCSITE carries its own (Revit-authored) lat/long reference that does NOT match the client-supplied WGS84 pin above — flagged for reconciliation with the architect (Michal, per IFCOWNERHISTORY), not yet resolved. Exported from Autodesk Revit 2023 (IFC2X3 schema), 2026-07-06. Intended as the architectural (house) model basis for the site-anchored Blender build in S003 — import via Blender's IFC pipeline when that WP starts."
+  deck_candidate: "IfcSlab #51836 ('Floor:ר4:5739839') — found via genuine geometric analysis of the IFC model
+    itself (multi-arc curved boundary, protrudes past the wall envelope, adjacent to a gas hob + 4.2m glass door)
+    — see HOUSE_IFC_REFERENCE.md §4. This finding is independent of the survey PDF's stale structure labels and
+    still stands; it does NOT depend on the retracted 'משטח דק' survey label (see retraction note below)."
+  retracted_finding: "2026-07-09: a survey-PDF label reading 'משטח דק' near the old storage-shed location was
+    initially reported as possible corroboration of the deck location — RETRACTED. That label describes the OLD
+    house's deck/storage area, not the current one, per the scope note above. Do not cite it as supporting
+    evidence for IfcSlab #51836 or any other current-house location claim."
 
 references:
   - design/CANONICAL/02_SPATIAL_SSOT_and_GEOMETRY.md
