@@ -121,6 +121,27 @@ orientation:
     model's local axes (e.g. align local +X to the 1G->2G edge at 84.15°) and record it in `blender_datum` below —
     not set yet since no model/anchor object exists."
 
+# Two real, precise house-exterior corners identified directly from IFC geometry (2026-07-09), for tie-measurement
+# reconciliation against the boundary_itm points above. See design/CANONICAL/BLENDER_SHELL_BUILD_PLAN_v1.0.0.md §3
+# for the full method and the measurement request. Coordinates below are in the IFC's OWN internal world coordinate
+# system (arbitrary Revit origin) — NOT yet in ITM. Rotation between the two systems is believed to be ~zero (both
+# independently claim true-north alignment); only a translation offset needs solving, via 2 real-world distance
+# measurements from 2 known boundary_itm points to each of these 2 corners (4 measurements total).
+house_reference_corners:
+  status: "AWAITING team_00 on-site tie-measurement — see BLENDER_SHELL_BUILD_PLAN_v1.0.0.md §3 for the 4 distances needed"
+  ifc_native_coords:
+    - id: front_corner
+      x: -411197.429
+      y: -270528.236
+      z: 57.68
+      description: "Outside corner ~2m from the kitchen/deck door, on the straight wall where the deck's straight edge (not its round arc) meets the house."
+    - id: back_corner
+      x: -411206.746
+      y: -270527.663
+      z: 57.69
+      description: "Outside corner of the children's-bedroom wing (window tag 5834063's room), where the back wall turns into a ~22m exterior wall run — a genuine major footprint corner."
+  internal_baseline_m: 9.33
+
 architectural_reference:
   ifc_file: "raw-materials/from-client/NSB02.ifc"
   status: "THE authoritative source for the CURRENT house structure (see scope note above) — the survey PDF's
