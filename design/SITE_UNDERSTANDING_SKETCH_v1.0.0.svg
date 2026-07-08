@@ -1,0 +1,125 @@
+<svg viewBox="0 0 900 1550" xmlns="http://www.w3.org/2000/svg" font-family="Arial, Helvetica, sans-serif">
+  <style>
+    .title { font-size: 26px; font-weight: bold; fill: #1a1a1a; }
+    .subtitle { font-size: 15px; fill: #444; }
+    .panel-title { font-size: 19px; font-weight: bold; fill: #1a1a1a; }
+    .label { font-size: 13px; fill: #222; }
+    .label-small { font-size: 11.5px; fill: #555; }
+    .confirmed { fill: #1a7a3c; }
+    .candidate { fill: #b8860b; }
+    .open { fill: #b02020; }
+    .legend-text { font-size: 12.5px; fill: #222; }
+  </style>
+
+  <rect x="0" y="0" width="900" height="1550" fill="#ffffff"/>
+
+  <!-- ============ HEADER ============ -->
+  <text x="450" y="42" text-anchor="middle" class="title">סקיצת הבנה — מגרש ניב שדות, פרדס חנה</text>
+  <text x="450" y="66" text-anchor="middle" class="subtitle">team_110 · 2026-07-09 · לאישור/תיקון — לא תוכנית ביצוע</text>
+  <text x="450" y="86" text-anchor="middle" class="subtitle" fill="#b02020">ירוק = אישרת בעצמך · כתום = ממצא טכני בביטחון גבוה, טרם אושר · אדום = עדיין פתוח</text>
+
+  <!-- ============ PANEL A: PRECISE PLOT BOUNDARY ============ -->
+  <text x="450" y="122" text-anchor="middle" class="panel-title">א. גבול המגרש — מדויק (מתוכנית מדידה 10111TD122, גוש 10111 חלקה 122, 752 מ״ר)</text>
+
+  <g transform="translate(357,150)">
+    <polygon points="134,5 185,0 127,472 37,462 0,37 137,23"
+             fill="#eaf3ea" stroke="#2a5d34" stroke-width="2.5"/>
+    <circle cx="134" cy="5" r="3" fill="#2a5d34"/><text x="140" y="2" class="label-small">1G</text>
+    <circle cx="185" cy="0" r="3" fill="#2a5d34"/><text x="191" y="-3" class="label-small">2G</text>
+    <circle cx="127" cy="472" r="3" fill="#2a5d34"/><text x="133" y="480" class="label-small">3G</text>
+    <circle cx="37" cy="462" r="3" fill="#2a5d34"/><text x="-8" y="470" class="label-small">4G</text>
+    <circle cx="0" cy="37" r="3" fill="#2a5d34"/><text x="-24" y="34" class="label-small">5G</text>
+    <circle cx="137" cy="23" r="3" fill="#2a5d34"/><text x="143" y="20" class="label-small">6G</text>
+
+    <text x="90" y="240" class="label-small" fill="#2a5d34">~52.8 מ' (2G→3G)</text>
+    <text x="-70" y="240" class="label-small" fill="#2a5d34">~47.4 מ' (4G→5G)</text>
+    <text x="60" y="-10" class="label-small" fill="#2a5d34">~5.7 מ'</text>
+
+    <g transform="translate(230,40)">
+      <line x1="0" y1="30" x2="0" y2="-20" stroke="#000" stroke-width="2"/>
+      <polygon points="0,-30 -7,-16 7,-16" fill="#000"/>
+      <text x="0" y="46" text-anchor="middle" class="label-small">צפון (מחושב מהמדידה)</text>
+    </g>
+
+    <g transform="translate(20,500)">
+      <line x1="0" y1="0" x2="90" y2="0" stroke="#000" stroke-width="2"/>
+      <line x1="0" y1="-4" x2="0" y2="4" stroke="#000" stroke-width="2"/>
+      <line x1="90" y1="-4" x2="90" y2="4" stroke="#000" stroke-width="2"/>
+      <text x="45" y="16" text-anchor="middle" class="label-small">10 מ'</text>
+    </g>
+  </g>
+
+  <!-- ============ PANEL B: SCHEMATIC RELATIONSHIP SKETCH ============ -->
+  <text x="450" y="700" text-anchor="middle" class="panel-title">ב. סקיצת יחסים סכמטית — לא בקנה מידה, למיקום יחסי בלבד</text>
+  <text x="450" y="722" text-anchor="middle" class="label-small" fill="#b02020">מיקום הבית בתוך המגרש עדיין לא מותאם במדויק (IFC מול מדידה טרם הותאמו) — זו סכמה של יחסים, לא תשריט מדויק</text>
+
+  <!-- Local origin for panel B content: (240,860). All children below use this coordinate space. -->
+  <g transform="translate(240,860)">
+
+    <!-- Adas — unresolved, corner callout, not connected to any specific room -->
+    <rect x="300" y="-40" width="220" height="66" fill="#fdecec" stroke="#b02020" stroke-width="1.5" stroke-dasharray="5,3" rx="6"/>
+    <text x="410" y="-20" text-anchor="middle" class="label open" font-weight="bold">"עדאס" — לא מאושר</text>
+    <text x="410" y="-2" text-anchor="middle" class="label-small open">שכן/כיוון + חלון חדר שינה</text>
+    <text x="410" y="16" text-anchor="middle" class="label-small open">(האם זה טאסי/פייר בשם אחר?)</text>
+
+    <!-- Deck / kitchen protrusion, front, above the house block -->
+    <path d="M 60,60 L 60,10 Q 140,-22 220,10 L 220,60 Z" fill="#fdf1d9" stroke="#b8860b" stroke-width="2.5"/>
+    <text x="140" y="-30" text-anchor="middle" class="label-small" fill="#555">↑ חזית הבית / כיוון הגינה</text>
+    <text x="140" y="25" text-anchor="middle" class="label candidate" font-weight="bold">מטבח</text>
+    <text x="140" y="43" text-anchor="middle" class="label-small candidate">הדק העגול (IfcSlab #51836)</text>
+
+    <!-- House main block: entrance floor -->
+    <rect x="0" y="60" width="280" height="200" fill="#f5ecd8" stroke="#8a6d3b" stroke-width="2"/>
+    <text x="140" y="82" text-anchor="middle" class="label" font-weight="bold">הבית — קומת כניסה (סכמטי)</text>
+
+    <!-- Children's rooms at the back (bottom of house block), separated -->
+    <rect x="0" y="180" width="130" height="80" fill="none" stroke="#b8860b" stroke-width="1.5" stroke-dasharray="4,3"/>
+    <rect x="150" y="180" width="130" height="80" fill="none" stroke="#b8860b" stroke-width="1.5" stroke-dasharray="4,3"/>
+    <line x1="140" y1="180" x2="140" y2="260" stroke="#b02020" stroke-width="2.5" stroke-dasharray="6,4"/>
+    <text x="65" y="212" text-anchor="middle" class="label-small candidate">חדר + פרגולה</text>
+    <text x="65" y="228" text-anchor="middle" class="label-small candidate">(ינון או שני)</text>
+    <text x="215" y="212" text-anchor="middle" class="label-small candidate">חדר + פרגולה</text>
+    <text x="215" y="228" text-anchor="middle" class="label-small candidate">(שני או ינון)</text>
+    <text x="140" y="246" text-anchor="middle" class="label-small confirmed">חציצה בין הפרגולות (אושר)</text>
+    <text x="140" y="284" text-anchor="middle" class="label-small" fill="#555">↓ מאחור, בחוץ (אושר)</text>
+
+    <!-- Parents' balcony, 2nd floor — separate box to the side (schematic, not geographically literal) -->
+    <rect x="310" y="60" width="180" height="90" fill="#eee6f5" stroke="#6a4c93" stroke-width="2" rx="6"/>
+    <text x="400" y="90" text-anchor="middle" class="label confirmed" font-weight="bold">מרפסת הורים</text>
+    <text x="400" y="108" text-anchor="middle" class="label-small confirmed">קומה שנייה</text>
+    <text x="400" y="126" text-anchor="middle" class="label-small confirmed">+ גינון מרפסת (אושר)</text>
+
+    <!-- Tasi — west neighbor, adjacent to house left edge, tall separation esp. facing 2nd floor -->
+    <rect x="-140" y="60" width="120" height="200" fill="#f0f0f0" stroke="#888" stroke-width="1.5" rx="4"/>
+    <text x="-80" y="85" text-anchor="middle" class="label confirmed" font-weight="bold">טאסי</text>
+    <text x="-80" y="103" text-anchor="middle" class="label-small confirmed">שכן ממערב</text>
+    <text x="-80" y="121" text-anchor="middle" class="label-small confirmed">(בית צמוד)</text>
+    <text x="-80" y="145" text-anchor="middle" class="label-small confirmed">הפרדה גבוהה</text>
+    <text x="-80" y="163" text-anchor="middle" class="label-small confirmed">מול קומה 2</text>
+    <text x="-80" y="181" text-anchor="middle" class="label-small confirmed">(אושר)</text>
+
+    <!-- Gate, east side -->
+    <rect x="290" y="170" width="16" height="30" fill="#ddd" stroke="#666"/>
+    <text x="360" y="190" text-anchor="middle" class="label-small">שער קיים —</text>
+    <text x="360" y="205" text-anchor="middle" class="label-small">גישה קלה (מזרח, אושר)</text>
+
+    <!-- Pierre — back neighbor, below house -->
+    <text x="140" y="300" text-anchor="middle" class="label confirmed" font-weight="bold">פייר — שכן מאחור (אושר)</text>
+
+    <!-- Pool per client sketch, further back/below -->
+    <ellipse cx="140" cy="380" rx="120" ry="55" fill="#d7ecf5" stroke="#2a7ca6" stroke-width="2"/>
+    <text x="140" y="375" text-anchor="middle" class="label confirmed">בריכת שחייה מתוכננת</text>
+    <text x="140" y="393" text-anchor="middle" class="label-small confirmed">(חפורה, מהסקיצה שלך)</text>
+    <text x="140" y="455" text-anchor="middle" class="label-small open">? בריכת נוי נוספת — עדיין שאלה פתוחה</text>
+  </g>
+
+  <!-- ============ LEGEND ============ -->
+  <g transform="translate(60,1400)">
+    <text x="0" y="0" class="panel-title" font-size="16">מקרא</text>
+    <circle cx="10" cy="20" r="6" class="confirmed"/><text x="24" y="25" class="legend-text">אישרת בעצמך — עובדה</text>
+    <circle cx="10" cy="42" r="6" class="candidate"/><text x="24" y="47" class="legend-text">ממצא טכני מה-IFC, ביטחון גבוה — טרם אישרת</text>
+    <circle cx="10" cy="64" r="6" class="open"/><text x="24" y="69" class="legend-text">עדיין פתוח / דורש בירור</text>
+    <text x="0" y="95" class="label-small" fill="#555">פאנל א' מדויק (מהמדידה הרשומה). פאנל ב' סכמטי — יחסים בלבד, לא מרחקים/זוויות אמיתיים.</text>
+    <text x="0" y="113" class="label-small" fill="#555">מקורות: 10111TD122.pdf (מדידה) · NSB02.ifc (מודל אדריכלי) · תדריך קולי + סקיצות ניב · design/CLIENT_BRIEF_NIV_SADOT_v1.0.0.md</text>
+  </g>
+</svg>
