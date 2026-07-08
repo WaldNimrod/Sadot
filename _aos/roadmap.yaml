@@ -435,7 +435,7 @@ work_packages:
     stage_mapping: "Stage 1 (Asset Spec) + Stage 2 (3D Modeling)"
     spec_ref: "TBD"
     gate_history: []
-    notes: "CLASS=3D_CREATIVE. Uses harvested blender/lib/geo_itm.py + blender/scripts/site/ to true-scale-anchor the real plot once survey data exists. BLOCKED on S002 approval + plot data."
+    notes: "CLASS=3D_CREATIVE. Uses harvested blender/lib/geo_itm.py + blender/scripts/site/ to true-scale-anchor the real plot once survey data exists. BLOCKED on S002 approval + plot data. Tooling prep done 2026-07-08: real IFC house-model extraction (design/CANONICAL/HOUSE_IFC_REFERENCE.md, via ifcopenshell), terrain TIN/contour tool (blender/scripts/site/generate_terrain_tin.py). Still open: Bonsai (IFC-for-Blender) install pending explicit online-access approval; a dedicated Sadot .blend session (current MCP-connected Blender has unsaved microgreens work — do not touch); IFC-vs-ITM coordinate reconciliation; real deck location confirmation from architect/client."
 
   - id: "SDT-S003-P003-WP002"
     label: "Render validation + export (mandatory team_00 visual sign-off)"

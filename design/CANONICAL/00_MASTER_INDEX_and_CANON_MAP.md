@@ -20,7 +20,8 @@ This package (`design/CANONICAL/`) is the **one front door** over the project's 
 |---|---|---|
 | Navigation / "which doc?" | **00** (this) | — |
 | Decisions & rationale | **01_DECISION_REGISTER** | TBD — no decisions recorded yet; first entries expected from S002 client-brief reconciliation |
-| Spatial / geometry | **02_SPATIAL_SSOT** | TBD — awaits site survey (`raw-materials/from-client/`) + S002 concept |
+| Spatial / geometry | **02_SPATIAL_SSOT** | PARTIAL — plot boundary/elevation/orientation confirmed (survey) + house structure/windows/materials confirmed (IFC, see **HOUSE_IFC_REFERENCE**); hardscape layout awaits S002 concept |
+| House model ground truth | **HOUSE_IFC_REFERENCE** | Real ifcopenshell extraction of the architect's IFC — storeys, windows, walls, doors, stairs, materials; flags a coordinate-reconciliation gap vs. the real ITM survey |
 | Parts (plants + materials) | **03_MASTER_PARTS_REGISTER** | TBD — awaits S003 detailed design |
 | Systems design (specs) | **04_SYSTEMS_DESIGN_SPEC** | TBD — awaits S003 (irrigation / hardscape / lighting specs) |
 | Procurement / cost | **05_BOQ_PROCUREMENT_and_COST** | TBD — awaits S004 (design dossier + BOQ + client submissions) |

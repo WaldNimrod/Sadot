@@ -97,6 +97,12 @@ on dense ground-cover/rock-pile placement near walkways and seating areas.
       boundary lines
 - [ ] Reference photos for preferred plants (client said he would send separately — check `raw-materials/from-client/`
       for updates)
+- [ ] Cross-reference against the IFC house model (`design/CANONICAL/HOUSE_IFC_REFERENCE.md`): the "יח' הורים"
+      (parents' unit) wing has 6 windows including the largest in the house — likely the window referenced in §2/§2a,
+      needs client confirmation
+- [ ] The "מרפסת" (deck/terrace) element found in the IFC model sits ~90m+ from the rest of the house geometrically
+      — almost certainly a stale/orphaned Revit tag, not the real deck. Needs the client (or architect) to confirm
+      where the actual exterior deck is before any level-continuity design proceeds
 
 ## 10. Audit note (2026-07-08)
 

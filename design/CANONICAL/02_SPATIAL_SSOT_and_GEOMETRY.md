@@ -33,6 +33,11 @@ for the full synthesized brief these sketches accompany.
   `blender/data/site/SITE_GEO.yaml`. Preservation/removal decisions deferred to S002.
 - **House/architectural reference:** `raw-materials/from-client/NSB02.ifc` (Autodesk Revit 2023 export, IFC2X3,
   project name decodes to "ניב שדות") — the house-model basis for the site-anchored Blender build in S003.
+  **Full extraction (real, via ifcopenshell, not text-guessing):** `design/CANONICAL/HOUSE_IFC_REFERENCE.md` — 5
+  storeys, 13 windows (precise dimensions), 111 walls, 16 doors, 2 stairs (0 exterior stairs/ramps — the
+  entrance-to-garden level transition is NOT in the house model, it's a landscape-design decision), 63
+  materials. **Critical flag: this IFC file's own coordinates do NOT reliably align with the real ITM survey
+  grid** — needs reconciliation with the architect before precise site-anchoring (see that doc §0.1).
 
 ## Model state (current — none yet)
 - File: **none authored yet.** Pointer convention harvested to `blender/CURRENT_MODEL.md`; will name the live `.blend` once the site-anchored model exists (S003).
