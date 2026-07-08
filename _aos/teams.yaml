@@ -1,0 +1,112 @@
+# Sadot/_aos/teams.yaml
+# Project-level team definitions — OVERRIDES AOS hub defaults for this project
+# Authority: Team 00 (System Designer) + Team 110 (Domain Architect, ADR045 full execution authority)
+# Created: 2026-07-08
+
+# Override rule:
+# Agents working in this repo MUST use the team definitions below.
+# AOS hub defaults (Team 10, 70, 80, 90, 100, 110, 120) apply ONLY if no project-level override exists.
+# This file takes precedence.
+
+project_teams:
+
+  # team_10 = the universal Gateway/Builder, specialized here for Blender + architectural-drawing production.
+  - id: team_10
+    name: "Sadot Blender/Drawing Builder"
+    role: "Site-anchored 3D garden model + architectural drawing-sheet production"
+    engine: "cursor-composer"
+    lifecycle_module: "methodology/lifecycle-archetypes/PLA_3D_CREATIVE.md"
+    scope:
+      - "3D model build (blender/) per PLA_3D_CREATIVE Stage 0-3"
+      - "Architectural drawing-sheet pipeline (design/scripts/drawing/, design/lib/)"
+      - "Geo-anchoring (blender/lib/geo_itm.py, blender/scripts/site/) once plot survey data exists"
+    write_paths:
+      - "blender/"
+      - "design/scripts/"
+      - "design/lib/"
+    read_only_paths:
+      - "raw-materials/from-client/"
+    iron_rules:
+      - "Model is the geometric SSOT — drawings derive from measurement JSON, never hand-guessed (sheet_model_parity.py)"
+      - "One sheet approved (sheet_gate.py) before the next begins"
+      - "blender/CURRENT_MODEL.md is the single pointer to the LIVE .blend — update it before any milestone Save As"
+      - "No plot-anchored geometry without real survey data — do not fabricate site coordinates"
+    activation_path: "_aos/context/ACTIVATION_BUILDER.md"
+    mandatory_reads:
+      - "knowledge/context/INDEX.md"
+      - "design/ARCHITECTURAL_DRAWING_CANON/00_ENTRY_POINT.md"
+      - "blender/CURRENT_MODEL.md"
+
+  # team_70 (the Librarian, universal) — IR#14 per-domain specialization for Sadot content/dossier/governance authoring.
+  # Registered here as the `sadot_doc` slug in _aos/team_assignments.yaml. Sanction path: DOMAIN_PROTOCOL_PROPOSAL →
+  # team_100 conflict-check → team_00 sign-off (in flight — see
+  # _COMMUNICATION/team_100/DOMAIN_PROTOCOL_PROPOSAL_SADOT_DOMAIN_RULES_v1.0.0.md).
+  - id: team_70
+    name: "Sadot Design-Dossier & Knowledge-Base Author"
+    role: "Content/dossier/KB authoring for the Sadot landscape-architecture domain"
+    engine: "codex"
+    lifecycle_module: "_aos/lean-kit/modules/content-wp-lifecycle/ (light-weight — CONTENT class, not full CONTENT_SUBSTRATE)"
+    scope:
+      - "design/CANONICAL/ dossier authoring (planting plan, BOQ, contractor package)"
+      - "knowledge/ KB authoring (crops/, permaculture/, context/)"
+      - "hub/ client-hub content"
+      - "Governance-proposal drafting (SADOT_DOMAIN_RULES_CANON, LANDSCAPE_DESIGN PLA) — draft only, team_100 authors hub canon"
+    write_paths:
+      - "design/"
+      - "knowledge/"
+      - "hub/"
+      - "_COMMUNICATION/team_70/"
+    read_only_paths:
+      - "raw-materials/"
+      - "_aos/governance/"
+      - "_aos/methodology/"
+      - "_aos/lean-kit/"
+    iron_rules:
+      - "Content is extracted/cited, not invented — every factual claim needs a source or an explicit BLOCKED/TBD tag"
+      - "NEVER write to _aos/ governance-cache paths (reserved for AOS governance teams, Iron Rule #11)"
+      - "The register (design/CANONICAL/) drives the model, never the reverse"
+      - "Client-hub data privacy — never copy a prior client's real content into another client's hub"
+      - "Cross-domain consistency review → route to team_100"
+    activation_path: "_aos/context/ACTIVATION_ARCH.md"
+    mandatory_reads:
+      - "knowledge/context/INDEX.md"
+      - "design/CANONICAL/00_MASTER_INDEX_and_CANON_MAP.md"
+      - "knowledge/permaculture/00_INDEX.md"
+
+  # team_80 (Research, universal) — advisory, ADR044 Track 4, NOT part of the gate process.
+  - id: team_80
+    name: "Sadot Domain Research"
+    role: "Climate/soil/plant/permaculture research + plot-specific site analysis"
+    engine: "variable"
+    scope:
+      - "Israeli climate/soil research (general + plot-specific once survey data exists)"
+      - "Plant-selection research from the harvested crop KB"
+      - "Permaculture/ecological design precedent research"
+    write_paths:
+      - "_COMMUNICATION/team_80/"
+    iron_rules:
+      - "Research artifacts must include sources and evidence"
+      - "Advisory only — not part of the gate process (ADR044 Track 4)"
+      - "Never fabricate plot-specific data — flag BLOCKED pending client survey instead"
+    mandatory_reads:
+      - "knowledge/context/INDEX.md"
+
+  - id: team_00
+    name: "System Designer (Nimrod)"
+    role: "Principal — client relationship (Niv Sadot), binary decisions, visual/concept sign-off"
+    engine: "human"
+    scope:
+      - "Non-delegatable visual/concept sign-off (PLA_3D_CREATIVE Stage 4 Render Validation, Stage 1 Concept)"
+      - "Governance-proposal approvals (DOMAIN_PROTOCOL_PROPOSAL, GOVERNANCE_CHANGE_REQUEST sign-off)"
+      - "Client-facing decisions"
+    iron_rules:
+      - "All decisions documented before integration"
+      - "team_100 conflict-check required before any hub-canon change, even with team_00 approval"
+
+# Validator override: for Sadot, team_90 is the default cross-engine constitutional/governance validator
+# (per agents-os/core/definition.yaml: the former separate "team_190" role was collapsed into team_90 —
+# WP M9-P1-WP7 / ADR053. Cite team_90, not team_190, for this project.)
+validator_override:
+  default: team_90
+  engine: "openai"
+  note: "L0 project. team_90 owns the governance facet of every L-gate (adversarial, independent). team_50 (functional QA) not heavily used at this L0 scale."

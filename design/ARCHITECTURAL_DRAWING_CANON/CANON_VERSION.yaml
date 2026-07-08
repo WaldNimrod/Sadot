@@ -1,0 +1,47 @@
+# Architectural Drawing Production Canon — version stamp
+# Copy this entire folder to new AOS spokes that produce field-execution drawings from Blender.
+#
+# Provenance: this file is an ADAPTED copy (not verbatim) — forked from
+# IsraelMicrogreens-BlenderV2-Project docs/ARCHITECTURAL_DRAWING_CANON/CANON_VERSION.yaml
+# (origin version "1.0.2") on 2026-07-08, per 08_REPLICATION_GUIDE.md "Versioning":
+# version reset for the new spoke + origin_spoke/origin_domain recorded below.
+# WP: SDT-S001-P001-WP001 (architectural-drawing-canon + Blender/geo pipeline harvest).
+
+canon_id: architectural_drawing_production
+version: "1.0.0"
+created: "2026-07-08"
+updated: "2026-07-08"
+origin_spoke: IsraelMicrogreens-BlenderV2-Project
+origin_domain: microgreens
+origin_canon_version: "1.0.2"
+forked_into_domain: sadot
+maintainer_team: team_100
+approval_authority: team_00
+
+# Cross-engine provenance (Iron Rule #1): content builder engine ≠ validator engine.
+provenance:
+  origin_canon_v1_0_0_builder: "team_10 (Cursor Composer)"
+  origin_canon_v1_0_0_validator: "team_90 (Codex/OpenAI) — PASS_WITH_ACTION"
+  origin_canon_v1_0_1_terminology_builder: "team_90 (Codex/OpenAI), per Nimrod instruction 2026-07-06"
+  origin_canon_v1_0_1_review: "Cursor session (team_100) — cross-engine confirm of v1.0.1 terminology edits + contradiction fix"
+  sadot_fork_v1_0_0_builder: "Claude Code subagent (Sadot spoke), per Nimrod-authorized harvest task 2026-07-08"
+
+# First implementation of this canon in the Sadot spoke — no .blend exists yet.
+# See blender/CURRENT_MODEL.md: first Sadot .blend is created during Stage 3 (3D Modeling)
+# of the detailed-design work package.
+pilot_sheet: TBD
+pilot_blend: TBD
+
+# NOT the same as (see 01_TERMINOLOGY.md):
+# - AOS hub LOD300/LOD400 work-package specs
+# - AOS _aos/ governance snapshots
+
+changes:
+  - "1.0.0 (Sadot fork): Forked from IsraelMicrogreens-BlenderV2-Project canon v1.0.2 per 08_REPLICATION_GUIDE.md. Version reset to 1.0.0 for this spoke (new domain, no shared version lineage with origin). Rewrote 06_STANDARDS_PROJECT.md to reference Sadot's design/CANONICAL/ and blender/ paths. Added provenance headers to all copied files. Origin canon's own change history (below, inherited context only — not this spoke's history) started at its 1.0.0 and reached 1.0.2 before this fork."
+
+# Origin canon change history (context only — predates this spoke; do not append Sadot-specific
+# changes here, use `changes:` above instead):
+origin_changes:
+  - "1.0.1: Adopt BIMForum LOD Specification 2025 as BIM reference; bare LOD defaults to AOS; BIM references require BIM-LOD___ tokens."
+  - "1.0.1a: Fix 01_TERMINOLOGY master-table LOD row contradiction (bare LOD = AOS default, not 'never bare LOD'); align maintainer_team to team_100; record cross-engine provenance."
+  - "1.0.2: Add evidence-based output-quality contract (§3a) + hybrid backend rule (section=Section Toolbox, plan=cut-plane/mesh) + horizontal-cut-plane plan rule + Stage 5 visual QA gate + Iron Rule #7 preset enforcement. Basis: 4-arm cross-engine backend experiment (Opus+Composer). Superseded C-series queue/delivery order."

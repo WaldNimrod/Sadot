@@ -1,0 +1,74 @@
+{
+  "schemaVersion": 1,
+  "titleHe": "חומרים נדרשים מהלקוח",
+  "generated": "2026-07-08",
+  "introHe": "מעקב אחר חומרים, תמונות ואישורים הנדרשים מניב שדות לצורך עיצוב הגינה/הנוף. לכל פריט: מה נדרש, למה, פורמט, סטטוס.",
+  "confirmations": [],
+  "groups": [
+    {
+      "groupId": "batch-1-2026-07-08",
+      "titleHe": "אצווה ראשונה — התקבלה 2026-07-08",
+      "items": [
+        {
+          "id": "survey-plan",
+          "titleHe": "מפת מדידה להיתר (תוכנית מודד)",
+          "descHe": "קובץ PDF — 10111TD122, קנה מידה 1:250, מודדי עירון, חתום 22.08.2023. גבולות חלקה, גובה נקודות, לוח עצים.",
+          "format": "PDF",
+          "status": "received",
+          "receivedDate": "2026-07-08"
+        },
+        {
+          "id": "ifc-model",
+          "titleHe": "מודל אדריכלי (IFC)",
+          "descHe": "NSB02.ifc — ייצוא מ-Autodesk Revit 2023, בסיס למודל ה-3D בשלב S003.",
+          "format": "IFC",
+          "status": "received",
+          "receivedDate": "2026-07-08"
+        },
+        {
+          "id": "concept-sketches",
+          "titleHe": "סקיצת קונספט מהלקוח (2 גרסאות)",
+          "descHe": "תרשים בכתב יד — בריכה, שביל אבנים, פרגולה עגולה, אזור נטיעות.",
+          "format": "JPEG",
+          "status": "received",
+          "receivedDate": "2026-07-08"
+        },
+        {
+          "id": "voice-brief",
+          "titleHe": "תדריך קולי מהלקוח (4 הקלטות)",
+          "descHe": "תומלל אוטומטית (Whisper, עברית) — ראה design/CLIENT_BRIEF_NIV_SADOT_v1.0.0.md לסינתזה. דורש אימות מול ניב.",
+          "format": "OPUS (audio)",
+          "status": "received_pending_review",
+          "receivedDate": "2026-07-08"
+        }
+      ]
+    },
+    {
+      "groupId": "still-needed",
+      "titleHe": "עדיין נדרש",
+      "items": [
+        {
+          "id": "plant-reference-photos",
+          "titleHe": "תמונות רפרנס לצמחים מועדפים",
+          "descHe": "ניב ציין בהקלטה שישלח תמונות רפרנס לצמחים אהובים (גויאבה, אבוקדו, מנגו, פקאן וכו').",
+          "format": "photos",
+          "status": "pending"
+        },
+        {
+          "id": "soil-test",
+          "titleHe": "בדיקת קרקע מעבדתית",
+          "descHe": "אין עדיין בדיקת קרקע פורמלית — המידע הקיים הוא כללי-אזורי בלבד (ראה knowledge/climate/).",
+          "format": "lab report",
+          "status": "pending"
+        },
+        {
+          "id": "brief-confirmations",
+          "titleHe": "אימות פרטי תדריך קולי",
+          "descHe": "כמה פרטים בתמלול הקולי דורשים אימות ישיר מול ניב — ראה design/CLIENT_BRIEF_NIV_SADOT_v1.0.0.md §9.",
+          "format": "confirmation",
+          "status": "pending"
+        }
+      ]
+    }
+  ]
+}

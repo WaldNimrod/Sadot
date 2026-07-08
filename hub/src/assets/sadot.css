@@ -1,0 +1,16 @@
+/* sadot.css — Project-layer overrides for the Sadot client hub.
+ * Standard: CLIENT_HUB_STANDARD_v1.md §7 item 8 / §11.2 — thin layer only.
+ * Base (hub-base.css) is never modified per-project; this file overrides
+ * variables and adds project-specific touches on top of it.
+ */
+
+:root {
+  /* Earthy / garden palette for a landscape-architecture client hub. */
+  --accent: #4b7a3e;
+  --current: #eaf3e6;
+  --current-border: #7cb668;
+  --done: #4b8a3e;
+  --low: #4b8a3e;
+}
+
+.hub-brand a { color: var(--accent); }

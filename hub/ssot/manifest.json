@@ -1,0 +1,8 @@
+{
+  "schemaVersion": 1,
+  "project": "Sadot2026",
+  "description": "SSOT למשוב והחלטות מול ניב שדות — קבצים ב-responses/ לאחר ingest מתועד בלבד. מיקום קנוני: hub/ssot/.",
+  "responsesDir": "responses",
+  "lastIngestIso": "",
+  "ingestedExports": []
+}

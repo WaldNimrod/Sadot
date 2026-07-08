@@ -13,28 +13,40 @@
 #   current_lean_gate:  L-GATE_ELIGIBILITY | L-GATE_CONCEPT | L-GATE_SPEC | L-GATE_BUILD | L-GATE_VALIDATE | COMPLETE
 #   lod_status:         LOD100 | LOD200 | LOD300 | LOD400 | LOD500
 #   profile:            L0 | L2 | L3
+#
+# WP ID / hub-DB collision-safety note (team_110, 2026-07-08):
+#   `work_packages.id` is a GLOBAL primary key in the hub Postgres schema — plain `S00N-P00N-WP00N` triples have
+#   already collided across sibling spokes (see agents-os/_COMMUNICATION/team_100/RISK_SUMMARY_DUAL_SPOKE_WP_ID_COLLISIONS_v1.0.3.md).
+#   Sadot therefore prefixes every `id:` field with `SDT-` (the value that syncs to the hub DB). Directory names under
+#   `_aos/work_packages/` and all internal cross-references (spec_ref, this file's own comments) stay UNPREFIXED
+#   (`S001-P001-WP001/`) per WP_ID_STANDARD.md — only the `id:` field itself carries `SDT-`.
+#
+# TRACK CLASSIFICATION note (team_110, 2026-07-08):
+#   roadmap.yaml has no native field yet for RESEARCH vs CONTENT vs 3D_CREATIVE classification (per the team_120
+#   handoff's instruction to "classify each WP"). Tagged via `notes:` (`CLASS=RESEARCH|CONTENT|3D_CREATIVE`) until
+#   team_100 canonizes a real field. RESEARCH WPs (team_80) are ADR044 Track 4 — advisory, NOT part of the gate
+#   process, no LOD chain required; `current_lean_gate`/`lod_status` are set to schema-required nominal values only.
 
 project:
   id: "sadot"
   name: "Sadot — Landscape Architecture"
   profile: L0                          # L0 | L2 | L3
-  lifecycle_archetype: 3D_CREATIVE     # base for validation now; upgrades to LANDSCAPE_DESIGN (sub-archetype inheriting 3D_CREATIVE) once that archetype is registered (task: LANDSCAPE_DESIGN archetype)
-                                       # See: methodology/lifecycle-archetypes/README.md
+  lifecycle_archetype: 3D_CREATIVE     # base for validation now; upgrades to LANDSCAPE_DESIGN (sub-archetype inheriting 3D_CREATIVE)
+                                       # once team_100 authors the hub PLA + README update per the GCR filed at
+                                       # _COMMUNICATION/team_100/GOVERNANCE_CHANGE_REQUEST_LANDSCAPE_DESIGN_ARCHETYPE_INHERITANCE_v1.0.0.md
+                                       # (team_110, 2026-07-08). See: methodology/lifecycle-archetypes/README.md
   lean_kit_version: "3.4.0+65fa386"
   created: "2026-07-08"
   owner: "sadot_sd"         # system_designer team ID
   active_milestone: "S001"   # currently active milestone
-  notes: ""                            # project-level notes
+  notes: "Roadmap refined + populated by team_110 2026-07-08 per HANDOFF_TO_NEXT_team_110_SADOT_BUILDOUT_2026-07-08_v1.0.0.md (ADR045 full execution authority). S001 broadened from team_120's placeholder ('Initial domain research and environment bootstrap') to cover environment/KB completion + research + site-analysis/brief — no WP had ever been registered against the old S001 label, so no renumbering occurred (WP-ID stage numbers are frozen-forward per WP_ID_STANDARD.md, but an empty stage's description is not)."
 
-# WP ID FORMAT: S[stage]-P[program]-WP[number]
+# WP ID FORMAT: S[stage]-P[program]-WP[number]  (id: field carries an additional SDT- prefix — see note above)
 #
 #   S[stage]    — Major product milestone (e.g. S003, S004). Matches MILESTONE_MAP.md.
 #   P[program]  — Delivery stream within the stage (e.g. P001, P002). Groups related WPs.
 #                 Sequential within the stage. P001 = first program in stage.
 #   WP[number]  — Atomic execution unit (e.g. WP001, WP002). Sequential within program.
-#
-#   Example:    S003-P003-WP005
-#               Stage 3 (GATE-A milestone) → Program 3 (frontend cohort) → WP 5 (settings pages)
 #
 #   Full reference: lean-kit/modules/project-governance/WP_ID_STANDARD.md
 #
@@ -47,33 +59,459 @@ project:
 #   At L-GATE_SPEC: spec_ref MUST point to per-WP LOD400_spec.md.
 
 work_packages:
-  - id: "S[stage]-P[program]-WP[number]"    # e.g. S003-P001-WP001 — see WP_ID_STANDARD.md
-    label: "[Brief descriptive label — what pages/features this WP delivers]"
-    status: PLANNED                          # PLANNED | IN_PROGRESS | COMPLETE | BLOCKED
-    track: A                                 # A (4-gate: E→S→B→V) | B (5-gate: E→C→S→B→V)
-    current_lean_gate: L-GATE_ELIGIBILITY              # current gate position
-    lod_status: LOD100                       # highest LOD document authored for this WP
-    assigned_builder: "sadot_build"      # slug: ^[a-z][a-z0-9]*_[a-z]+$
-    assigned_validator: "sadot_val"      # MUST differ from builder engine (Iron Rule)
-    created_at: "[YYYY-MM-DD]"
-    milestone_ref: "S[stage]"               # stage ID — matches MILESTONE_MAP.md entry
-    stage_mapping: ""                        # Domain-specific stage within lifecycle archetype.
-                                             # Required for non-SOFTWARE archetypes; optional for SOFTWARE.
-                                             # Canonical values per archetype:
-                                             #   SOFTWARE:          "Spec" | "Design" | "Build" | "Test" | "Deploy"
-                                             #   CONTENT_SUBSTRATE: "Stage 0 (Source intake)" | "Stage 1 (Mining)" | ... | "Stage 6 (Continuous update)"
-                                             #   DOMAIN_AGENT:      "Stage 0 (Domain Research)" | "Stage 1 (Agent Spec)" | ... | "Stage 6 (Monitor)"
-                                             #   3D_CREATIVE:       "Stage 0 (Concept)" | "Stage 1 (Asset Spec)" | ... | "Stage 7 (Archive)"
-                                             # Compound (multiple stages in one WP): "Stage 0 (Source intake) + Stage 1 (Mining)"
-                                             # Full reference: methodology/lifecycle-archetypes/{PLA_file}.md §7
-    spec_ref: "TBD"
-    # ↑ At L-GATE_SPEC and beyond: must be per-WP LOD400
-    # ↑ Before LOD400 exists but LOD300 is authored: "_aos/work_packages/S[N]/LOD300_milestone.md"
-    # ↑ Before any spec artifact exists (early registration): TBD
-    #   validate_aos.sh Check 4 skips file resolution for spec_ref: TBD
+
+  # ============================================================
+  # S001 — Environment completion, domain research, and site analysis + client brief
+  # ============================================================
+
+  # --- P001: Environment / Knowledge-Base completion (all NOW) ---
+
+  - id: "SDT-S001-P001-WP001"
+    label: "Harvest architectural drawing canon + Blender/geo pipeline (microgreens) → design/, blender/"
+    status: IN_PROGRESS
+    track: A
+    current_lean_gate: L-GATE_BUILD
+    lod_status: LOD300
+    assigned_builder: "sadot_build"
+    assigned_validator: "sadot_val"
+    created_at: "2026-07-08"
+    milestone_ref: "S001"
+    stage_mapping: "Stage 0 (Concept)"
+    spec_ref: "_aos/work_packages/S001/LOD300_milestone.md"
     gate_history:
       - gate: L-GATE_ELIGIBILITY
         result: PASS
-        date: "[YYYY-MM-DD]"
+        date: "2026-07-08"
+        notes: "Registered at identification per WP_ID_STANDARD best practice."
+    notes: "CLASS=CONTENT. Source: IsraelMicrogreens-BlenderV2-Project docs/ARCHITECTURAL_DRAWING_CANON/, scripts/drawing/, WP_PHASE5_TECHNICAL_DOCS/lib/, lib/geo_itm.py, site scripts, CURRENT_MODEL.md convention, session_mcp_verify.py. Read-only source; provenance headers retained."
+
+  - id: "SDT-S001-P001-WP002"
+    label: "Harvest design-dossier CANONICAL 10-doc SSOT skeleton → design/CANONICAL/"
+    status: IN_PROGRESS
+    track: A
+    current_lean_gate: L-GATE_BUILD
+    lod_status: LOD300
+    assigned_builder: "sadot_build"
+    assigned_validator: "sadot_val"
+    created_at: "2026-07-08"
+    milestone_ref: "S001"
+    stage_mapping: "Stage 0 (Concept)"
+    spec_ref: "_aos/work_packages/S001/LOD300_milestone.md"
+    gate_history:
+      - gate: L-GATE_ELIGIBILITY
+        result: PASS
+        date: "2026-07-08"
         notes: ""
-    notes: ""
+    notes: "CLASS=CONTENT. Source: IsraelMicrogreens-BlenderV2-Project CANONICAL/. Renamed 08_AGRICULTURAL_PLAN.md → 08_LANDSCAPE_PLANTING_PLAN.md; conflict law ('register drives the model') preserved verbatim."
+
+  - id: "SDT-S001-P001-WP003"
+    label: "Harvest crop/climate KB substrate → knowledge/crops/ (plant-selection engine)"
+    status: IN_PROGRESS
+    track: A
+    current_lean_gate: L-GATE_BUILD
+    lod_status: LOD300
+    assigned_builder: "sadot_build"
+    assigned_validator: "sadot_val"
+    created_at: "2026-07-08"
+    milestone_ref: "S001"
+    stage_mapping: "Stage 0 (Concept)"
+    spec_ref: "_aos/work_packages/S001/LOD300_milestone.md"
+    gate_history:
+      - gate: L-GATE_ELIGIBILITY
+        result: PASS
+        date: "2026-07-08"
+        notes: ""
+    notes: "CLASS=CONTENT. Source: SmallFarmsAgents organic_market_agent/crop_book/ (planting_calendar.py, companion_matrix.py, cover_crops.py, 035-040 schema) + data/external_sources/ (cited, not copied — ~40MB binaries stay in source repo). Schema already supports category='fruit_trees'/growth_cycle='perennial'."
+
+  - id: "SDT-S001-P001-WP004"
+    label: "Clone + prune client-hub skeleton (EyalAmit) → hub/ (sadot-*)"
+    status: IN_PROGRESS
+    track: A
+    current_lean_gate: L-GATE_BUILD
+    lod_status: LOD300
+    assigned_builder: "sadot_build"
+    assigned_validator: "sadot_val"
+    created_at: "2026-07-08"
+    milestone_ref: "S001"
+    stage_mapping: "Stage 0 (Concept)"
+    spec_ref: "_aos/work_packages/S001/LOD300_milestone.md"
+    gate_history:
+      - gate: L-GATE_ELIGIBILITY
+        result: PASS
+        date: "2026-07-08"
+        notes: ""
+    notes: "CLASS=CONTENT. Source: EyalAmit.co.il-2026/hub/ (structure + build-script only, per SmallFarmsAgents CLIENT_HUB_STANDARD_v1.md §7 checklist). HARD RULE enforced: no copying of Eyal Amit's real client data/content — sadot-* renamed, fresh empty data files for Niv Sadot."
+
+  - id: "SDT-S001-P001-WP005"
+    label: "Author permaculture/ecological-design KB from scratch → knowledge/permaculture/"
+    status: IN_PROGRESS
+    track: A
+    current_lean_gate: L-GATE_BUILD
+    lod_status: LOD300
+    assigned_builder: "sadot_doc"
+    assigned_validator: "sadot_val"
+    created_at: "2026-07-08"
+    milestone_ref: "S001"
+    stage_mapping: "Stage 0 (Concept)"
+    spec_ref: "_aos/work_packages/S001/LOD300_milestone.md"
+    gate_history:
+      - gate: L-GATE_ELIGIBILITY
+        result: PASS
+        date: "2026-07-08"
+        notes: ""
+    notes: "CLASS=CONTENT. No existing zones/sectors/guilds/swales structure in nimrod-book or nimrod-bio (confirmed — both biographical/marketing, not a technical corpus). Authored using standard Mollison/Holmgren permaculture design methodology, anchored to Nimrod's real credentials (PDC 2014 Solar Garden Binyamina, Havat Adam, biochar project) cited from nimrod-book/chapters/11_ERA_GARDEN_2013_2023.md as authority, not claimed as extracted content."
+
+  - id: "SDT-S001-P001-WP006"
+    label: "Build knowledge/INDEX.md + _aos/teams.yaml specialization + missing ACTIVATION_*.md files"
+    status: IN_PROGRESS
+    track: A
+    current_lean_gate: L-GATE_BUILD
+    lod_status: LOD300
+    assigned_builder: "sadot_doc"
+    assigned_validator: "sadot_val"
+    created_at: "2026-07-08"
+    milestone_ref: "S001"
+    stage_mapping: "Stage 0 (Concept)"
+    spec_ref: "_aos/work_packages/S001/LOD300_milestone.md"
+    gate_history:
+      - gate: L-GATE_ELIGIBILITY
+        result: PASS
+        date: "2026-07-08"
+        notes: ""
+    notes: "CLASS=CONTENT (governance). knowledge/INDEX.md links context/+crops/+permaculture/; knowledge/context/INDEX.md follows the microgreens data/context/INDEX.md 4-part pattern. _aos/teams.yaml follows the nimrod-book/_aos/teams.yaml pattern (engine override, write_paths, iron_rules, mandatory_reads≤4, validator_override). _aos/context/ACTIVATION_{ARCH,BUILDER,VALIDATOR}.md were missing despite being listed as mandatory in _aos/README.md — fixed here."
+
+  - id: "SDT-S001-P001-WP007"
+    label: "Draft SADOT_DOMAIN_RULES_CANON + file DOMAIN_PROTOCOL_PROPOSAL to team_100"
+    status: IN_PROGRESS
+    track: A
+    current_lean_gate: L-GATE_SPEC
+    lod_status: LOD300
+    assigned_builder: "sadot_arch"
+    assigned_validator: "sadot_val"
+    created_at: "2026-07-08"
+    milestone_ref: "S001"
+    stage_mapping: "Stage 0 (Concept)"
+    spec_ref: "_aos/work_packages/S001/LOD300_milestone.md"
+    gate_history:
+      - gate: L-GATE_ELIGIBILITY
+        result: PASS
+        date: "2026-07-08"
+        notes: ""
+    notes: "CLASS=CONTENT (governance). IR#14 (AOS_CONCEPT_AND_PRINCIPLES.md rule #8) sanction path: team_110 drafts → DOMAIN_PROTOCOL_PROPOSAL in _COMMUNICATION/team_100/ → team_100 conflict-check → team_00 sign-off → team_100 commits SADOT_DOMAIN_RULES_CANON_v1.0.0.md at hub lean-kit/modules/project-governance/ (mirrors real TT_DOMAIN_RULES_CANON precedent) → propagates back to Sadot's _aos/lean-kit/ cache. Awaiting team_100/team_00 action after filing — this WP's status reflects the PROPOSAL being filed, not final ratification."
+
+  - id: "SDT-S001-P001-WP008"
+    label: "Draft LANDSCAPE_DESIGN archetype-inheritance mechanism + PLA + file bundled GCR to team_100"
+    status: IN_PROGRESS
+    track: A
+    current_lean_gate: L-GATE_SPEC
+    lod_status: LOD300
+    assigned_builder: "sadot_arch"
+    assigned_validator: "sadot_val"
+    created_at: "2026-07-08"
+    milestone_ref: "S001"
+    stage_mapping: "Stage 0 (Concept)"
+    spec_ref: "_aos/work_packages/S001/LOD300_milestone.md"
+    gate_history:
+      - gate: L-GATE_ELIGIBILITY
+        result: PASS
+        date: "2026-07-08"
+        notes: ""
+    notes: "CLASS=CONTENT (governance). No archetype-inheritance mechanism exists anywhere in AOS today — this is the first proposed use of an `inherits_from` PLA field. Bundled as ONE GOVERNANCE_CHANGE_REQUEST (hub-canon schema change + the PLA_LANDSCAPE_DESIGN.md content itself), per Iron Rule #11 (team_110 proposes, team_100 authors). The lifecycle_archetype flip itself is a SEPARATE later step (Iron Rule #7 data mutation), not part of this WP. Awaiting team_100/team_00 action after filing."
+
+  - id: "SDT-S001-P001-WP009"
+    label: "Emit _aos/context/TRAINING_PLAN.md (6-artifact composition)"
+    status: IN_PROGRESS
+    track: A
+    current_lean_gate: L-GATE_BUILD
+    lod_status: LOD300
+    assigned_builder: "sadot_doc"
+    assigned_validator: "sadot_val"
+    created_at: "2026-07-08"
+    milestone_ref: "S001"
+    stage_mapping: "Stage 0 (Concept)"
+    spec_ref: "_aos/work_packages/S001/LOD300_milestone.md"
+    gate_history:
+      - gate: L-GATE_ELIGIBILITY
+        result: PASS
+        date: "2026-07-08"
+        notes: ""
+    notes: "CLASS=CONTENT (governance). Composition: (1) AOS identity onboarding, (2) per-team mandatory_reads≤4, (3) per-role ACTIVATION_* prompts, (4) IR#14 domain-specialization docs (SADOT_DOMAIN_RULES_CANON draft + LANDSCAPE_DESIGN proposal), (5) the knowledge/ KB, (6) startup + gate discipline. Depends on WP006-WP008 outputs."
+
+  # --- P002: Research (team_80, ADR044 Track 4 — advisory, NOT part of the gate process) ---
+
+  - id: "SDT-S001-P002-WP001"
+    label: "Israeli climate/soil — general (non-plot) research for Pardes Hanna area"
+    status: IN_PROGRESS
+    track: A
+    current_lean_gate: L-GATE_ELIGIBILITY
+    lod_status: LOD100
+    assigned_builder: "sadot_build"
+    assigned_validator: "sadot_val"
+    created_at: "2026-07-08"
+    milestone_ref: "S001"
+    stage_mapping: "Stage 0 (Concept)"
+    spec_ref: "_aos/work_packages/S001/LOD300_milestone.md"
+    gate_history: []
+    notes: "CLASS=RESEARCH — ADR044 Track 4. team_80 performs this under team_00/team_110 direction; NOT part of the gate process, no LOD chain required. assigned_builder/validator are schema-required nominal placeholders only. Delivers to _COMMUNICATION/team_80/, folds into knowledge/."
+
+  - id: "SDT-S001-P002-WP002"
+    label: "Plant-selection candidate shortlist from harvested crop KB (general climate fit)"
+    status: IN_PROGRESS
+    track: A
+    current_lean_gate: L-GATE_ELIGIBILITY
+    lod_status: LOD100
+    assigned_builder: "sadot_build"
+    assigned_validator: "sadot_val"
+    created_at: "2026-07-08"
+    milestone_ref: "S001"
+    stage_mapping: "Stage 0 (Concept)"
+    spec_ref: "_aos/work_packages/S001/LOD300_milestone.md"
+    gate_history: []
+    notes: "CLASS=RESEARCH — ADR044 Track 4. Depends on SDT-S001-P001-WP003 (crop KB harvest). Not plot-final — general fit only."
+
+  - id: "SDT-S001-P002-WP003"
+    label: "Permaculture/ecological design principles + precedents research"
+    status: IN_PROGRESS
+    track: A
+    current_lean_gate: L-GATE_ELIGIBILITY
+    lod_status: LOD100
+    assigned_builder: "sadot_build"
+    assigned_validator: "sadot_val"
+    created_at: "2026-07-08"
+    milestone_ref: "S001"
+    stage_mapping: "Stage 0 (Concept)"
+    spec_ref: "_aos/work_packages/S001/LOD300_milestone.md"
+    gate_history: []
+    notes: "CLASS=RESEARCH — ADR044 Track 4. Feeds SDT-S001-P001-WP005 (permaculture KB)."
+
+  - id: "SDT-S001-P002-WP004"
+    label: "Plot-specific site analysis (topography, sun/shade, drainage, soil test, existing vegetation)"
+    status: IN_PROGRESS
+    track: A
+    current_lean_gate: L-GATE_ELIGIBILITY
+    lod_status: LOD100
+    assigned_builder: "sadot_build"
+    assigned_validator: "sadot_val"
+    created_at: "2026-07-08"
+    milestone_ref: "S001"
+    stage_mapping: "Stage 0 (Concept)"
+    spec_ref: "_aos/work_packages/S001/LOD300_milestone.md"
+    gate_history: []
+    notes: "CLASS=RESEARCH — ADR044 Track 4. UNBLOCKED 2026-07-08: first client materials batch received (licensed survey PDF 10111TD122, IFC architectural model, 2 concept sketches, voice-note brief) → curated into blender/data/site/SITE_GEO.yaml + design/CANONICAL/02_SPATIAL_SSOT_and_GEOMETRY.md (plot boundary, 24-tree inventory, elevation range). Still open: no formal soil lab test, no digitized true-north bearing, no direct sun/shade seasonal study — remains IN_PROGRESS, not COMPLETE."
+
+  # --- P003: Site analysis + client brief authoring (team_70) ---
+
+  - id: "SDT-S001-P003-WP001"
+    label: "Client brief intake questionnaire/template"
+    status: COMPLETE
+    track: A
+    current_lean_gate: L-GATE_BUILD
+    lod_status: LOD300
+    assigned_builder: "sadot_doc"
+    assigned_validator: "sadot_val"
+    created_at: "2026-07-08"
+    milestone_ref: "S001"
+    stage_mapping: "Stage 0 (Concept)"
+    spec_ref: "_aos/work_packages/S001/LOD300_milestone.md"
+    gate_history:
+      - gate: L-GATE_ELIGIBILITY
+        result: PASS
+        date: "2026-07-08"
+        notes: ""
+    notes: "CLASS=CONTENT. SUPERSEDED-COMPLETE 2026-07-08: client delivered a real voice-note brief directly (4 recordings) before the formal questionnaire was sent — see design/CLIENT_BRIEF_NIV_SADOT_v1.0.0.md."
+
+  - id: "SDT-S001-P003-WP002"
+    label: "Site-analysis dossier + formal client brief (synthesizes P002-WP004)"
+    status: IN_PROGRESS
+    track: A
+    current_lean_gate: L-GATE_ELIGIBILITY
+    lod_status: LOD200
+    assigned_builder: "sadot_doc"
+    assigned_validator: "sadot_val"
+    created_at: "2026-07-08"
+    milestone_ref: "S001"
+    stage_mapping: "Stage 0 (Concept)"
+    spec_ref: "_aos/work_packages/S001/LOD300_milestone.md"
+    gate_history: []
+    notes: "CLASS=CONTENT. UNBLOCKED 2026-07-08: design/CLIENT_BRIEF_NIV_SADOT_v1.0.0.md drafted from the client's voice-note brief + concept sketches; survey/IFC data folded into 02_SPATIAL_SSOT_and_GEOMETRY.md. Remaining: client confirmation of the open items listed in the brief §9 before this can be marked COMPLETE and S002 concept design can start cleanly."
+
+  - id: "SDT-S001-P003-WP003"
+    label: "Transcribe + curate client voice-note recordings"
+    status: COMPLETE
+    track: A
+    current_lean_gate: L-GATE_BUILD
+    lod_status: LOD300
+    assigned_builder: "sadot_doc"
+    assigned_validator: "sadot_val"
+    created_at: "2026-07-08"
+    milestone_ref: "S001"
+    stage_mapping: "Stage 0 (Concept)"
+    spec_ref: "_aos/work_packages/S001/LOD300_milestone.md"
+    gate_history:
+      - gate: L-GATE_ELIGIBILITY
+        result: PASS
+        date: "2026-07-08"
+        notes: ""
+    notes: "CLASS=CONTENT. 4 recordings transcribed locally (Whisper, Hebrew, small model — imperfect ASR) and curated into design/CLIENT_BRIEF_NIV_SADOT_v1.0.0.md. Raw transcripts kept git-ignored at raw-materials/working/transcripts/. Flagged for human verification, not treated as final without review."
+
+  # ============================================================
+  # S002 — Concept Design (PLANNED — all BLOCKED on S001 site-analysis/brief output)
+  # ============================================================
+
+  - id: "SDT-S002-P001-WP001"
+    label: "Concept narrative + precedent/mood board"
+    status: PLANNED
+    track: A
+    current_lean_gate: L-GATE_ELIGIBILITY
+    lod_status: LOD100
+    assigned_builder: "sadot_doc"
+    assigned_validator: "sadot_val"
+    created_at: "2026-07-08"
+    milestone_ref: "S002"
+    stage_mapping: "Stage 0 (Concept)"
+    spec_ref: "TBD"
+    gate_history: []
+    notes: "CLASS=CONTENT. BLOCKED on S001-P003-WP002 (client brief)."
+
+  - id: "SDT-S002-P001-WP002"
+    label: "Concept massing / schematic site diagram (non-delegatable team_00 concept sign-off)"
+    status: PLANNED
+    track: A
+    current_lean_gate: L-GATE_ELIGIBILITY
+    lod_status: LOD100
+    assigned_builder: "sadot_build"
+    assigned_validator: "sadot_val"
+    created_at: "2026-07-08"
+    milestone_ref: "S002"
+    stage_mapping: "Stage 0 (Concept) + Stage 1 (Asset Spec)"
+    spec_ref: "TBD"
+    gate_history: []
+    notes: "CLASS=CONTENT+3D-light. BLOCKED on SDT-S002-P001-WP001. Team 00 concept sign-off is non-delegatable per PLA_3D_CREATIVE."
+
+  # ============================================================
+  # S003 — Detailed Design: planting plan + finish materials + site-anchored 3D model (PLANNED — BLOCKED on S002)
+  # ============================================================
+
+  - id: "SDT-S003-P001-WP001"
+    label: "Planting plan (species, layout, schedule)"
+    status: PLANNED
+    track: A
+    current_lean_gate: L-GATE_ELIGIBILITY
+    lod_status: LOD100
+    assigned_builder: "sadot_doc"
+    assigned_validator: "sadot_val"
+    created_at: "2026-07-08"
+    milestone_ref: "S003"
+    stage_mapping: "Stage 1 (Asset Spec)"
+    spec_ref: "TBD"
+    gate_history: []
+    notes: "CLASS=CONTENT. Draws on SDT-S001-P002-WP002/WP003 (plant shortlist, permaculture principles). BLOCKED on S002 approval."
+
+  - id: "SDT-S003-P002-WP001"
+    label: "Finish materials / hardscape specification"
+    status: PLANNED
+    track: A
+    current_lean_gate: L-GATE_ELIGIBILITY
+    lod_status: LOD100
+    assigned_builder: "sadot_doc"
+    assigned_validator: "sadot_val"
+    created_at: "2026-07-08"
+    milestone_ref: "S003"
+    stage_mapping: "Stage 1 (Asset Spec)"
+    spec_ref: "TBD"
+    gate_history: []
+    notes: "CLASS=CONTENT. BLOCKED on S002 approval."
+
+  - id: "SDT-S003-P003-WP001"
+    label: "Site-anchored 3D model — asset spec + build"
+    status: PLANNED
+    track: A
+    current_lean_gate: L-GATE_ELIGIBILITY
+    lod_status: LOD100
+    assigned_builder: "sadot_build"
+    assigned_validator: "sadot_val"
+    created_at: "2026-07-08"
+    milestone_ref: "S003"
+    stage_mapping: "Stage 1 (Asset Spec) + Stage 2 (3D Modeling)"
+    spec_ref: "TBD"
+    gate_history: []
+    notes: "CLASS=3D_CREATIVE. Uses harvested blender/lib/geo_itm.py + blender/scripts/site/ to true-scale-anchor the real plot once survey data exists. BLOCKED on S002 approval + plot data."
+
+  - id: "SDT-S003-P003-WP002"
+    label: "Render validation + export (mandatory team_00 visual sign-off)"
+    status: PLANNED
+    track: A
+    current_lean_gate: L-GATE_ELIGIBILITY
+    lod_status: LOD100
+    assigned_builder: "sadot_build"
+    assigned_validator: "sadot_val"
+    created_at: "2026-07-08"
+    milestone_ref: "S003"
+    stage_mapping: "Stage 4 (Render Validation) + Stage 5 (Export)"
+    spec_ref: "TBD"
+    gate_history: []
+    notes: "CLASS=3D_CREATIVE. Team 00 visual approval is non-delegatable per PLA_3D_CREATIVE Stage 4. BLOCKED on SDT-S003-P003-WP001."
+
+  - id: "SDT-S003-P003-WP003"
+    label: "Model documentation + archive"
+    status: PLANNED
+    track: A
+    current_lean_gate: L-GATE_ELIGIBILITY
+    lod_status: LOD100
+    assigned_builder: "sadot_doc"
+    assigned_validator: "sadot_val"
+    created_at: "2026-07-08"
+    milestone_ref: "S003"
+    stage_mapping: "Stage 6 (Documentation) + Stage 7 (Archive)"
+    spec_ref: "TBD"
+    gate_history: []
+    notes: "CLASS=3D_CREATIVE→CONTENT. BLOCKED on SDT-S003-P003-WP002."
+
+  # ============================================================
+  # S004 — Design Dossier + BOQ + Client Submissions (PLANNED — BLOCKED on S003)
+  # ============================================================
+
+  - id: "SDT-S004-P001-WP001"
+    label: "Design dossier compilation (drawing set, spatial SSOT, contractor package)"
+    status: PLANNED
+    track: A
+    current_lean_gate: L-GATE_ELIGIBILITY
+    lod_status: LOD100
+    assigned_builder: "sadot_doc"
+    assigned_validator: "sadot_val"
+    created_at: "2026-07-08"
+    milestone_ref: "S004"
+    stage_mapping: "Stage 6 (Documentation) + Stage 7 (Archive)"
+    spec_ref: "TBD"
+    gate_history: []
+    notes: "CLASS=CONTENT. BLOCKED on S003 completion."
+
+  - id: "SDT-S004-P001-WP002"
+    label: "Bill of Quantities (BOQ) — derived partly from 3D model export"
+    status: PLANNED
+    track: A
+    current_lean_gate: L-GATE_ELIGIBILITY
+    lod_status: LOD100
+    assigned_builder: "sadot_doc"
+    assigned_validator: "sadot_val"
+    created_at: "2026-07-08"
+    milestone_ref: "S004"
+    stage_mapping: "Stage 6 (Documentation) + Stage 7 (Archive)"
+    spec_ref: "TBD"
+    gate_history: []
+    notes: "CLASS=CONTENT (mixed w/ 3D export data). BLOCKED on S003 completion."
+
+  - id: "SDT-S004-P001-WP003"
+    label: "Client submission package + hub delivery (raw-materials/to-client/, hub/)"
+    status: PLANNED
+    track: A
+    current_lean_gate: L-GATE_ELIGIBILITY
+    lod_status: LOD100
+    assigned_builder: "sadot_doc"
+    assigned_validator: "sadot_val"
+    created_at: "2026-07-08"
+    milestone_ref: "S004"
+    stage_mapping: "Stage 6 (Documentation) + Stage 7 (Archive)"
+    spec_ref: "TBD"
+    gate_history: []
+    notes: "CLASS=CONTENT. BLOCKED on SDT-S004-P001-WP001/WP002."

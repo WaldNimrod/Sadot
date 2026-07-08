@@ -1,0 +1,78 @@
+# Sadot — SITE_GEO.yaml (real client plot data — received 2026-07-08)
+# Provenance: adapted from IsraelMicrogreens-BlenderV2-Project data/site/SITE_GEO.yaml schema
+# (WP: SDT-S001-P001-WP001). Populated with REAL survey data from
+# raw-materials/from-client/10111TD122 (1).pdf (licensed survey "מודדי עירון",
+# מס' סידורי 10111TD122, קנה מידה 1:250, חתום 22.08.2023) + client-provided WGS84 pin.
+# raw-materials/ itself is git-ignored — this file is the CURATED, tracked extraction.
+
+site_id: sadot_niv_pardes_hanna
+status: partial — plot boundary + elevations confirmed by licensed survey; sun/shade + soil-test still pending
+updated: '2026-07-08'
+approved_by: team_00
+
+# Legal/registry identity (from the survey title block)
+registry:
+  settlement: "פרדס חנה (Pardes Hanna)"
+  street: "רוד/רחוב גמלא (Gamla St.)"
+  gush: 10111
+  helka: 122
+  registered_area_sqm: 752
+  plot_area_sqm: 752
+  survey_ref: "10111TD122, קנה מידה 1:250, מודדי עירון (מודד מוסמך), חתום 22.08.2023"
+  adjacent_parcels: [119, 120, 121, 270, 57, 28]
+  note: "Parcel 28 to the north is marked 'שטח חלקאי' (agricultural/cultivated land)."
+
+# Client-supplied approximate WGS84 pin (received via chat, 2026-07-08) — for map/orientation reference.
+# NOT construction-grade precision; the survey `boundary_itm` below is the authoritative geometry.
+wgs84:
+  latitude: 32.46428
+  longitude: 34.96231
+  source: "Client-supplied pin (Niv Sadot), 2026-07-08"
+  accuracy_m: null
+  note: "Consistent with Pardes Hanna-Karkur's real-world location — used for map/orientation only, not set-out."
+
+# Authoritative plot boundary, from the licensed survey's own coordinate list (רשימת קואורדינטות,
+# מאוזן/צפון-מזרח columns). Grid: Israeli New Grid / ITM-compatible (per geo_itm.py's EPSG:2039 assumption) —
+# NOT independently re-verified against the survey's own datum note; treat as ITM pending confirmation.
+boundary_itm:
+  epsg: 2039
+  points:
+    - {id: "1G", easting_m: 196695.299, northing_m: 707864.034}
+    - {id: "2G", easting_m: 196701.014, northing_m: 707864.620}
+    - {id: "3G", easting_m: 196694.530, northing_m: 707812.220}
+    - {id: "4G", easting_m: 196684.489, northing_m: 707813.303}
+    - {id: "5G", easting_m: 196680.410, northing_m: 707860.480}
+    - {id: "6G", easting_m: 196695.580, northing_m: 707862.030}
+  note: "6-point plot boundary polygon, order as listed in the survey's coordinate table. Use with geo_itm.py for Blender world-space placement once a site-anchor convention is set."
+
+# Spot elevations visible on the survey (representative range only — not a full grid; see the PDF itself
+# under raw-materials/from-client/ for the full scatter of ~40+ spot heights across the plot).
+elevation:
+  unit: meters
+  approx_range: [54.47, 57.59]
+  note: "Meters above the survey's own datum (assumed local/national leveling datum — not independently confirmed). Full spot-height scatter is on the source PDF; digitize during S003 site-anchoring if a precise grading model is needed."
+
+# Existing vegetation — tree schedule from the survey's לוח עצים (tree schedule) table.
+# Columns as given: height_m, diameter_m, species_code (עץ=generic tree, זית=olive), index_no.
+existing_trees:
+  count: 24
+  species_breakdown: "23 generic trees (coded עץ) + 1 olive tree (coded זית, item #12, height 6.00m diam 0.35m)"
+  note: "Full per-tree height/diameter table is on the source PDF (raw-materials/from-client/10111TD122 (1).pdf) — digitize into a structured table here if/when individual tree preservation decisions are made in S002/S003."
+
+blender_datum:
+  blend_live: "none yet — see blender/CURRENT_MODEL.md"
+  object_name: "SITE.geo_anchor"
+  status: TBD — set when the first Sadot .blend is created (S003); anchor to boundary_itm point "1G" or plot centroid, team_110/team_10 to decide at that time.
+
+orientation:
+  status: TBD — the survey PDF shows a north arrow but no digitized bearing was extracted from the raster scan.
+  method_pending: "If a DWG/DXF version of the survey becomes available, extract true bearing directly. Otherwise measure the north arrow angle against the plot boundary manually before S003 set-out."
+
+architectural_reference:
+  ifc_file: "raw-materials/from-client/NSB02.ifc"
+  note: "IFCPROJECT name fields decode to Hebrew 'ניב שדות' (Niv Sadot); IFCSITE carries its own (Revit-authored) lat/long reference that does NOT match the client-supplied WGS84 pin above — flagged for reconciliation with the architect (Michal, per IFCOWNERHISTORY), not yet resolved. Exported from Autodesk Revit 2023 (IFC2X3 schema), 2026-07-06. Intended as the architectural (house) model basis for the site-anchored Blender build in S003 — import via Blender's IFC pipeline when that WP starts."
+
+references:
+  - design/CANONICAL/02_SPATIAL_SSOT_and_GEOMETRY.md
+  - design/CLIENT_BRIEF_NIV_SADOT_v1.0.0.md
+  - _aos/work_packages/S001/LOD300_milestone.md

@@ -57,15 +57,16 @@ teams:
       - finding_classification
     notes: "Cross-engine validator at L-GATE_VALIDATE. IRON RULE: engine != builder."
 
-  # OPTIONAL roles below — include only if project requires them:
+  - id: "sadot_doc"
+    role_type: documentation_agent
+    engine: "codex"
+    skills:
+      - template_completion
+      - governance_indexing
+      - content_authoring
+    notes: "Sadot's IR#14 specialization of the universal team_70 (the Librarian) role — authors design/CANONICAL/ dossier content, knowledge/ KB, hub/ copy, and governance-proposal drafts (SADOT_DOMAIN_RULES_CANON, LANDSCAPE_DESIGN PLA). Engine=codex per team_70's universal default; per-domain override registered here per team_70's own governance contract."
 
-  # - id: "sadot_doc"
-  #   role_type: documentation_agent
-  #   engine: "[any-engine]"
-  #   skills:
-  #     - template_completion
-  #     - governance_indexing
-  #   notes: "Technical writing. Optional on small projects."
+  # OPTIONAL roles below — include only if project requires them:
 
   # - id: "sadot_gate"
   #   role_type: gateway_agent

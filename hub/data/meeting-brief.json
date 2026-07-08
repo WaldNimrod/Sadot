@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "meetingDate": "",
+  "titleHe": "תדריך פגישה — טרם נקבע",
+  "goalsHe": [],
+  "agendaHe": [],
+  "openDecisionsRefs": [],
+  "prepHe": "",
+  "quickLinks": [
+    { "labelHe": "מה נדרש ממך (עדיפות)", "href": "what-we-need.html" },
+    { "labelHe": "משימות והחלטות", "href": "tasks.html" },
+    { "labelHe": "מפת דרכים", "href": "roadmap.html" }
+  ]
+}
