@@ -5,3 +5,6 @@
 /_aos/methodology/
 /_aos/lean-kit/
 # ── /AOS-GOV-CACHE ──
+
+# ── Raw materials (git-ignored; can balloon; Drive-synced) — RAW_MATERIALS canon ──
+/raw-materials/

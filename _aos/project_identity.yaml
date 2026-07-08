@@ -29,7 +29,7 @@ boundaries:
     - "design/"         # design dossier + drawing sheets
     - "hub/"            # Sadot client hub (Niv Sadot)
     - "blender/"        # 3D garden-model lineage
-    - "sources/"        # ingested seed materials
+    - "raw-materials/"  # git-ignored client materials (from-client / to-client); Drive-synced — see _aos/context/RAW_MATERIALS.md
 
   # NOTE: sibling-domain names are intentionally NOT forbidden — Sadot harvests + adapts reusable
   # canon/scripts from microgreens/SMA/eyalamit (provenance retained). Cross-project ISOLATION is
