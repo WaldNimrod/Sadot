@@ -87,18 +87,40 @@ the fallback if that doesn't return results.
 Once these 4 distances are in, the transform (translation + confirmation of zero rotation) can be computed
 directly — no further survey work needed.
 
-## 4. Build sequence (once unblocked)
+## 4. Build sequence
 
-1. Get the 4 tie-measurements (§3) → compute the IFC→ITM transform.
-2. Run the shell-extraction script (§2) → `house_shell.obj`.
-3. Run `generate_terrain_tin.py` on real elevation data (needs the surveyor's digital point list — separate open
-   item, not blocking the house shell) → `terrain.obj`.
-4. Open a **dedicated Sadot Blender file** (see §5 — currently blocked) → import both OBJs, apply the computed
-   transform to `house_shell.obj` so it sits correctly on the real, precisely-plotted boundary.
-5. Add the plot boundary itself as a reference curve/plane (from `SITE_GEO.yaml`'s 6 real points).
-6. Screenshot + compare against `design/CANONICAL/CONCEPT_SKETCH_REFERENCE.md` (the client's hand sketch analysis)
+1. Get the 4 tie-measurements (§3) → compute the IFC→ITM transform. **Still open — not yet done.**
+2. ~~Run the shell-extraction script (§2)~~ **DONE (2026-07-09, v1):** `blender/scripts/site/export_house_shell_obj.py`
+   (a new, simpler script than the wall-axis-chaining approach originally described in §2 — it exports ALL walls
+   via `ifcopenshell.geom` real mesh geometry directly, interior partitions included, rather than reconstructing
+   just the exterior perimeter; a later pass can prune to exterior-only) → `blender/data/site/house_shell_v1.obj`
+   (111 walls + 13 windows + 16 doors + the deck slab #51836 = 141 elements; roofs excluded — the 6 `IfcRoof`
+   entities have no geometric `Representation` at all in this export, a real data gap, not a script bug).
+3. ~~Run `generate_terrain_tin.py` on real elevation data~~ **DONE (2026-07-09, v1):**
+   `blender/data/site/boundary_points_v1.csv` (6 real ITM boundary points + per-corner elevations read directly
+   from the nearest visually-adjacent spot-height on the 600 DPI survey re-scan — see `SITE_GEO.yaml`
+   `approximate_corner_elevations_v1`, explicitly flagged as indicative, not the surveyor's own formal point-list)
+   → `blender/data/site/terrain.obj`.
+4. Open a **dedicated Sadot Blender file** → import both OBJs. **Still blocked as of 2026-07-09: the Blender MCP
+   connection is not established** (`get_scene_info` → "Could not connect to Blender. Make sure the Blender addon
+   is running") — needs the user to open Blender with the MCP addon's server started.
+5. **Since step 1 (tie-measurement) isn't done yet, position `house_shell_v1.obj` using a PROVISIONAL, clearly-flagged
+   approximate anchor** — south-central part of the plot polygon (matching Niv's own description, "מהיכן שרשום
+   בpdf סככה ומחסן ולכיוון דרום," and the real location of the existing שed/storage labels found in the survey
+   re-scan), oriented so the IFC's own Y+ (its declared TrueNorth) aligns with the plot's real northing (zero
+   rotation, per the already-established finding that both systems are independently true-north-aligned) — i.e.
+   translation-only placement, no rotation applied. **This exact position will move once the real tie-measurement
+   or Michal's coordinates arrive — do not treat it as a site-anchored fact.**
+6. Add the plot boundary itself as a reference curve/plane (from `terrain.obj`, §4.3 above).
+7. Screenshot + compare against `design/CANONICAL/CONCEPT_SKETCH_REFERENCE.md` (the client's hand sketch analysis)
    and `SITE_UNDERSTANDING_SKETCH_v1.0.0.svg` for a sanity check before proceeding to S002 concept work on top of
    this base.
+
+**Survey re-scan finding (2026-07-09):** re-examined the full parcel 122 in the survey PDF after Michal told
+team_00 it also marks the new house's position (southern part of the plot). Found no house-footprint outline —
+only the already-known small outbuildings and 3 "קו בניין X מ'" building/setback-line annotations (4m/5m/7m from
+different edges), which define a *permitted building envelope*, not a drawn house shape. Flagged back to team_00;
+not used as a precision anchor. Full note: `blender/data/site/SITE_GEO.yaml` (comment above `house_reference_corners`).
 
 ## 5. Blockers (unchanged from earlier — restated for this plan's completeness)
 

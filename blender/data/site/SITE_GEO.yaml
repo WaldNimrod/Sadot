@@ -139,6 +139,25 @@ house_reference_corners:
       description: "Outside corner of the children's-bedroom wing (window tag 5834063's room), where the back wall turns into a ~22m exterior wall run — a genuine major footprint corner."
   internal_baseline_m: 9.33
 
+# Re-scan finding (2026-07-09, prompted by architect Michal telling team_00 the survey also marks the new
+# house's position, in the southern part of the plot): re-examined the ENTIRE parcel 122 in the survey PDF at
+# native 600 DPI resolution, north to south. Found NO distinct house-footprint outline anywhere in the parcel —
+# only small existing outbuildings (a pergola, a ~4x3.4m storage shed "מחסן", a "סככה"/canopy shed — all already
+# documented, unchanged from the earlier retraction) and 3 red-dashed "קו בניין X מ'" (building/setback-line)
+# annotations: 4m (parallel to the eastern/2G-3G boundary edge), 5m (near the northwest, parallel to a western
+# edge), and 7m (near the south). These are legally-mandated construction-setback lines defining a PERMITTED
+# BUILDING ENVELOPE, not a drawn house outline — a materially different thing. This may or may not be what Michal
+# meant; flagged back to team_00 for clarification rather than assumed. Not incorporated into any position/anchor
+# decision below — the house placement in house_shell_v1.obj (see architectural_reference) remains a rough
+# provisional placement (south-central part of the plot, matching Niv's own description + the shed labels' real
+# location), explicitly NOT a precise anchor, pending the real tie-measurement or Michal's exact coordinates.
+approximate_corner_elevations_v1:
+  note: "Per-corner elevations read directly from the nearest visually-adjacent spot-height label to each
+    boundary point (600 DPI re-scan, 2026-07-09) — NOT the surveyor's own formal point-elevation list (this
+    survey's coordinate table has no elevation column). Treat as indicative, not survey-grade. Used only to
+    give blender/data/site/boundary_points_v1.csv + terrain.obj (v1) a non-flat reference surface."
+  points: {1G: 56.56, 2G: 56.76, 3G: 54.47, 4G: 54.76, 5G: 55.80, 6G: 56.49}
+
 architectural_reference:
   ifc_file: "raw-materials/from-client/NSB02.ifc"
   status: "THE authoritative source for the CURRENT house structure (see scope note above) — the survey PDF's
