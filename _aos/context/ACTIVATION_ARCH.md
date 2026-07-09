@@ -9,7 +9,7 @@
 
 ## Current State
 - **Active milestone:** S001 (environment completion, domain research, site analysis + client brief)
-- **Active WP:** see `_aos/roadmap.yaml` for the current WP list and gate positions (S001 carries 15 WPs across 3 programs)
+- **Active WP:** see `_aos/roadmap.yaml` for the current WP list and gate positions — do not rely on a cached WP count here, it drifts; roadmap.yaml is the sole SSOT for that number.
 - **Profile:** L0
 - **Roadmap:** `_aos/roadmap.yaml` (your SSoT for WP state)
 

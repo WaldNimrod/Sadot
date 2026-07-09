@@ -9,11 +9,13 @@ files-in-folder + what-is-NOT-here + key-facts quick-ref).
 | Task type | Read first | Read next |
 |---|---|---|
 | Onboarding (any new agent/team) | This file | `_aos/context/PROJECT_CONTEXT.md`, `_aos/context/TRAINING_PLAN.md` |
+| Site geometry / plot survey (boundary, elevation, trees, orientation) | `design/CANONICAL/02_SPATIAL_SSOT_and_GEOMETRY.md` | `blender/data/site/SITE_GEO.yaml`, `design/CANONICAL/HOUSE_IFC_REFERENCE.md` |
+| Client requirements / brief | `design/CLIENT_BRIEF_NIV_SADOT_v1.0.0.md` | `design/SITE_UNDERSTANDING_SKETCH_v1.0.0.svg`, `design/CANONICAL/CONCEPT_SKETCH_REFERENCE.md` |
 | Plant selection / planting plan | `knowledge/crops/PLANT_SELECTION_STARTER.md` | `knowledge/crops/SCHEMA_REFERENCE.md`, `knowledge/climate/ISRAELI_CLIMATE_SOIL_PARDES_HANNA.md` |
 | Permaculture / ecological design | `knowledge/permaculture/00_INDEX.md` | `01_ZONES_AND_SECTORS.md` → `02_GUILDS_AND_PLANTING_STRATEGY.md` → `03_WATER_AND_SWALES.md` |
 | Climate/soil context | `knowledge/climate/ISRAELI_CLIMATE_SOIL_PARDES_HANNA.md` | `knowledge/permaculture/03_WATER_AND_SWALES.md` (irrigation/dry-summer design) |
 | Architectural drawing production | `design/ARCHITECTURAL_DRAWING_CANON/00_ENTRY_POINT.md` | `design/CANONICAL/00_MASTER_INDEX_and_CANON_MAP.md` |
-| 3D model / Blender pipeline | `blender/CURRENT_MODEL.md` | `blender/lib/geo_itm.py`, `blender/scripts/site/`, `design/CANONICAL/HOUSE_IFC_REFERENCE.md` |
+| 3D model / Blender pipeline | `blender/CURRENT_MODEL.md` | `blender/lib/geo_itm.py`, `blender/scripts/site/`, `design/CANONICAL/HOUSE_IFC_REFERENCE.md`, `design/CANONICAL/BLENDER_SHELL_BUILD_PLAN_v1.0.0.md` |
 | Client-hub work | `hub/README.md` | `hub/data/*.json` |
 | Domain authority / credentials | `knowledge/permaculture/04_CREDENTIALS_AND_PRECEDENT.md` | `nimrod-book/chapters/11_ERA_GARDEN_2013_2023.md` (source repo, read-only) |
 
@@ -36,7 +38,7 @@ files-in-folder + what-is-NOT-here + key-facts quick-ref).
 
 | Topic | Where it actually lives |
 |---|---|
-| Plot-specific site survey (topography, sun/shade, drainage, soil test) | `raw-materials/from-client/` — **received 2026-07-08** (boundary, elevations, 13-tree inventory); soil test + true-north bearing still pending, curated into `blender/data/site/SITE_GEO.yaml` |
+| Plot-specific site survey (topography, sun/shade, drainage, soil test) | `raw-materials/from-client/` — **received 2026-07-08** (boundary, elevations, 13-tree inventory, orientation); status tracked in `design/CANONICAL/02_SPATIAL_SSOT_and_GEOMETRY.md` (geometry SSOT). Still pending: formal soil lab test, sun/shade seasonal study. (True-north bearing: resolved 2026-07-08 by computation, see 02 — not still pending.) |
 | Design decisions, spatial SSOT, BOQ, contractor package | `design/CANONICAL/` (the dossier front door — "register drives the model") |
 | Architectural drawing production standards | `design/ARCHITECTURAL_DRAWING_CANON/` |
 | 3D model file + geo-anchoring scripts | `blender/` |
@@ -55,7 +57,8 @@ Climate:           Köppen Csa (hot-summer Mediterranean); ~500-650mm/yr rain, O
 Regional soil:     "Hamra" — reddish sandy clay loam over kurkar sandstone (regional prior, NOT plot-confirmed)
 Plot survey:       RECEIVED 2026-07-08 (licensed survey + IFC model + sketches + voice brief) — see
                    blender/data/site/SITE_GEO.yaml + design/CLIENT_BRIEF_NIV_SADOT_v1.0.0.md.
-                   Still open: formal soil lab test, digitized true-north bearing.
+                   Still open: formal soil lab test. (True-north bearing resolved 2026-07-08 — see
+                   design/CANONICAL/02_SPATIAL_SSOT_and_GEOMETRY.md.)
 Harvest sources:   IsraelMicrogreens-BlenderV2-Project (drawing canon+geo+Blender), SmallFarmsAgents (crop KB),
                    EyalAmit.co.il-2026 (hub pattern), nimrod-book (permaculture credentials)
 Permaculture KB:   authored from scratch 2026-07-08 — no prior structured source existed

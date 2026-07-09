@@ -85,7 +85,7 @@ python3 lib/sheet_model_parity.py P101 drawings/P_reservoir/P-101_reservoir.svg
 |------|-----------|
 | Canon content | team_110 (modeling) + team_100 (engineering docs) |
 | Sheet approval | team_00 (Nimrod) — `APPROVAL_LOG.md` |
-| Cross-engine QA | team_190 (Iron Rule #1) |
+| Cross-engine QA | team_90 (Iron Rule #1; per ADR053, team_190's validator role collapsed into team_90) |
 | Hub `_aos/` changes | team_00 / team_100 via GCR only |
 
 **Revision:** Update `CANON_VERSION.yaml` when canon structure or terminology changes.

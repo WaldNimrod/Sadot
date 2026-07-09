@@ -18,8 +18,9 @@ dossier + formal client brief that S002 (Concept Design) depends on. This broade
 team_120 originally wrote ("Initial domain research and environment bootstrap") — no WP was ever registered against
 that label, so the broadening carries no migration cost.
 
-**Hard constraint:** `raw-materials/from-client/` is empty — no plot survey has been received from Niv Sadot. Two WPs
-below are genuinely BLOCKED, not just deprioritized, until that arrives.
+**Historical note (superseded 2026-07-08):** at this document's authoring time, `raw-materials/from-client/` was
+empty and two WPs below were genuinely BLOCKED, not just deprioritized, pending the client survey. See the
+2026-07-08 update in §2 below — this cleared the same day; the per-WP status table is the live truth.
 
 ## 2. Work Packages in this stage
 

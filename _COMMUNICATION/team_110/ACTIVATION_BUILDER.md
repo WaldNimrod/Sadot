@@ -1,3 +1,9 @@
+> ⚠ **SUPERSEDED 2026-07-08** — this is the original team_120 generic-project-scaffold artifact (engine/validator
+> assignments below are wrong: it says `cursor`/"always Team 190", both since corrected — real engine is
+> `cursor-composer`, validator is `team_90` per `_aos/team_assignments.yaml` + ADR053). The canonical,
+> domain-specialized version is `_aos/context/ACTIVATION_BUILDER.md` (per `_aos/README.md`'s mandatory-file table)
+> — use that one, not this one. Kept here only as a historical record of the initial bootstrap.
+
 # ACTIVATION — Builder Agent (sadot_build)
 
 ## Your Identity

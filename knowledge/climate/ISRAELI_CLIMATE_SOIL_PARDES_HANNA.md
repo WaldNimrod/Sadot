@@ -2,16 +2,18 @@
 id: SADOT-RESEARCH-CLIMATE-SOIL
 type: team_80 research finding
 scope: general (regional) — NOT plot-specific
-status: NOW — general research; plot-specific overlay BLOCKED pending client survey
-date: 2026-07-08
+status: NOW — general research; some plot-specific data has since arrived (see caveat below), soil lab test + sun/shade study still pending
+date: 2026-07-08 (caveat updated 2026-07-09)
 ---
 
 # Israeli climate + soil — Pardes Hanna area (general, non-plot-specific)
 
 **Scope caveat (read first):** everything below is regional/general knowledge about the Pardes Hanna-Karkur area. It
-is NOT a substitute for a real site survey. `raw-materials/from-client/` is currently empty — no plot-specific
-topography, drainage, sun/shade map, or lab soil test exists yet. Treat every fact below as a starting hypothesis to
-confirm once real data arrives (see `SDT-S001-P002-WP004`, currently BLOCKED).
+is NOT a substitute for a real site survey. A partial plot survey has since arrived (boundary, elevation,
+orientation, existing-tree inventory — see `design/CANONICAL/02_SPATIAL_SSOT_and_GEOMETRY.md` for current status),
+but a formal soil-composition lab test and direct sun/shade observation are still outstanding. Treat every
+regional/general fact below as a starting hypothesis to confirm once that remaining data arrives (see
+`_aos/roadmap.yaml`, WP `SDT-S001-P002-WP004`, status IN_PROGRESS).
 
 ## 1. Location + climate classification
 
@@ -53,6 +55,7 @@ The Sharon coastal-plain belt (which includes the Pardes Hanna area) is characte
 
 ## 4. Explicitly BLOCKED — do not fabricate
 
-The following require the real plot survey and are NOT addressed here: exact soil pH/composition test results,
-sun/shade hours by season for the specific plot, drainage/slope, existing vegetation inventory, any structure/utility
-constraints. See `SDT-S001-P002-WP004` in `_aos/roadmap.yaml` (status: BLOCKED).
+The following still require data beyond what's arrived and are NOT addressed here: exact soil pH/composition test
+results, sun/shade hours by season for the specific plot, drainage/slope, any structure/utility constraints.
+(Existing vegetation inventory is no longer blocked — see `design/CANONICAL/02_SPATIAL_SSOT_and_GEOMETRY.md`, 13
+trees confirmed.) See `SDT-S001-P002-WP004` in `_aos/roadmap.yaml` (status: IN_PROGRESS, not BLOCKED).

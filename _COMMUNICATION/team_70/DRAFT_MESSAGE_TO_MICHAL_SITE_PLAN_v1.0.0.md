@@ -3,7 +3,8 @@ id: DRAFT_MESSAGE_TO_MICHAL_SITE_PLAN_v1.0.0
 type: professional-communication draft (NOT sent — for team_00/Nimrod to review, edit, and send)
 from: team_110 (Domain Architect / landscape architect persona)
 to: Michal (Niv Sadot's architect — not a project team member, minimal-ask framing)
-date: 2026-07-09 (updated — v1 offered only the site-plan option, v2 adds a specific-distances alternative per team_00)
+date: 2026-07-09 (updated — v1 offered only the site-plan option, v2/internal revision 1.1 adds a specific-distances
+  alternative per team_00)
 rationale: "The simplest possible ask, offered as TWO options so she can pick whichever is less friction — a
   site-plan export she may already have, OR a handful of specific Revit-measured distances — instead of asking
   her to engage with our internal IFC/survey coordinate-reconciliation problem, which is our concern, not hers."

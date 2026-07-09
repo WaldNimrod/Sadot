@@ -1,3 +1,8 @@
+> ⚠ **SUPERSEDED 2026-07-08** — this is the original team_120 generic-project-scaffold artifact (engine/validator
+> assignments below are wrong: it says `claude-code`/"always Team 190", both since corrected). The canonical,
+> domain-specialized version is `_aos/context/ACTIVATION_ARCH.md` (per `_aos/README.md`'s mandatory-file table) —
+> use that one, not this one. Kept here only as a historical record of the initial bootstrap.
+
 # ACTIVATION — Architecture Agent (sadot_arch)
 
 ## Your Identity

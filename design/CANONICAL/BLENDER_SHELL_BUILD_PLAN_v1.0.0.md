@@ -1,5 +1,10 @@
 # BLENDER HOUSE-SHELL BUILD PLAN
-### Sadot · Landscape Architecture · Team 110 · v1.0.0 · 2026-07-09 · **owns: house-shell construction approach for S003** · status: **PLAN — not yet executed, blocked on 3 items (see §5)**
+### Sadot · Landscape Architecture · Team 110 · v1.1.0 · 2026-07-09 · **owns: house-shell construction approach for S003** · status: **PLAN — not yet executed, blocked on 3 items (see §5)**
+
+> **v1.1.0 (2026-07-09):** dedupe pass — coordinate tables (reference corners, boundary points) now point to
+> `blender/data/site/SITE_GEO.yaml` instead of duplicating the numbers; deck status corrected from "CONFIRMED" to
+> "high-confidence candidate" to match `HOUSE_IFC_REFERENCE.md` §4's own status; balcony finding consolidated into
+> `HOUSE_IFC_REFERENCE.md` §4b; noted the parallel Michal-inquiry channel in §3/§5.
 
 ## 1. Scope
 
@@ -12,17 +17,11 @@ furniture/fixtures, no MEP (electrical/plumbing). Included:
 - Exterior doors (16 total, all included as openings; the 4.2m double-leaf glass door near the deck is the most
   visually important one).
 - All balcony/deck/terrace elements ("מרפסות"), per current confidence:
-  - **Front deck — CONFIRMED, ready to model:** `IfcSlab #51836`, genuine multi-arc round edge, real geometry
-    already extracted (see `HOUSE_IFC_REFERENCE.md` §4).
-  - **Parents' 2nd-floor balcony — NOT YET FOUND.** A dedicated geometric search (protruding-slab pattern, same
-    method that found the front deck) on the `יח' הורים` storey returned **no matching element** — no slab/space
-    there protrudes past the wall envelope the way the front deck does. This may mean it isn't modeled as a
-    distinct element in this IFC export at all. **Open item** — either dig further (check for a recessed/inset
-    balcony that wouldn't show as "protruding"), or treat it as a landscape-team addition based on the client's
-    stated need rather than an as-designed architectural element.
-  - **Children's balconies (back) — PARTIALLY FOUND.** One plausible small slab (`Floor:ר3:5618668:2`, #2592,
-    ~9m²) sits near window tag 5795233; no matching second slab was found near window tag 5834063. Treat as a
-    working hypothesis for one balcony, open for the other.
+  - **Front deck — HIGH-CONFIDENCE CANDIDATE, ready to model pending visual sign-off:** `IfcSlab #51836`, genuine
+    multi-arc round edge, real geometry already extracted (see `HOUSE_IFC_REFERENCE.md` §4). Not yet visually
+    confirmed against the architect's 2D plan — build it, but don't treat it as immune to correction.
+  - **Parents' 2nd-floor balcony + children's balconies (back)** — geometric search results (protruding-slab
+    method): see `HOUSE_IFC_REFERENCE.md` §4b (canonical location for this finding; not restated here).
 
 ## 2. Method — extract-and-rebuild via ifcopenshell, not a full Bonsai import
 
@@ -54,13 +53,14 @@ the shell-only goal.
 
 Two real, precise exterior corners were identified directly from the IFC model's own geometry (not estimated):
 
-| Corner | Where | IFC-native world coords (m) |
-|---|---|---|
-| **Front** | Outside corner ~2m from the kitchen/deck door, on the straight part of the wall right where the deck's straight edge meets the house (not the round arc) | X=-411197.429, Y=-270528.236, Z≈57.68 |
-| **Back** | Outside corner of the children's bedroom wing (window tag 5834063's room), where the back wall turns into a ~22m-long exterior wall run — a genuine major footprint corner | X=-411206.746, Y=-270527.663, Z≈57.69 |
+| Corner | Where |
+|---|---|
+| **Front** | Outside corner ~2m from the kitchen/deck door, on the straight part of the wall right where the deck's straight edge meets the house (not the round arc) |
+| **Back** | Outside corner of the children's bedroom wing (window tag 5834063's room), where the back wall turns into a ~22m-long exterior wall run — a genuine major footprint corner |
 
-Distance between them (internal check): ≈9.33m. Both are on the same storey (entrance floor, real elevation
-~57.69m in the IFC's own world coordinates).
+Exact coordinates (both on the entrance-floor storey, ≈9.33m apart): see `blender/data/site/SITE_GEO.yaml` →
+`house_reference_corners` — that file is the numeric SSOT; do not copy the coordinates here where they could drift
+out of sync if a survey correction ever revises them.
 
 **Why 2 corners, not 1:** the IFC's `TrueNorth` declaration and the survey's own ITM grid both claim true-north
 alignment independently — meaning the *rotation* between the two coordinate systems is very likely already
@@ -68,24 +68,21 @@ zero. That leaves only a *translation* (X/Y offset) to solve — which 2 indepen
 (triangulation) can fully determine, without needing any compass/angle measurement on site.
 
 **What's needed from you:** measure the real-world straight-line distance from **2 of the 6 real survey boundary
-points** (table below, from `blender/data/site/SITE_GEO.yaml` — these were the surveyor's own coordinates,
-confirmed accurate) to **each** of the 2 house corners above. A laser distance meter is ideal if there's line of
-sight; a long tape measure works otherwise (in short chained segments if needed).
+points** (exact coordinates: `blender/data/site/SITE_GEO.yaml` → `boundary_itm.points` — the surveyor's own
+coordinates, confirmed accurate; not reproduced here to avoid a second copy drifting out of sync) to **each** of
+the 2 house corners above. A laser distance meter is ideal if there's line of sight; a long tape measure works
+otherwise (in short chained segments if needed).
 
-| Survey point | Easting (ITM) | Northing (ITM) |
-|---|---|---|
-| 1G | 196695.299 | 707864.034 |
-| 2G | 196701.014 | 707864.620 |
-| 3G | 196694.530 | 707812.220 |
-| 4G | 196684.489 | 707813.303 |
-| 5G | 196680.410 | 707860.480 |
-| 6G | 196695.580 | 707862.030 |
-
-Pick whichever 2 of these 6 points are physically locatable on the ground (survey pins/monuments, or ask מודדי
-עירון to help relocate them) and reasonably reachable from the house. Report back 4 numbers: distance from point
-A to the front corner, point A to the back corner, point B to the front corner, point B to the back corner
-(2 points × 2 corners = 4 measurements — this over-determines the solution slightly, which lets us catch
+Pick whichever 2 of the 6 boundary points (1G-6G) are physically locatable on the ground (survey pins/monuments, or
+ask מודדי עירון to help relocate them) and reasonably reachable from the house. Report back 4 numbers: distance
+from point A to the front corner, point A to the back corner, point B to the front corner, point B to the back
+corner (2 points × 2 corners = 4 measurements — this over-determines the solution slightly, which lets us catch
 measurement errors rather than just accept whatever comes out).
+
+**A parallel channel was opened 2026-07-09:** asking architect Michal directly for a site-plan export or
+Revit-measured distances to the same 2 corners, as an alternative to the on-site tie-measurement above — see
+`_COMMUNICATION/team_70/DRAFT_MESSAGE_TO_MICHAL_SITE_PLAN_v1.0.0.md` (not yet sent). The on-site plan above remains
+the fallback if that doesn't return results.
 
 Once these 4 distances are in, the transform (translation + confirmation of zero rotation) can be computed
 directly — no further survey work needed.
@@ -99,8 +96,9 @@ directly — no further survey work needed.
 4. Open a **dedicated Sadot Blender file** (see §5 — currently blocked) → import both OBJs, apply the computed
    transform to `house_shell.obj` so it sits correctly on the real, precisely-plotted boundary.
 5. Add the plot boundary itself as a reference curve/plane (from `SITE_GEO.yaml`'s 6 real points).
-6. Screenshot + compare against the client's hand sketches and `SITE_UNDERSTANDING_SKETCH_v1.0.0.svg` for a
-   sanity check before proceeding to S002 concept work on top of this base.
+6. Screenshot + compare against `design/CANONICAL/CONCEPT_SKETCH_REFERENCE.md` (the client's hand sketch analysis)
+   and `SITE_UNDERSTANDING_SKETCH_v1.0.0.svg` for a sanity check before proceeding to S002 concept work on top of
+   this base.
 
 ## 5. Blockers (unchanged from earlier — restated for this plan's completeness)
 
@@ -109,8 +107,10 @@ directly — no further survey work needed.
   saved/closed, or a second Blender instance opened by the user.
 - **Bonsai install** — not required for the primary plan (§2), only for optional later cross-checking; still
   blocked on explicit "online access" approval if pursued.
-- **Parents' balcony + one children's balcony** — not geometrically confirmed in the IFC (§1) — needs either more
-  investigation or a client-informed design decision.
+- **Parents' balcony + one children's balcony** — not geometrically confirmed in the IFC (`HOUSE_IFC_REFERENCE.md`
+  §4b) — needs either more investigation or a client-informed design decision.
+- **Tie-measurement numbers** — neither the on-site measurement (§3) nor the parallel Michal-inquiry channel
+  (`_COMMUNICATION/team_70/DRAFT_MESSAGE_TO_MICHAL_SITE_PLAN_v1.0.0.md`, not yet sent) has returned results yet.
 
 ## References
 - `design/CANONICAL/HOUSE_IFC_REFERENCE.md` — full house data (storeys, windows, walls, doors, stairs, materials).

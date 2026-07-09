@@ -39,9 +39,13 @@ agriculture study, biochar project) per `nimrod-book/chapters/11_ERA_GARDEN_2013
 drainage, soil test, existing vegetation) had been received from Niv Sadot. No placeholder/fabricated plot data was
 produced. **Update, same day:** a licensed survey + IFC model + sketches + voice brief arrived later in the session
 and were curated into `blender/data/site/SITE_GEO.yaml` — see `roadmap.yaml`'s `SDT-S001-P002-WP004` entry (now
-IN_PROGRESS) for current status; soil test and true-north bearing remain genuinely unreceived. This document is kept
-as the point-in-time record of what team_80 found before that arrival, not retroactively edited. Remaining unblock
-condition: a formal soil lab test + a digitized true-north bearing, before this WP and its downstream dependent
+IN_PROGRESS) for current status; soil test and true-north bearing remain genuinely unreceived **as of this
+document's writing**. This document is kept as the point-in-time record of what team_80 found before that arrival,
+not retroactively edited — **but note: the true-north bearing was in fact resolved later the same day** (by
+computing boundary-edge bearings directly from the survey's own ITM coordinates — see
+`design/CANONICAL/02_SPATIAL_SSOT_and_GEOMETRY.md`), so that half of the "remaining unblock condition" below no
+longer applies; only the soil lab test remains outstanding. Remaining unblock condition: ~~a formal soil lab test +
+a digitized true-north bearing~~ **a formal soil lab test**, before this WP and its downstream dependent
 (`SDT-S001-P003-WP002`, the formal site-analysis dossier + client brief) can be marked COMPLETE.
 
 ## Routing

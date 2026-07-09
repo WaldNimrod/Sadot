@@ -1,10 +1,10 @@
 # _aos/ — Self-Contained Project Governance
 
-## Project: [PROJECT NAME]
+## Project: Sadot
 
 ## What is this?
 
-This directory contains all governance artifacts for [PROJECT NAME].
+This directory contains all governance artifacts for Sadot.
 It is self-contained: clone this repo to any machine and governance is complete.
 No external references to agents-os hub or other project repos.
 
@@ -25,6 +25,7 @@ No external references to agents-os hub or other project repos.
 | `context/ACTIVATION_BUILDER.md` | Activation prompt for builder_agent |
 | `context/ACTIVATION_VALIDATOR.md` | Activation prompt for validator_agent |
 | `work_packages/` | LOD specs per WP (LOD200, LOD400, LOD500) |
+| `teams.yaml` | Project-level team specialization: per-team engine override, write_paths, iron_rules, mandatory_reads |
 
 ### L2 Profile Additions
 
@@ -57,13 +58,10 @@ When the lean-kit framework is updated at the agents-os hub:
 
 This is intentionally manual. No automatic sync. Projects update when ready.
 
-## Profile: [L0 | L2]
+## Profile: L0
 
-[L0: Human orchestrates via documents. No engine infrastructure in this repo.
-     All governance via _aos/ files. Gate transitions via commit conventions.]
-
-[L2: Engine snapshot in [engine-dir]/. L0 governance layer via _aos/. Dual-profile.
-     Engine behavior independent of _aos/ governance until S004 integration.]
+Human orchestrates via documents. No engine infrastructure in this repo. All governance via `_aos/` files. Gate
+transitions via commit conventions.
 
 ## Quick Reference
 

@@ -152,10 +152,8 @@ missing from the first draft was added — §2a. Treat this as a live document, 
 
 - **`design/SITE_UNDERSTANDING_SKETCH_v1.0.0.svg`** — the annotated confirmation sketch synthesizing everything in
   this document (sent to Niv 2026-07-09, pending his review/corrections).
-- Hand-sketched concept diagrams (2 versions, `raw-materials/from-client/WhatsApp Image 2026-07-0{6,8}*.jpeg`) show
-  a curved pool/water feature (now confirmed as the planned swimming pool), a winding pebble path, a circular
-  gathering structure (pergola/gazebo), and a lattice/planter feature. Digitize into
-  `design/CANONICAL/02_SPATIAL_SSOT_and_GEOMETRY.md` once S002 concept work formally starts.
+- **`design/CANONICAL/CONCEPT_SKETCH_REFERENCE.md`** — the full, confidence-tiered analysis of the client's own
+  hand-drawn concept sketch (not restated here — see that document, not this bullet, for content).
 - Plot boundary, elevation range, orientation, and existing 13-tree inventory: `blender/data/site/SITE_GEO.yaml`,
   `design/CANONICAL/02_SPATIAL_SSOT_and_GEOMETRY.md`.
 - Architectural house model (IFC, Revit-exported): `raw-materials/from-client/NSB02.ifc` — basis for the S003 3D

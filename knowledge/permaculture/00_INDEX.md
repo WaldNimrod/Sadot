@@ -42,11 +42,11 @@ were quoted from the source.
 
 ## Known gaps — partially resolved 2026-07-08
 
-A licensed plot survey arrived 2026-07-08 (plot boundary, elevation range, 13-tree inventory — see
-`blender/data/site/SITE_GEO.yaml` and `design/CANONICAL/02_SPATIAL_SSOT_and_GEOMETRY.md`), so this KB is no longer
-fully blocked. Still genuinely missing, and still marked `BLOCKED` inline in `01`/`03` rather than invented: a
-formal soil-composition lab test, a digitized true-north bearing, and direct sun/shade/water-table observation.
-Sector-analysis content specifically needs the bearing before it can be finalized.
+A licensed plot survey arrived 2026-07-08 (plot boundary, elevation range, orientation, 13-tree inventory — see
+`design/CANONICAL/02_SPATIAL_SSOT_and_GEOMETRY.md` for current status), so this KB is no longer fully blocked. Still
+genuinely missing (see 02 for current status): a formal soil-composition lab test and direct sun/shade/water-table
+observation. **Orientation/bearing is resolved** (2026-07-08, by computation) — sector-analysis content can now use
+it; it is no longer a blocker for `01_ZONES_AND_SECTORS.md`.
 
 ## Interfaces to other Sadot KB folders
 

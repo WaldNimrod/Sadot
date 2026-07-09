@@ -1,10 +1,10 @@
 # 08 · LANDSCAPE PLANTING PLAN
-### Sadot · Landscape Architecture · Team 110 · v0.2.0 · 2026-07-08 · **owns: Landscape / Planting** · status: **PARTIAL — client plant preferences + existing-tree inventory received; zoning/bed layout still pending S002/S003**
+### Sadot · Landscape Architecture · Team 110 · v0.3.0 · 2026-07-09 · **owns: Landscape / Planting** · status: **PARTIAL — client plant preferences + existing-tree inventory received; zoning/bed layout still pending S002/S003**
 
-> Harvested/adapted from `IsraelMicrogreens-BlenderV2-Project/CANONICAL/08_AGRICULTURAL_PLAN.md`, 2026-07-08, per `HANDOFF_TO_NEXT_team_110_SADOT_BUILDOUT_2026-07-08_v1.0.0.md` §C.2. **Renamed** `08_AGRICULTURAL_PLAN` → `08_LANDSCAPE_PLANTING_PLAN` — Sadot is a landscape/garden-design project, not a microgreens agricultural operation; the source doc's crop-mix/throughput/nursery content is domain-specific to hydroponic production and is **NOT** carried over. Updated 2026-07-08 with real client input (voice-note brief).
+> Harvested/adapted from `IsraelMicrogreens-BlenderV2-Project/CANONICAL/08_AGRICULTURAL_PLAN.md`, 2026-07-08, per `HANDOFF_TO_NEXT_team_110_SADOT_BUILDOUT_2026-07-08_v1.0.0.md` §C.2. **Renamed** `08_AGRICULTURAL_PLAN` → `08_LANDSCAPE_PLANTING_PLAN` — Sadot is a landscape/garden-design project, not a microgreens agricultural operation; the source doc's crop-mix/throughput/nursery content is domain-specific to hydroponic production and is **NOT** carried over. Updated 2026-07-09 — corrected a stale plant-list entry (see below).
 
-## Client plant preferences (received 2026-07-08 — see `design/CLIENT_BRIEF_NIV_SADOT_v1.0.0.md` §5)
-Fruit trees: guava, avocado, mango, pecan, carob (if feasible). Bananas. Herb + tea plants. Small organized vegetable
+## Client plant preferences (received 2026-07-08 — see `design/CLIENT_BRIEF_NIV_SADOT_v1.0.0.md` §5 for full detail/provenance)
+Fruit trees: avocado, mango, pecan, carob (if feasible), bananas. Herb + tea plants. Small organized vegetable
 bed. General preference: edible/useful species over purely ornamental — fits the guild approach in
 `knowledge/permaculture/02_GUILDS_AND_PLANTING_STRATEGY.md`. Explicit permaculture feature requested: a **banana
 circle** (greywater/compost technique).
@@ -34,12 +34,12 @@ reconciled against Niv Sadot's site survey (`blender/data/site/SITE_GEO.yaml`) a
 **TBD** — no structured zones/sectors/guilds/swales KB applied yet. See `knowledge/permaculture/` (authored from scratch per the team_110 mandate, not harvested) once seeded.
 
 ## Source data
-- `raw-materials/from-client/` — Niv Sadot's site materials (survey, brief, photos), once populated.
-- `knowledge/crops/` — harvested SMA crop/climate KB (Israeli planting calendars, variety data), once seeded.
-- `knowledge/permaculture/` — authored KB (PDC/Havat-Adam methodologies), once seeded.
+- `raw-materials/from-client/` — Niv Sadot's site materials (survey, IFC model, sketches, voice notes) — received.
+- `knowledge/crops/` — harvested SMA crop/climate KB (Israeli planting calendars, variety data) — seeded.
+- `knowledge/permaculture/` — authored KB (PDC/Havat-Adam methodologies) — seeded.
 
 ## Still to author
 - Site zoning, plant palette, bed layout, irrigation demand, seasonal planting calendar — all pending S002/S003.
 
 ---
-*08 · Landscape Planting Plan · v0.2.0 · 2026-07-08 · Team 110. Renamed from 08_AGRICULTURAL_PLAN (microgreens source) — client plant preferences + existing-tree inventory received; zoning/bed layout still pending S002/S003.*
+*08 · Landscape Planting Plan · v0.3.0 · 2026-07-09 · Team 110. Renamed from 08_AGRICULTURAL_PLAN (microgreens source) — client plant preferences + existing-tree inventory received; zoning/bed layout still pending S002/S003.*

@@ -11,16 +11,10 @@ status: partial — plot boundary, elevations, and orientation confirmed by lice
 updated: '2026-07-09'
 approved_by: team_00
 
-# CRITICAL SCOPE NOTE (team_00, 2026-07-09): the survey PDF (10111TD122) is authoritative ONLY for the plot
-# BOUNDARY and ELEVATION/topography data below — the ground doesn't change. It is NOT authoritative for any
-# BUILDING/STRUCTURE it shows (house outline, pergola, "מחסן" storage shed, "משטח דק" deck-surface label, etc.) —
-# those depict the OLD, previously-existing house, which has since been replaced. The storage shed shown on the
-# survey no longer exists; the CURRENT (new) house — including its real deck — now stands roughly where that old
-# storage was, and is represented ONLY in the architectural IFC model (NSB02.ifc), not in this survey PDF.
-# Do NOT use any structure/room label from the survey PDF as evidence of the current house layout — use IFC data
-# for that (see `architectural_reference` below and design/CANONICAL/HOUSE_IFC_REFERENCE.md).
-# OPEN ITEM: precisely anchoring the current (IFC) house within the real surveyed boundary still needs either an
-# updated/as-built survey, or specific reference measurements from the client/architect — not yet available.
+# SCOPE NOTE: the survey PDF (10111TD122) is authoritative ONLY for the plot boundary and elevation/topography
+# data below — it does NOT depict the current house (that layer shows the OLD, since-replaced house/structures).
+# Full explanation + rationale: design/CANONICAL/02_SPATIAL_SSOT_and_GEOMETRY.md §⚠ Survey validity scope.
+# Do not restate the full rationale here — that section is the single canonical copy.
 
 # Legal/registry identity (from the survey title block)
 registry:
@@ -32,7 +26,7 @@ registry:
   plot_area_sqm: 752
   survey_ref: "10111TD122, קנה מידה 1:250, מודדי עירון (מודד מוסמך), חתום 22.08.2023"
   adjacent_parcels: [119, 120, 121, 270, 57, 28]
-  note: "Parcel 28 is marked 'שטח חלקאי' (agricultural/cultivated land) on the drawing. Compass direction relative to plot 122 NOT asserted here — true-north bearing is still TBD (see `orientation` below); don't infer a cardinal direction from this note alone."
+  note: "Parcel 28 is marked 'שטח חלקאי' (agricultural/cultivated land) on the drawing. Compass direction relative to plot 122 is NOT asserted in this registry block itself — see `orientation` below (RESOLVED 2026-07-08) for the actual bearing."
 
 # Client-supplied approximate WGS84 pin (received via chat, 2026-07-08) — for map/orientation reference.
 # NOT construction-grade precision; the survey `boundary_itm` below is the authoritative geometry.
@@ -93,7 +87,8 @@ blender_datum:
   status: TBD — set when the first Sadot .blend is created (S003); anchor to boundary_itm point "1G" or plot centroid, team_110/team_10 to decide at that time.
 
 orientation:
-  status: RESOLVED 2026-07-08 — computed directly from the survey's own ITM boundary coordinates, no visual/manual
+  status: >-
+    RESOLVED 2026-07-08 — computed directly from the survey's own ITM boundary coordinates, no visual/manual
     bearing estimate needed. ITM (Israeli TM, EPSG:2039) is a north-up projected grid — "northing" is grid north by
     construction; meridian convergence at this location is a small fraction of a degree, negligible for garden-design
     purposes (not negligible for legal cadastral re-survey, but this isn't that). Cross-check: shoelace-formula area
@@ -128,7 +123,9 @@ orientation:
 # independently claim true-north alignment); only a translation offset needs solving, via 2 real-world distance
 # measurements from 2 known boundary_itm points to each of these 2 corners (4 measurements total).
 house_reference_corners:
-  status: "AWAITING team_00 on-site tie-measurement — see BLENDER_SHELL_BUILD_PLAN_v1.0.0.md §3 for the 4 distances needed"
+  status: "AWAITING team_00 on-site tie-measurement (or the architect's equivalent Revit measurements — see
+    _COMMUNICATION/team_70/DRAFT_MESSAGE_TO_MICHAL_SITE_PLAN_v1.0.0.md, a parallel channel not yet sent) — see
+    BLENDER_SHELL_BUILD_PLAN_v1.0.0.md §3 for the 4 distances needed"
   ifc_native_coords:
     - id: front_corner
       x: -411197.429

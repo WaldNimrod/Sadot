@@ -1,0 +1,131 @@
+<svg viewBox="0 0 960 1380" xmlns="http://www.w3.org/2000/svg" font-family="Arial, Helvetica, sans-serif">
+  <style>
+    .title { font-size: 24px; font-weight: bold; fill: #1a1a1a; }
+    .subtitle { font-size: 14px; fill: #444; }
+    .panel-title { font-size: 16px; font-weight: bold; fill: #1a1a1a; }
+    .label { font-size: 13px; fill: #222; }
+    .label-small { font-size: 11.5px; fill: #555; }
+    .high { fill: #1a7a3c; }
+    .medium { fill: #b8860b; }
+    .low { fill: #b02020; }
+    .legend-text { font-size: 12.5px; fill: #222; }
+  </style>
+
+  <rect x="0" y="0" width="960" height="1380" fill="#ffffff"/>
+
+  <!-- ============ HEADER ============ -->
+  <text x="480" y="34" text-anchor="middle" class="title">פרשנות לסקיצת היד של ניב — הקונספט הראשוני לגינה</text>
+  <text x="480" y="56" text-anchor="middle" class="subtitle">team_110 · 2026-07-09 · טופולוגי בלבד — ללא קנה מידה או כיוון אמיתי — לאישור/תיקון</text>
+  <text x="480" y="76" text-anchor="middle" class="subtitle" fill="#b02020">ירוק = תואם דרישה שאושרה בקול · כתום = פרשנות סבירה, לא מאושרת · אדום = פתוח לגמרי / לא ברור</text>
+
+  <!-- ============ TOP MINI-SKETCH (separate, possibly unrelated) ============ -->
+  <g transform="translate(60,95)">
+    <rect x="0" y="0" width="420" height="90" fill="#f7f7f7" stroke="#888" stroke-width="1.5" stroke-dasharray="6,4" rx="6"/>
+    <text x="210" y="22" text-anchor="middle" class="label-small" fill="#555">שרטוט נפרד בראש הדף — סגנון שונה לגמרי מהגינה</text>
+    <text x="210" y="42" text-anchor="middle" class="label low">605 · 528 · 549(?) · "2×4"(?) · 33</text>
+    <text x="210" y="62" text-anchor="middle" class="label-small low">השערה: מחסן/מדף אחסון (לא מאושר) — ר' §4 במסמך המלא</text>
+    <text x="210" y="80" text-anchor="middle" class="label-small" fill="#555">לא ברור אם קשור לגינה בכלל</text>
+  </g>
+
+  <!-- ============ MAIN GARDEN AREA ============ -->
+  <g transform="translate(60,220)">
+
+    <!-- outer plot square, dashed (as drawn, not the real surveyed boundary) -->
+    <rect x="0" y="0" width="840" height="900" fill="none" stroke="#999" stroke-width="1.5" stroke-dasharray="3,3"/>
+    <text x="4" y="-8" class="label-small" fill="#777">קו המגרש כפי שצויר ביד — לא גבול המדידה האמיתי</text>
+
+    <!-- house wall -->
+    <line x1="0" y1="10" x2="840" y2="10" stroke="#333" stroke-width="3"/>
+    <text x="420" y="-22" text-anchor="middle" class="label-small" fill="#555">קיר הבית (כפי שצויר)</text>
+
+    <!-- pool -->
+    <path d="M 40,10 L 40,60 Q 420,110 780,60 L 780,10 Z" fill="#d7ecf5" stroke="#2a7ca6" stroke-width="2.5"/>
+    <text x="420" y="55" text-anchor="middle" class="label high" font-weight="bold">בריכת שחייה (אושרה)</text>
+    <text x="420" y="72" text-anchor="middle" class="label-small high">צורה מעוגלת + הצללה = מים</text>
+
+    <!-- lattice panel, left -->
+    <rect x="30" y="120" width="150" height="200" fill="#fdf1d9" stroke="#b8860b" stroke-width="2"/>
+    <line x1="30" y1="120" x2="180" y2="320" stroke="#b8860b" stroke-width="0.75"/>
+    <line x1="60" y1="120" x2="180" y2="290" stroke="#b8860b" stroke-width="0.75"/>
+    <line x1="90" y1="120" x2="180" y2="260" stroke="#b8860b" stroke-width="0.75"/>
+    <line x1="120" y1="120" x2="180" y2="230" stroke="#b8860b" stroke-width="0.75"/>
+    <line x1="150" y1="120" x2="180" y2="200" stroke="#b8860b" stroke-width="0.75"/>
+    <line x1="30" y1="150" x2="150" y2="320" stroke="#b8860b" stroke-width="0.75"/>
+    <line x1="30" y1="180" x2="120" y2="320" stroke="#b8860b" stroke-width="0.75"/>
+    <line x1="30" y1="210" x2="90" y2="320" stroke="#b8860b" stroke-width="0.75"/>
+    <line x1="30" y1="240" x2="60" y2="320" stroke="#b8860b" stroke-width="0.75"/>
+    <text x="105" y="342" text-anchor="middle" class="label medium" font-weight="bold">מסך תריס/פרגולה?</text>
+    <text x="105" y="360" text-anchor="middle" class="label-small medium">מיקום ליד קיר הבית — יתכן חציצת טאסי (מערב)</text>
+    <text x="105" y="378" text-anchor="middle" class="label-small low">גובה כתוב: 1.30 / 1.50 / 1.80 — שתי קריאות עצמאיות חלוקות, לא ברור</text>
+
+    <!-- pebble path band, from near pool down to bottom-right -->
+    <path d="M 260,90 C 340,160 300,260 380,340 C 460,420 420,520 500,600 C 560,660 600,720 650,800"
+          fill="none" stroke="#8a7048" stroke-width="26" stroke-linecap="round" opacity="0.25"/>
+    <path d="M 260,90 C 340,160 300,260 380,340 C 460,420 420,520 500,600 C 560,660 600,720 650,800"
+          fill="none" stroke="#8a7048" stroke-width="2" stroke-dasharray="1,7" stroke-linecap="round"/>
+    <text x="330" y="230" class="label-small high" fill="#5a4526">שביל חצץ מתפתל (אושר)</text>
+
+    <!-- center tangle circle -->
+    <circle cx="330" cy="420" r="55" fill="#eef3ea" stroke="#6a8a4a" stroke-width="2"/>
+    <text x="330" y="418" text-anchor="middle" class="label-small medium">שיח/עץ גדול?</text>
+    <text x="330" y="434" text-anchor="middle" class="label-small medium">(קשקוש צפוף)</text>
+
+    <!-- organic blob beside it -->
+    <path d="M 400,460 Q 440,440 480,455 Q 510,470 495,500 Q 470,530 435,520 Q 400,510 400,460 Z"
+          fill="#f5eee0" stroke="#8a7048" stroke-width="2"/>
+    <text x="448" y="485" text-anchor="middle" class="label-small low">ערוגה עם כיתוב לא קריא?</text>
+
+    <!-- bottom-left circle -->
+    <circle cx="130" cy="680" r="75" fill="#f0f0f0" stroke="#888" stroke-width="2"/>
+    <text x="130" y="675" text-anchor="middle" class="label low" font-weight="bold">מעגל 1</text>
+    <text x="130" y="693" text-anchor="middle" class="label-small low">ישיבה עגולה? מדורה? עץ?</text>
+    <text x="130" y="709" text-anchor="middle" class="label-small" fill="#777">כיתוב פנימי לא קריא</text>
+
+    <!-- mid-right circle, larger, with structure -->
+    <circle cx="660" cy="520" r="105" fill="#f0f0f0" stroke="#888" stroke-width="2.5"/>
+    <circle cx="660" cy="520" r="70" fill="none" stroke="#aaa" stroke-width="1.25"/>
+    <text x="660" y="510" text-anchor="middle" class="label low" font-weight="bold">מעגל 2 — גדול יותר</text>
+    <text x="660" y="528" text-anchor="middle" class="label-small low">פרגולה/גזיבו עגול?</text>
+    <text x="660" y="544" text-anchor="middle" class="label-small low">(המועמד הכי חזק ל"מבנה עגול")</text>
+    <rect x="615" y="610" width="90" height="30" fill="none" stroke="#888" stroke-width="1.5"/>
+    <text x="660" y="630" text-anchor="middle" class="label-small" fill="#777">מסגרת/ספסל?</text>
+
+    <!-- right edge column of ovals -->
+    <g transform="translate(795,60)">
+      <ellipse cx="0" cy="0" rx="10" ry="14" fill="none" stroke="#6a8a4a" stroke-width="1.5"/>
+      <ellipse cx="4" cy="34" rx="10" ry="14" fill="none" stroke="#6a8a4a" stroke-width="1.5"/>
+      <ellipse cx="-2" cy="68" rx="10" ry="14" fill="none" stroke="#6a8a4a" stroke-width="1.5"/>
+      <ellipse cx="3" cy="102" rx="10" ry="14" fill="none" stroke="#6a8a4a" stroke-width="1.5"/>
+      <ellipse cx="-1" cy="136" rx="10" ry="14" fill="none" stroke="#6a8a4a" stroke-width="1.5"/>
+      <ellipse cx="2" cy="170" rx="10" ry="14" fill="none" stroke="#6a8a4a" stroke-width="1.5"/>
+      <text x="-95" y="200" text-anchor="end" class="label-small medium">שיח גדר גבולית?</text>
+      <text x="-95" y="216" text-anchor="end" class="label-small medium">או המשך השביל</text>
+    </g>
+
+    <!-- scattered plant-marker doodles -->
+    <g fill="none" stroke="#6a8a4a" stroke-width="1.25">
+      <path d="M 730,120 q 8,-10 16,0 q 8,-10 16,0 q -4,14 -16,14 q -12,0 -16,-14 Z"/>
+      <path d="M 250,760 q 8,-10 16,0 q 8,-10 16,0 q -4,14 -16,14 q -12,0 -16,-14 Z"/>
+      <path d="M 560,760 q 8,-10 16,0 q 8,-10 16,0 q -4,14 -16,14 q -12,0 -16,-14 Z"/>
+    </g>
+    <text x="700" y="105" text-anchor="middle" class="label-small medium">סימון צמח בודד</text>
+    <text x="700" y="119" text-anchor="middle" class="label-small" fill="#777">(לא נספרו בכוונה — ר' המסמך המלא §2)</text>
+
+    <!-- hypothesis callout: buffer between two children's pergolas -->
+    <g transform="translate(200,880)">
+      <rect x="0" y="-40" width="440" height="70" fill="#fdecec" stroke="#b02020" stroke-width="1.5" stroke-dasharray="5,3" rx="6"/>
+      <text x="220" y="-18" text-anchor="middle" class="label low" font-weight="bold">השערה לא מאושרת: מעגל 1 + מעגל 2 = שתי הפרגולות</text>
+      <text x="220" y="-2" text-anchor="middle" class="label-small low">של ינון ושני, עם ה"ערוגה" ביניהן כחציצה המבוקשת (§2a)</text>
+      <text x="220" y="14" text-anchor="middle" class="label-small low">לא נתמך בבירור מהסקיצה — לבדוק ישירות מול ניב</text>
+    </g>
+  </g>
+
+  <!-- ============ LEGEND ============ -->
+  <g transform="translate(60,1290)">
+    <text x="0" y="0" class="panel-title">מקרא</text>
+    <circle cx="10" cy="20" r="6" class="high"/><text x="24" y="25" class="legend-text">ביטחון גבוה — תואם דרישה שאושרה בקול על ידי ניב</text>
+    <circle cx="10" cy="42" r="6" class="medium"/><text x="24" y="47" class="legend-text">ביטחון בינוני — פרשנות סבירה, טרם אושרה</text>
+    <circle cx="10" cy="64" r="6" class="low"/><text x="24" y="69" class="legend-text">פתוח לגמרי / לא ברור — כולל אי-הסכמה בין שתי קריאות עצמאיות</text>
+    <text x="0" y="90" class="label-small" fill="#555">מקור: 2 תצלומי אותה סקיצת יד (from-client). מסמך מלא + טבלת ביטחון מלאה: design/CANONICAL/CONCEPT_SKETCH_REFERENCE.md</text>
+  </g>
+</svg>

@@ -3,19 +3,24 @@ id: DRAFT_WHATSAPP_TO_NIV_CLARIFICATIONS_v1.0.0
 type: client-communication draft (NOT sent — for team_00/Nimrod to review, edit, and send via WhatsApp)
 from: team_110 (Domain Architect / landscape architect persona)
 to: Niv Sadot (client)
-date: 2026-07-09 (updated twice — v1 was 2026-07-08)
-source: open items in design/CLIENT_BRIEF_NIV_SADOT_v1.0.0.md §9
+date: 2026-07-09 (updated three times — v1 was 2026-07-08; internal revision 1.2)
+source: open items in design/CLIENT_BRIEF_NIV_SADOT_v1.0.0.md §9 + design/CANONICAL/CONCEPT_SKETCH_REFERENCE.md
 note: "Q2/Q6/Q7 revised 2026-07-09 after team_00 clarified the 'עינון/שני' pergola passage is about the children
   (Yinon + Shani, each with their own room+pergola at the back) — NOT a neighbor — and after an IFC
   re-investigation found strong (not yet confirmed) candidates for both the real deck and the children's windows.
-  Q5 revised again 2026-07-09 after team_00 confirmed Tasi (west) and Pierre (back) as real neighbor names/directions."
+  Q5 revised again 2026-07-09 after team_00 confirmed Tasi (west) and Pierre (back) as real neighbor names/directions.
+  Revision 1.2 (2026-07-09): Q1/Q2 reworded from open questions to quick yes/no confirmations, since team_00 already
+  resolved both internally (bananas, buffer-between-kids) — this message is Niv's first chance to actually confirm
+  it himself, not a request to re-derive the answer. Q8-Q10 added, sourced from the new hand-sketch analysis
+  (CONCEPT_SKETCH_REFERENCE.md) — these are genuinely new, not previously asked."
 ---
 
 # טיוטת הודעת וואטסאפ לניב — שאלות הבהרה
 
 **הערה לניב (המשתמש), לפני שליחה:** זו טיוטה. שמות ינון, שני, טאסי ופייר כבר אושרו (תודה על התיקונים). עדיין לא
-ברור: השם "עדאס" בשאלה 5 (כנראה שיבוש תמלול) והזיהוי של הצמח בשאלה 1 — כדאי להאזין שוב להקלטות המקוריות (14.24.19
-ו-14.25.23) ולתקן כאן לפני השליחה אם את/ה זוכר/ת את הפרטים המדויקים.
+ברור: השם "עדאס" בשאלה 5 (כנראה שיבוש תמלול) — כדאי להאזין שוב להקלטות המקוריות (14.24.19 ו-14.25.23) ולתקן כאן
+לפני השליחה אם את/ה זוכר/ת את הפרטים המדויקים. שאלות 8-10 חדשות — מבוססות על ניתוח הסקיצה שלך, ר'
+`design/CANONICAL/CONCEPT_SKETCH_REFERENCE.md`.
 
 ---
 
@@ -23,12 +28,11 @@ note: "Q2/Q6/Q7 revised 2026-07-09 after team_00 clarified the 'עינון/שנ�
 
 יש לי כמה שאלות קטנות להבהרה לפני שממשיכים לשלב הקונספט:
 
-1. **צמח/עץ פרי** — ברשימת העצים שאהבת (אבוקדו, מנגו, פקאן, חרוב) היה עוד שם אחד שלא הצלחתי לזהות בבירור
-   מההקלטה. איזה עץ/פרי נוסף התכוונת אליו?
+1. **עץ/פרי חמישי** — ברשימת העצים שאהבת (אבוקדו, מנגו, פקאן, חרוב) היה עוד שם אחד שלא הצלחתי לזהות בבירור
+   מההקלטה בהתחלה — לאחר בדיקה חוזרת אנחנו חושבים שזה **בננה**. נכון?
 
-2. **הפרגולות שלך ושל הילדים** — הבנתי שמדובר בחציצה בין הפרגולה שלך לבין הפרגולות של ינון ושני, עם צמחייה שתיתן
-   פרטיות מצד אחד אבל לא תחסום לגמרי את האור מהחלון של החדר בצד השני. זה נכון? רק רציתי לוודא שלא הבנתי את זה
-   בטעות כבקשה לגבי שכן.
+2. **הפרגולות של ינון ושני** — הבנתי שמדובר בחציצה **בין הפרגולה של ינון לפרגולת שני** (לא בינך לביניהם), עם
+   צמחייה שתיתן פרטיות מצד אחד אבל לא תחסום לגמרי את האור מהחלון של החדר בצד השני. נכון?
 
 3. **"ברכה"** — דיברת על ברכת דגים, ואיזכרת גם משהו שנשמע כמו "ברכת צמחייה" — זה בריכה נפרדת עם צמחים במים
    (ביצתית), או שהתכוונת למשהו אחר?
@@ -47,5 +51,15 @@ note: "Q2/Q6/Q7 revised 2026-07-09 after team_00 clarified the 'עינון/שנ�
 7. **הדק הגדול מהמטבח** — מצאתי במודל אלמנט שנראה מאוד מתאים: משטח עם קצה מעוגל, בולט קדימה מקו הבית, ממש ליד מיקום
    שנראה כמו כיריים ודלת זכוכית כפולה רחבה (4.2 מ'). זה נשמע כמו הדק שתיארת? (האלמנט שהיה מסומן בקובץ בתור "מרפסת"
    התברר כטעות/שארית ישנה בקובץ — לא נמצא בו במיקום או בצורה נכונים).
+
+8. **גובה המסך/הפרגולה בסקיצה שלך** — בסקיצת היד שציירת יש פאנל עם רשת אלכסונית (מסך/תריס), עם מספר גובה כתוב
+   לידו. לא הצלחנו לקרוא אותו בוודאות — יכול להיות 1.30, 1.50 או 1.80 מטר. מה הגובה הנכון?
+
+9. **המעגלים בסקיצה שלך** — יש בסקיצה שלך שניים-שלושה אלמנטים עגולים בחלק האחורי של הגינה. אנחנו מנסים להבין אם
+   אלה הפרגולות העגולות של ינון ושני, או שזה משהו אחר (פינת ישיבה, מדורה, עץ) — תוכל לספר לנו מה כל עיגול אמור
+   לייצג?
+
+10. **השרטוט הקטן בראש הדף** — בראש דף הסקיצה שלך יש שרטוט קטן ונפרד עם מספרים (605, 528 ועוד), שנראה שונה
+    לגמרי מסגנון שרטוט הגינה. זה קשור לגינה (למשל מחסן/מדף אחסון), או שזה שרטוט של משהו אחר לגמרי?
 
 תודה מראש! 🌿

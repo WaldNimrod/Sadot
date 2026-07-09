@@ -1,13 +1,16 @@
 # HOUSE IFC REFERENCE — extracted from the architect's model
-### Sadot · Landscape Architecture · Team 110 · v1.2.0 · 2026-07-09 · **owns: house-model ground truth for landscape design** · status: **REAL DATA, with flagged reconciliation gaps — read the caveats before using positions**
+### Sadot · Landscape Architecture · Team 110 · v1.3.0 · 2026-07-09 · **owns: house-model ground truth for landscape design** · status: **REAL DATA, with flagged reconciliation gaps — read the caveats before using positions**
 
-> **v1.2.0 update (2026-07-09):** team_00 clarified the survey PDF (`10111TD122`) is authoritative ONLY for the
-> plot boundary + elevations — every building/structure it shows (house outline, storage shed, pergola, etc.)
-> depicts the OLD, now-replaced house. The current house — including its real deck — stands roughly where the
-> survey's old storage shed was, and is represented ONLY in this IFC model. This document's findings were always
-> derived purely from the IFC (never from the survey's stale structure labels), so nothing here needed
-> retracting on that account — but see `blender/data/site/SITE_GEO.yaml`'s scope note for a retraction of an
-> unrelated survey-label observation made in chat (not previously written into this file).
+> **v1.3.0 update (2026-07-09):** reconciled §2's confidence language with `CLIENT_BRIEF_NIV_SADOT_v1.0.0.md` §9
+> (room identity is team_00-confirmed; the window-tag pairing to the architect's 2D plan is not) and added §4b
+> (balcony geometric-search result, previously only recorded in `BLENDER_SHELL_BUILD_PLAN_v1.0.0.md`).
+
+> **v1.2.0 update (2026-07-09):** scope clarified — survey-PDF structure labels (house outline, storage shed,
+> pergola, etc.) are obsolete/depict the OLD, replaced house; full rationale: `design/CANONICAL/02_SPATIAL_SSOT_and_GEOMETRY.md`
+> §⚠ Survey validity scope (do not restate here). This document's findings were always derived purely from the IFC
+> (never from the survey's stale structure labels), so nothing here needed retracting on that account — but see
+> `blender/data/site/SITE_GEO.yaml`'s scope note for a retraction of an unrelated survey-label observation made in
+> chat (not previously written into this file).
 
 > **v1.1.0 update (2026-07-09):** team_00 supplied real ground truth that corrected two v1.0.0 hypotheses — the
 > real deck is at the front, extends from the kitchen, with a round end toward the garden; the "window not to
@@ -92,9 +95,11 @@ windows, two (tags **5834063** and **5795233**, ~5.75m apart) flank a cluster co
 pipes (a bathroom/hall signature) — architecturally consistent with "two bedrooms flanking a shared bath," which
 would fit two children's rooms. One small slab (`Floor:ר3:5618668:2`, #2592, ~9m², entrance-floor level) sits
 right at window 5795233's position — a plausible small-balcony/pergola pad — but no matching second slab was
-found near window 5834063, so the "two matching balconies" reading is only half-supported. **This is a
-hypothesis to confirm with the client, not a settled fact** — added to the WhatsApp draft. The two `ממד`
-(mamad/safe-room) openings and the parents'-unit windows are lower-probability candidates now, not excluded
+found near window 5834063, so the "two matching balconies" reading is only half-supported. **Two-tier status
+(per `CLIENT_BRIEF_NIV_SADOT_v1.0.0.md` §9, team_00 2026-07-09): the room-identity mapping — these are Yinon's and
+Shani's rooms — is confirmed. The specific window-tag pairing to the architect's 2D plan is not yet visually
+confirmed** — see `_COMMUNICATION/team_70/DRAFT_WHATSAPP_TO_NIV_CLARIFICATIONS_v1.0.0.md` Q6. The two
+`ממד` (mamad/safe-room) openings and the parents'-unit windows are lower-probability candidates now, not excluded
 entirely.
 
 ## 3. Building envelope (footprint)
@@ -148,6 +153,23 @@ the hob+door+slab spatial cluster is the evidence, not a name match.
 **Status: high-confidence candidate, not yet visually confirmed against the architect's 2D plan.** Recommend
 confirming with Niv/the architect before finalizing (question added to the WhatsApp draft) — but this is now the
 working assumption for S003 3D-modeling purposes rather than an open unknown.
+
+## 4b. Parents' balcony + second children's balcony — geometric search result (2026-07-09)
+
+**Parents' balcony (2nd floor, `יח' הורים` storey): NOT FOUND.** A dedicated protruding-slab search (the same
+method that found the front deck in §4) on this storey returned no matching element — no slab/space there
+protrudes past the wall envelope the way the front deck does. This may mean it isn't modeled as a distinct element
+in this IFC export at all, or it's a recessed/inset balcony that wouldn't show up as "protruding." Note: the
+balcony's real-world **existence** is independently client-confirmed (`CLIENT_BRIEF_NIV_SADOT_v1.0.0.md` §2a/§9,
+team_00 2026-07-09) — this section only concerns whether it can be located as a distinct geometric element in the
+IFC model, which is a separate question.
+
+**Children's balconies (back, entrance-floor level): PARTIALLY FOUND.** One plausible small slab
+(`Floor:ר3:5618668:2`, #2592, ~9m²) sits near window tag 5795233 (see §2); no matching second slab was found near
+window tag 5834063. Treat as a working hypothesis for one balcony, open for the other.
+
+Full method: `design/CANONICAL/BLENDER_SHELL_BUILD_PLAN_v1.0.0.md` §1 (this finding originated there; recorded
+here too since it belongs with the rest of the house's geometric ground truth).
 
 ## 5. Materials (63 total) — relevant to landscape hardscape matching
 

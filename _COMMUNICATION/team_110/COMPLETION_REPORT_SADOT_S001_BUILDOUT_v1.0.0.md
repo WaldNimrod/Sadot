@@ -48,9 +48,9 @@ locally via Whisper — flagged for human verification). This unblocked `SDT-S00
 details still need confirmation, listed in the brief doc §9).
 
 **GitHub remote:** connected `origin` → `https://github.com/WaldNimrod/Sadot.git`, merged the GitHub-initialized
-README (unrelated-histories merge, no conflicts). **Push to origin/main is prepared but not yet executed** — blocked
-by this session's permission gate for the push action itself; needs team_00 to run it directly or explicitly
-authorize it in a follow-up turn.
+README (unrelated-histories merge, no conflicts). **Push to origin/main was completed after team_00's explicit
+approval** — see Amendment below (this paragraph originally said "prepared but not yet executed"; corrected here
+so it doesn't contradict the Amendment two sections down).
 
 ## Deferred / not executed this pass
 

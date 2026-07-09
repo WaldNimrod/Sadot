@@ -1,5 +1,5 @@
 # 02 · SPATIAL SSOT & GEOMETRY
-### Sadot · Landscape Architecture · Team 110 · v0.2.0 · 2026-07-08 · **owns: Geometry** · status: **PARTIAL — plot boundary + elevations confirmed by licensed survey; hardscape layout still pending S002/S003**
+### Sadot · Landscape Architecture · Team 110 · v0.3.0 · 2026-07-09 · **owns: Geometry** · status: **PARTIAL — plot boundary + elevations confirmed by licensed survey; hardscape layout still pending S002/S003**
 
 > Harvested/adapted from `IsraelMicrogreens-BlenderV2-Project/CANONICAL/02_SPATIAL_SSOT_and_GEOMETRY.md`, 2026-07-08, per `HANDOFF_TO_NEXT_team_110_SADOT_BUILDOUT_2026-07-08_v1.0.0.md` §C.2. Updated 2026-07-08 with real client survey data.
 
@@ -18,14 +18,18 @@ IFC model, which declares its own project Y-axis = true north. Full data: `blend
 `plus_x_bearing` for the model's local axes at that point.
 **Open reconciliation:** the architectural IFC model (`raw-materials/from-client/NSB02.ifc`) carries its own
 Revit-authored site lat/long that does not match the client-supplied WGS84 pin — flagged, not yet resolved (does
-not affect the orientation finding above, which is independent of that specific field).
+not affect the orientation finding above, which is independent of that specific field). Since both the survey's ITM
+grid and the IFC's own declared true-north are independently self-consistent, only a **translation** (not rotation)
+is needed — resolved via a 2-corner tie-measurement plan: 2 real house corners identified directly from IFC geometry
+(`blender/data/site/SITE_GEO.yaml` → `house_reference_corners`), 4 real-world distance measurements needed to fix
+the offset. Full plan + build sequence: `design/CANONICAL/BLENDER_SHELL_BUILD_PLAN_v1.0.0.md` §3. A parallel channel
+(asking architect Michal directly for the equivalent Revit measurements) is also in flight — see
+`_COMMUNICATION/team_70/DRAFT_MESSAGE_TO_MICHAL_SITE_PLAN_v1.0.0.md`. Neither has returned results yet.
 
 ## Shell & structure (site layout)
-**TBD for hardscape** — no zoning/paths/hardscape layout recorded yet; awaits S002 concept design. However, real
-INPUT now exists: the client's own hand-sketched concept diagrams (2 versions,
-`raw-materials/from-client/WhatsApp Image 2026-07-0{6,8}*.jpeg`) show a curved pool/water feature, a winding pebble
-path, a circular pergola/gazebo structure, and a lattice/planter feature. See `design/CLIENT_BRIEF_NIV_SADOT_v1.0.0.md`
-for the full synthesized brief these sketches accompany.
+**TBD for hardscape** — no zoning/paths/hardscape layout recorded yet; awaits S002 concept design. Real INPUT exists
+though: the client's own hand-sketched concept diagram. Full confidence-tiered analysis (not restated here — do not
+duplicate): `design/CANONICAL/CONCEPT_SKETCH_REFERENCE.md`.
 
 ## ⚠ Survey validity scope (team_00, 2026-07-09)
 
@@ -60,4 +64,4 @@ general caution until confirmed.)
 - Built & SSOT-matched: nothing yet.
 
 ---
-*02 · Spatial SSOT & Geometry · v0.2.0 · 2026-07-08 · Team 110. Geometric tiebreaker = the current Sadot .blend, see `blender/CURRENT_MODEL.md` (no model authored yet). Plot boundary/elevations/tree count confirmed by survey; hardscape layout still pending.*
+*02 · Spatial SSOT & Geometry · v0.3.0 · 2026-07-09 · Team 110. Geometric tiebreaker = the current Sadot .blend, see `blender/CURRENT_MODEL.md` (no model authored yet). Plot boundary/elevations/tree count/orientation confirmed by survey; house reference corners identified pending tie-measurement; hardscape layout still pending.*

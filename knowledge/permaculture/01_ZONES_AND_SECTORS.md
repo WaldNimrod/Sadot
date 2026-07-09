@@ -74,12 +74,13 @@ Standard sector categories relevant to this project:
 6. **Access** — pedestrian paths, vehicle access, gates, existing hardscape that constrains where beds/trees can
    go without obstruction.
 
-### BLOCKED — pending real plot survey
+### PARTIALLY BLOCKED — pending remaining plot-survey data
 
-The sector categories above are the **framework only**. This project cannot state actual sun angles, prevailing
-wind at this specific plot, real drainage/slope direction, or true sightlines/noise sources without the physical
-site survey. No plot-specific sector facts are asserted in this file. Once the survey lands in
-`raw-materials/from-client/` (git-ignored, see `_aos/context/RAW_MATERIALS.md`), this section should be replaced
-with a populated sector map (bearings, seasonal sun-path diagram, drainage arrows, photo-referenced sightlines)
-and the zone map in §2 should be drawn onto the actual plot boundary. Until then, treat every zone/sector
-statement in this file as generic doctrine, not a design decision for this specific garden.
+The sector categories above are the **framework only**. The plot survey has landed (`design/CANONICAL/02_SPATIAL_SSOT_and_GEOMETRY.md`)
+and true-north/boundary orientation is now resolved — bearings are available for a populated sector map. Still
+missing: actual sun-angle/seasonal sun-path observation, prevailing wind at this specific plot, real drainage/slope
+direction, and photo-referenced sightlines. No plot-specific sector facts are asserted in this file yet. Once that
+remaining data arrives, this section should be replaced with a populated sector map (using the now-known bearings,
+plus a seasonal sun-path diagram, drainage arrows, and photo-referenced sightlines) and the zone map in §2 should be
+drawn onto the actual plot boundary. Until then, treat every zone/sector statement in this file as generic doctrine,
+not a design decision for this specific garden.
