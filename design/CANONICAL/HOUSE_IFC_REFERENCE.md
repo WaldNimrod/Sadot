@@ -1,5 +1,12 @@
 # HOUSE IFC REFERENCE — extracted from the architect's model
-### Sadot · Landscape Architecture · Team 110 · v1.4.0 · 2026-07-09 · **owns: house-model ground truth for landscape design** · status: **REAL DATA, with flagged reconciliation gaps — read the caveats before using positions**
+### Sadot · Landscape Architecture · Team 110 · v1.5.0 · 2026-07-09 · **owns: house-model ground truth for landscape design** · status: **REAL DATA — rotation question now RESOLVED (0°); translation still open (§3)**
+
+> **v1.5.0 update (2026-07-09):** the rotation question is now RESOLVED — 0° confirmed via rigorous placement-
+> hierarchy analysis (3 independent methods), superseding the v1.4.0 "~105.3° strong candidate" (which was a bad
+> wall-to-survey-edge correspondence). Corrected §4's door identification: door #7639 (2.8m glass door, wall
+> #2391, bearing 159.26°/SSE) is the real match for "faces roughly south," not door #112958 (4.2m, bearing
+> 69.26°/ENE) as originally written — both doors sit near the deck (2.95m and 3.49m respectively), so the deck
+> likely serves multiple rooms/doors; only #7639's orientation actually matches the client's statement.
 
 > **v1.3.0 update (2026-07-09):** reconciled §2's confidence language with `CLIENT_BRIEF_NIV_SADOT_v1.0.0.md` §9
 > (room identity is team_00-confirmed; the window-tag pairing to the architect's 2D plan is not) and added §4b
@@ -27,28 +34,35 @@
 
 ## 0. Read this first — data-quality issues that affect how you use everything below
 
-1. **Coordinate-system mismatch (important — rotation now has a strong candidate value, translation confirmed;
-   see the update below before trusting the "rotation ≈ 0" claim that used to be here).** This IFC file's own
-   coordinates do NOT reliably align with the real ITM survey grid in `blender/data/site/SITE_GEO.yaml`. Evidence:
-   `IfcSite.RefLatitude/RefLongitude` decode to ~32.045°N/34.769°E, which is NOT Pardes Hanna (~32.46°N/34.96°E —
-   a ~50km discrepancy); the file's internal XY coordinates are large arbitrary negative numbers
-   (~-411,000, -270,500) consistent with an uncalibrated Revit "Survey Point" offset, not real ITM easting/northing.
-   **Do not assume this file's absolute X/Y/Z can be directly overlaid on the real site survey without
-   reconciliation.**
-   > **Update (2026-07-09):** the original assumption here — that rotation between the IFC world-coordinate
-   > output and the real ITM grid is ≈0°, because the IFC's own `TrueNorth` declaration and the ITM grid are each
-   > independently true-north-aligned — turned out to be **wrong** (or at least not applicable to
-   > `ifcopenshell.geom`'s `USE_WORLD_COORDS` output specifically): a real **~105.3° rotation** is needed, found by
-   > team_00 identifying a mashrabiya wall (`walls_119777`) in the live Blender model as the real south-boundary
-   > fence, then computing the exact rotation+translation that aligns that wall with survey edge 3G→4G. Likely
-   > cause: `TrueNorth` is declared at the top-level `IfcGeometricRepresentationContext` (project level), but
-   > `USE_WORLD_COORDS` follows the actual `IfcLocalPlacement` chain (Site→Building→Storey→Element) — if any
-   > placement in that chain carries its own rotation (plausible in a real Revit workflow), the exported world
-   > coordinates end up rotated relative to the declared TrueNorth without that being obviously flagged anywhere.
-   > **This is a strong, numerically well-supported candidate (see `blender/CURRENT_MODEL.md` for the full
-   > derivation and cross-check), not yet an independently-confirmed fact** — it rests on the
-   > wall-is-really-that-boundary-edge hypothesis, which is unconfirmed with Niv/Michal. Ask the architect
-   > (Michal) for the Revit "Shared Coordinates" / true Survey Point setup to confirm or refute independently.
+1. **Coordinate-system mismatch — rotation question now RESOLVED (2026-07-09, third pass), translation still
+   open.** This IFC file's own coordinates do NOT reliably align with the real ITM survey grid in
+   `blender/data/site/SITE_GEO.yaml` for TRANSLATION purposes. Evidence: `IfcSite.RefLatitude/RefLongitude` decode
+   to ~32.045°N/34.769°E, which is NOT Pardes Hanna (a ~50km discrepancy); the file's internal XY coordinates are
+   large arbitrary negative numbers (~-411,000, -270,500) consistent with an uncalibrated Revit "Survey Point"
+   offset. **Do not assume this file's absolute X/Y can be directly overlaid on the real site survey — a
+   translation is still needed** (§3 tie-measurement plan, `BLENDER_SHELL_BUILD_PLAN_v1.0.0.md`).
+   > **Rotation history (read in order — this went through 3 passes):**
+   > 1. *Originally assumed* rotation ≈ 0° (both the IFC's TrueNorth and the ITM grid are independently
+   >    true-north-aligned).
+   > 2. *Contradicted* by a heuristic: a mashrabiya wall (`walls_119777`) was matched to survey edge 3G→4G,
+   >    computing a ~105.3° rotation — then ITSELF contradicted by the client's direct statement that the
+   >    deck/glass door face roughly south (105.3° would put it facing ESE).
+   > 3. **Resolved (2026-07-09) by walking the IFC's own placement hierarchy directly** (3 independent methods:
+   >    raw STEP `Axis`/`RefDirection` inspection, composed 4×4 matrix decomposition via
+   >    `ifcopenshell.util.placement.get_local_placement()`, and independent PCA on the actual world-coordinate
+   >    geometry) — **every containment level (Project→Site→Building→all 5 Storeys) carries an identity rotation,
+   >    confirmed to full float precision.** Pass 2's heuristic was simply a bad wall-to-edge correspondence, not
+   >    evidence of a hidden hierarchy rotation. **Rotation = 0.000000°, translation-only, is correct** — the
+   >    original assumption (pass 1) was right all along.
+   > **One remaining honest caveat:** this rests on the IFC's declared `TrueNorth` (`IfcGeometricRepresentationContext`,
+   > exactly local +Y, i.e. exactly 90° from local +X with only floating-point noise) actually being a real,
+   > surveyed value — and that exactness is itself suspicious: it's the textbook signature of an **untouched Revit
+   > default** (Project North never rotated to True North), not something an architect deliberately typed in after
+   > a survey. So "rotation=0 relative to the file's own TrueNorth" is rigorously confirmed, but "the file's own
+   > TrueNorth is really true geographic north" is still just an assumption, not independently verified. Best
+   > current supporting evidence for it: the client's "roughly south" statement matches door #7639/wall #2391 at
+   > world bearing 159.26° (SSE) — only ~21° off true south — under this same assumption; see §4 for the corrected
+   > door identification (the earlier §4 text named the wrong door as "the" deck-facing door).
    **The survey PDF's own building outlines cannot be used as an anchoring shortcut** — they show the OLD house,
    not the current one this IFC represents (see `blender/data/site/SITE_GEO.yaml`'s scope note).
 2. **`IsExternal` property is unreliable.** Every one of the 111 walls reads `IsExternal=True` (should be
@@ -145,12 +159,20 @@ Found by searching the *entire* file for any element with a genuinely large curv
 mm-scale furniture fillets) — this slab is the only structural/architectural element with a real multi-arc round
 edge (5 distinct arc radii, 1.68m to 7.92m — a compound sweeping curve, not a single filleted corner). Supporting
 evidence, all independently corroborating:
-- **Protrudes ~2.2m past the building's own wall envelope** on the true-north side (Y+ = true north, confirmed
-  via the IFC's own `TrueNorth` declaration) — i.e. it's an exterior projection off the house, not an interior room.
+- **Protrudes ~2.2m past the building's own wall envelope** — the original note here said "on the true-north
+  side," reasoning from the (now differently-understood) rotation history in §0.1. Given §0.1's v1.5.0
+  correction, re-verify this specific protrusion-direction claim before relying on it; not re-checked as part of
+  the rotation fix. Either way: it's a real exterior projection off the house, not an interior room.
 - **Directly adjacent** (overlapping footprint) to `IfcBuildingElementProxy "UK_Gas Hob - 4 Burner"` — a kitchen
   appliance sitting right on/against this slab.
-- **2.6m from a 4.20m-wide double-leaf glass door** (`דלת זכוכית דו כנפית 400/240`, tag 5935521) hosted in the
-  bordering wall — a door this wide reads as a kitchen-to-deck opening, not an interior doorway.
+- **Close to TWO glass doors, only one of which actually faces the client-stated direction (corrected 2026-07-09,
+  v1.5.0):** door #112958 (4.2m double-leaf, `דלת זכוכית דו כנפית 400/240`) is 3.49m away but faces **ENE/WSW
+  (bearing 69.26°)** — NOT south, contradicting the client's statement despite being the wider/more
+  visually-obvious door. Door #7639 (2.8m double-leaf, `דלת זכוכית דו כנפית 280/220`, on wall #2391) is actually
+  **closer** (2.95m) and faces **SSE (bearing 159.26°, ~21° off true south)** — this is the door that matches
+  "the large glass door on the south side" the client described. The deck most likely serves both doors/rooms
+  (a wrap-around or corner deck), but if only one door is cited as "the" deck door going forward, it should be
+  #7639, not #112958 (reversing the original v1.0.0-v1.4.0 identification).
 - Surrounded by ~22 small wall segments named `עץ` (**wood** — Hebrew) plus an outdoor sofa (`M_Sofa-Pensi`,
   found via the same curve-search since its cushions also register small arcs) sitting immediately adjacent —
   consistent with wood decking/railing + deck furniture.

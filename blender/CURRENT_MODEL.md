@@ -8,10 +8,10 @@ site-anchored, concept-approved model — see caveats below before treating anyt
 via `blender/scripts/site/export_house_shell_obj.py` — collection `HouseShell_v1_PROVISIONAL`) and the real
 6-point surveyed plot boundary/terrain (collection `Terrain_RealSurvey`, from `blender/data/site/terrain.obj`).
 **Known limitations (read before using):**
-- The house's placement within the plot now uses a **mathematically-derived candidate transform** (rotation +
-  translation, see "Origin convention" below) rather than the earlier translation-only guess — but it still rests
-  on an **unconfirmed hypothesis** (that a specific wall really is the real south fence). Not the same as a
-  surveyed tie-measurement. See `design/CANONICAL/BLENDER_SHELL_BUILD_PLAN_v1.0.0.md` §3-5.
+- **Rotation is now RESOLVED (0°, rigorously confirmed 2026-07-09 — see "Origin convention" below); position
+  (X/Y translation) is still an open, flagged approximation**, and Z is still approximate too (though now
+  grounded in a real client-stated fact). Not the same as a surveyed tie-measurement. See
+  `design/CANONICAL/BLENDER_SHELL_BUILD_PLAN_v1.0.0.md` §3/§3b.
 - The wall export includes ALL 111 IFC walls (interior partitions + some oversized boundary/retaining-wall
   elements), not an exterior-only shell — visible in the model as wall geometry extending beyond the compact,
   recognizable house core. Pruning to true exterior-only is a later refinement.
@@ -24,38 +24,48 @@ via `blender/scripts/site/export_house_shell_obj.py` — collection `HouseShell_
 `_aos/roadmap.yaml` (currently `PLANNED`, blocked on `S002` concept approval + the real tie-measurement) — this
 v1 file is a precursor/sanity-check, not that deliverable.
 
-**Origin convention (updated 2026-07-09, three passes):**
-1. **First pass:** team_00 identified `walls_119777_Basic_Wall:משראביה:6071941` (a mashrabiya lattice-screen wall
-   near the deck) in the live scene as "the south fence." The whole scene (house + terrain) was re-anchored so
-   this wall's south end, outer face, ground-level corner sits at local `(0,0,0)` — marked by an Empty named
-   `ORIGIN_fence_SW_corner`. This exact corner choice was a first guess (the wall isn't axis-aligned, so
-   "southwest corner" didn't pick out one unambiguous vertex).
-2. **Second pass — precise math, not eyeballing:** team_00 manually rotated the `terrain` object in the live
-   scene to roughly align it with the house; this was then **replaced with an exact computed transform**, not
-   left as the manual eyeball: the fence wall's own fixed direction (north-end→south-end) was compared against
-   the terrain's own local direction for real survey edge 3G→4G. Result: **rotation θ = 105.28° (CCW about Z)**,
-   applied to the `terrain` object (not the house, which stays fixed), plus a translation placing the terrain's
-   own 4G point exactly at the wall's south end `(0,0,0)`. Team_00's manual eyeball rotation (~103.6°) was only
-   ~1.7° off the computed value — strong independent corroboration this is the right general alignment.
-   **Cross-check:** after applying this transform, the terrain's own 3G point lands within **3-9cm** of the
-   fence wall's *other* (north) end — an extremely tight match if this is coincidence, and strong (though still
-   not independently confirmed) support that `walls_119777` really is the physical fence at real edge 3G→4G.
-   Full numeric derivation: `blender/data/site/SITE_GEO.yaml` → `fence_edge_candidate_transform`. **This
-   rotation+translation (X/Y only) is well-supported by real, cross-checked geometric evidence.**
-3. **The vertical (Z) placement has NO such basis — flagged 2026-07-09 after team_00 asked directly.** The
-   applied Z offset was chosen by arbitrarily setting the fence wall's bottom corner (an IFC-internal
-   world-coordinate value, itself in an unresolved internal Revit datum — `HOUSE_IFC_REFERENCE.md` §0.1 already
-   notes `RefElevation`=1.70m doesn't match the storey elevations 55.99-62.95m) equal to 4G's real surveyed
-   elevation. **There is no evidence linking the house's internal elevation datum to the survey's real elevation
-   datum** — unlike the horizontal placement, this was a placeholder choice, not a derived result. Do not treat
-   the model's current house-vs-terrain height relationship as meaningful. What would resolve it: a real measured
-   height (entrance-floor-threshold height above a known ground point — ask the architect, who likely has this on
-   a section drawing, or add it to the on-site tie-measurement request alongside the horizontal distances).
-4. **Overall status: the X/Y placement is a strong candidate, not a confirmed site anchor; the Z placement is an
-   unjustified placeholder, weaker than "candidate."** The X/Y hypothesis (wall = real edge 3G→4G) hasn't been
-   checked against the architect's plan or the client's own knowledge of the site. Treat X/Y as the current best
-   working transform, supersedable the moment the real tie-measurement (or Michal's
-   coordinates) arrives — do not present this rotation to Niv as a settled fact.
+**Origin convention (updated 2026-07-09, FOUR passes — read to the end, earlier passes were wrong):**
+1. **First pass:** team_00 identified `walls_119777_Basic_Wall:משראביה:6071941` (a mashrabiya wall near the deck)
+   in the live scene as "the south fence" and the scene was re-anchored to its corner.
+2. **Second pass:** an exact rotation (θ=105.28°, computed from matching that wall to survey edge 3G→4G) was
+   applied to the `terrain` object, with a tight-looking 3-9cm cross-check at the wall's other end.
+3. **Third pass — CONTRADICTION found, then RESOLVED rigorously:** the client stated directly that the deck +
+   glass door face roughly south. Checking pass 2's rotation against that statement showed the deck would face
+   ESE (~107°) under it — not south. Rather than trust either heuristic, the question was settled by walking the
+   IFC's own `IfcLocalPlacement` hierarchy directly (Project→Site→Building→all 5 storeys), via 3 independent
+   methods (raw STEP data, composed-matrix decomposition, and independent PCA on the actual geometry). **Every
+   containment level carries an identity rotation, to full float precision — rotation = 0.000000°.** Pass 2's
+   105.28° was a bad wall-to-edge correspondence (the file has 2 distinct wall-orientation families 90° apart;
+   the wrong one got matched). **The scene has been reverted to 0° rotation, translation-only** — see
+   `design/CANONICAL/BLENDER_SHELL_BUILD_PLAN_v1.0.0.md` §3b and `blender/data/site/SITE_GEO.yaml` →
+   `rotation_resolution` for the full derivation (`fence_edge_candidate_transform_RETRACTED` preserves pass 2 for
+   the record).
+   - **Bonus finding from the same investigation:** the deck sits near TWO glass doors (2.95m and 3.49m away).
+     The one originally assumed to be "the" deck door (#112958, 4.2m wide) actually faces ENE — not south. A
+     different, narrower door (#7639, 2.8m, on wall #2391) faces SSE (159.26°, ~21° off true south) — a much
+     better match for "roughly south." Both doors/objects have been relabeled in the live scene accordingly.
+   - **Remaining honest caveat:** this all rests on the IFC's declared `TrueNorth` (exactly local +Y) really
+     being true geographic north — and its suspicious exactness looks like an untouched Revit default, not a
+     deliberately-surveyed value. The door-#7639-faces-~south finding is the best available support that it's
+     directionally correct anyway, but it's still an assumption, not an independent confirmation.
+4. **Fourth pass (current) — position (X/Y), translation-only, unchanged reasoning:** with rotation confirmed at
+   0°, the `terrain` object was translated (no rotation) back to a south-central placement matching Niv's own
+   description, using the same logic as the original pre-heuristic v1 placement (front/back reference-corner
+   midpoint at local x=-5, y=-28 relative to point 1G). **This exact position is still just a flagged
+   approximation** — only the rotation is confirmed, not the position. It will move once the real
+   tie-measurement (§3) or Michal's coordinates arrive.
+5. **Z (vertical) — now grounded in a real fact, still approximate.** The client separately stated (2026-07-09):
+   real ground on the house's north/east sides currently sits ~0.30-0.40m below the entrance floor; the south
+   side is currently very low and will need fill (a design decision, not a discoverable fact — no number
+   assigned). The model now places the terrain's average boundary-corner elevation ~0.35m below the entrance
+   floor, rather than the earlier arbitrary equate-two-unrelated-numbers choice — still not a survey-grade tie,
+   and the client separately warned the whole site was regraded since the 2023 survey, so even the boundary
+   corners' old elevations may not reflect current real conditions. See `SITE_GEO.yaml` →
+   `client_confirmed_height_facts`.
+6. **Overall status: rotation = CONFIRMED (0°, rigorous, independent of any survey/client input). Position (X/Y)
+   = still an open approximation. Z = still an open approximation, now better-grounded.** Do not present the
+   rotation as still-uncertain to Niv — that part is settled. Do present the position and exact height as still
+   pending.
 
 ## Role table
 
