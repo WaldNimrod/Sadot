@@ -23,6 +23,18 @@ via `blender/scripts/site/export_house_shell_obj.py` — collection `HouseShell_
 `_aos/roadmap.yaml` (currently `PLANNED`, blocked on `S002` concept approval + the real tie-measurement) — this
 v1 file is a precursor/sanity-check, not that deliverable.
 
+**Origin convention (updated 2026-07-09, second pass):** team_00 identified `walls_119777_Basic_Wall:משראביה:6071941`
+(a mashrabiya lattice-screen wall near the deck) in the live scene as "the south fence." The whole scene (house +
+terrain) was re-anchored so this wall's south end, outer face, ground-level corner sits at local `(0,0,0)` — marked
+in-scene by an Empty named `ORIGIN_fence_SW_corner`. **This exact corner choice is a first guess, not confirmed:**
+the wall isn't axis-aligned (its two ends differ in both X and Y), so "southwest corner" doesn't pick out a single
+unambiguous vertex — flag to team_00 if the wrong end/face was chosen. **Possible significance:** this wall's own
+length (~9.9m) is close to the real survey's south boundary edge 3G→4G (10.099m, `SITE_GEO.yaml`
+`orientation.boundary_edge_bearings_deg_from_true_north`) — if this wall really does correspond to that real
+boundary segment, it could serve as a second, independent site-anchoring reference alongside (or instead of) the
+`house_reference_corners` tie-measurement plan. **Not yet verified or used as a precision anchor — a hypothesis,
+matching this project's own standard against over-asserting from an unconfirmed geometric coincidence.**
+
 ## Role table
 
 | Role | File | Notes |

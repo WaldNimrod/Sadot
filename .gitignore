@@ -15,3 +15,10 @@
 # ── Python build artifacts (harvested scripts under design/, blender/) ──
 __pycache__/
 *.pyc
+
+# ── OS / Blender local artifacts — never meaningful to commit ──
+.DS_Store
+*.blend1
+*.blend2
+blender/sadot_v1_top_view.png
+blender/sadot_v1_reanchored_top_view.png
