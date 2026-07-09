@@ -119,9 +119,14 @@ orientation:
 # Two real, precise house-exterior corners identified directly from IFC geometry (2026-07-09), for tie-measurement
 # reconciliation against the boundary_itm points above. See design/CANONICAL/BLENDER_SHELL_BUILD_PLAN_v1.0.0.md §3
 # for the full method and the measurement request. Coordinates below are in the IFC's OWN internal world coordinate
-# system (arbitrary Revit origin) — NOT yet in ITM. Rotation between the two systems is believed to be ~zero (both
-# independently claim true-north alignment); only a translation offset needs solving, via 2 real-world distance
-# measurements from 2 known boundary_itm points to each of these 2 corners (4 measurements total).
+# system (arbitrary Revit origin) — NOT yet in ITM. UPDATE (2026-07-09): the "rotation ≈ 0" assumption below was
+# wrong (or doesn't apply to ifcopenshell.geom's USE_WORLD_COORDS output) — see fence_edge_candidate_transform
+# below for a strong, numerically well-supported candidate rotation of ~105.3°, found independently of this
+# tie-measurement plan. This tie-measurement plan (translation-only, assuming zero rotation) is now superseded as
+# the primary approach, but kept here since it remains a valid independent cross-check once real measurements
+# exist. [Original text, now only partially accurate:] Rotation between the two systems was believed to be ~zero
+# (both independently claim true-north alignment); only a translation offset was thought to need solving, via 2
+# real-world distance measurements from 2 known boundary_itm points to each of these 2 corners (4 measurements total).
 house_reference_corners:
   status: "AWAITING team_00 on-site tie-measurement (or the architect's equivalent Revit measurements — see
     _COMMUNICATION/team_70/DRAFT_MESSAGE_TO_MICHAL_SITE_PLAN_v1.0.0.md, a parallel channel not yet sent) — see
@@ -138,6 +143,33 @@ house_reference_corners:
       z: 57.69
       description: "Outside corner of the children's-bedroom wing (window tag 5834063's room), where the back wall turns into a ~22m exterior wall run — a genuine major footprint corner."
   internal_baseline_m: 9.33
+
+# Candidate IFC->ITM transform (2026-07-09), found via a DIFFERENT method than the tie-measurement plan above:
+# team_00 identified a mashrabiya (lattice-screen) wall, IFC element `walls_119777` / "Basic Wall:משראביה:6071941",
+# in the live Blender model as the real south-boundary fence. Its own length (~10.05-10.10m, measured face-to-face)
+# and, after applying the rotation below, its far end lands within 3-9cm of boundary point 3G — both strongly
+# consistent with this wall being the physical structure at real survey edge 3G->4G (length 10.099m). This is a
+# hypothesis, not an independently confirmed fact (not yet checked against the architect's own plan or client
+# knowledge) — but the numeric agreement is tight enough to record as the current best candidate.
+fence_edge_candidate_transform:
+  status: "STRONG CANDIDATE, not independently confirmed — depends on walls_119777 really being the edge 3G->4G fence"
+  hypothesis: "IFC element walls_119777 (mashrabiya wall near the deck) = the physical fence at real survey edge 3G->4G"
+  wall_native_coords:
+    south_end: {x: -411180.922, y: -270529.281}
+    north_end: {x: -411182.516, y: -270519.359}
+    length_m: 10.05
+  derivation: "Rotation theta solves: R(theta) applied to the terrain's own local (1G-relative) vector 3G->4G
+    equals the wall's fixed native-frame vector north_end->south_end. theta = angle(wall vector) - angle(terrain
+    3G->4G vector), both measured as standard CCW-from-+X-axis angles. Cross-check: after applying theta, the
+    terrain's own 3G point (rotated + translated) lands ~3-9cm from the wall's other (north) end — tight agreement."
+  rotation_deg_ccw_about_z: 105.28146223928564
+  # translation to apply to the terrain (not the house) so its own 4G point lands at the wall's south end:
+  # terrain.location_xy = -(R(theta) applied to terrain-local 4G point, relative to 1G origin)
+  terrain_translation_xy_relative_to_wall_south_end: {x: -51.786384944310136, y: -2.9429229347247094}
+  z_note: "z offset chosen so 4G's real elevation (54.76m) lands at the same Z as the wall's south-end bottom
+    corner (55.5147m in the house's own world coords) MINUS the datum chosen in house_reference_corners.status's
+    origin re-anchor below — see blender/CURRENT_MODEL.md for the exact applied values, not restated here."
+  used_in: "blender/sadot_v1_initial.blend — applied to the 'terrain' object, 2026-07-09, second pass"
 
 # Re-scan finding (2026-07-09, prompted by architect Michal telling team_00 the survey also marks the new
 # house's position, in the southern part of the plot): re-examined the ENTIRE parcel 122 in the survey PDF at

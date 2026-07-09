@@ -1,5 +1,5 @@
 # HOUSE IFC REFERENCE — extracted from the architect's model
-### Sadot · Landscape Architecture · Team 110 · v1.3.0 · 2026-07-09 · **owns: house-model ground truth for landscape design** · status: **REAL DATA, with flagged reconciliation gaps — read the caveats before using positions**
+### Sadot · Landscape Architecture · Team 110 · v1.4.0 · 2026-07-09 · **owns: house-model ground truth for landscape design** · status: **REAL DATA, with flagged reconciliation gaps — read the caveats before using positions**
 
 > **v1.3.0 update (2026-07-09):** reconciled §2's confidence language with `CLIENT_BRIEF_NIV_SADOT_v1.0.0.md` §9
 > (room identity is team_00-confirmed; the window-tag pairing to the architect's 2D plan is not) and added §4b
@@ -27,18 +27,30 @@
 
 ## 0. Read this first — data-quality issues that affect how you use everything below
 
-1. **Coordinate-system mismatch (important, unresolved).** This IFC file's own coordinates do NOT reliably align
-   with the real ITM survey grid in `blender/data/site/SITE_GEO.yaml`. Evidence: `IfcSite.RefLatitude/RefLongitude`
-   decode to ~32.045°N/34.769°E, which is NOT Pardes Hanna (~32.46°N/34.96°E — a ~50km discrepancy); the file's
-   internal XY coordinates are large arbitrary negative numbers (~-411,000, -270,500) consistent with an
-   uncalibrated Revit "Survey Point" offset, not real ITM easting/northing (which would be positive, ~100,000-280,000
-   / ~350,000-1,250,000). **Do not assume this file's absolute X/Y/Z can be directly overlaid on the real site
-   survey without reconciliation** — ask the architect (Michal) for the Revit "Shared Coordinates" / true
-   Survey Point setup, or plan to manually re-anchor the house model once imported, using the real front-door
-   position relative to the surveyed boundary as the anchor. **The survey PDF's own building outlines cannot be
-   used as an anchoring shortcut** — they show the OLD house, not the current one this IFC represents (see
-   `blender/data/site/SITE_GEO.yaml`'s scope note). An updated/as-built survey, or specific reference
-   measurements from the architect/client, is the only reliable path to real reconciliation.
+1. **Coordinate-system mismatch (important — rotation now has a strong candidate value, translation confirmed;
+   see the update below before trusting the "rotation ≈ 0" claim that used to be here).** This IFC file's own
+   coordinates do NOT reliably align with the real ITM survey grid in `blender/data/site/SITE_GEO.yaml`. Evidence:
+   `IfcSite.RefLatitude/RefLongitude` decode to ~32.045°N/34.769°E, which is NOT Pardes Hanna (~32.46°N/34.96°E —
+   a ~50km discrepancy); the file's internal XY coordinates are large arbitrary negative numbers
+   (~-411,000, -270,500) consistent with an uncalibrated Revit "Survey Point" offset, not real ITM easting/northing.
+   **Do not assume this file's absolute X/Y/Z can be directly overlaid on the real site survey without
+   reconciliation.**
+   > **Update (2026-07-09):** the original assumption here — that rotation between the IFC world-coordinate
+   > output and the real ITM grid is ≈0°, because the IFC's own `TrueNorth` declaration and the ITM grid are each
+   > independently true-north-aligned — turned out to be **wrong** (or at least not applicable to
+   > `ifcopenshell.geom`'s `USE_WORLD_COORDS` output specifically): a real **~105.3° rotation** is needed, found by
+   > team_00 identifying a mashrabiya wall (`walls_119777`) in the live Blender model as the real south-boundary
+   > fence, then computing the exact rotation+translation that aligns that wall with survey edge 3G→4G. Likely
+   > cause: `TrueNorth` is declared at the top-level `IfcGeometricRepresentationContext` (project level), but
+   > `USE_WORLD_COORDS` follows the actual `IfcLocalPlacement` chain (Site→Building→Storey→Element) — if any
+   > placement in that chain carries its own rotation (plausible in a real Revit workflow), the exported world
+   > coordinates end up rotated relative to the declared TrueNorth without that being obviously flagged anywhere.
+   > **This is a strong, numerically well-supported candidate (see `blender/CURRENT_MODEL.md` for the full
+   > derivation and cross-check), not yet an independently-confirmed fact** — it rests on the
+   > wall-is-really-that-boundary-edge hypothesis, which is unconfirmed with Niv/Michal. Ask the architect
+   > (Michal) for the Revit "Shared Coordinates" / true Survey Point setup to confirm or refute independently.
+   **The survey PDF's own building outlines cannot be used as an anchoring shortcut** — they show the OLD house,
+   not the current one this IFC represents (see `blender/data/site/SITE_GEO.yaml`'s scope note).
 2. **`IsExternal` property is unreliable.** Every one of the 111 walls reads `IsExternal=True` (should be
    impossible for a real house — interior partitions exist). Do not use this flag to separate exterior envelope
    from interior walls. On `IfcWindow`/`IfcDoor`, the same flag is inconsistent even between two windows in the

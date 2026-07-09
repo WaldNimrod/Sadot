@@ -1,5 +1,12 @@
 # BLENDER HOUSE-SHELL BUILD PLAN
-### Sadot · Landscape Architecture · Team 110 · v1.2.0 · 2026-07-09 · **owns: house-shell construction approach for S003** · status: **v1 INITIAL MODEL BUILT (provisional) — real tie-measurement + exterior-only pruning still open**
+### Sadot · Landscape Architecture · Team 110 · v1.3.0 · 2026-07-09 · **owns: house-shell construction approach for S003** · status: **v1 MODEL BUILT — a strong candidate site-anchor now exists (§3b), not yet an independently-confirmed one**
+
+> **v1.3.0 (2026-07-09):** a candidate site-anchor was found by a DIFFERENT method than §3's tie-measurement plan
+> — team_00 identified a mashrabiya wall in the live model as the real south fence; the exact rotation+translation
+> that aligns it with survey edge 3G→4G was computed (not eyeballed) and matches within centimeters at the far
+> end. See new §3b. This doesn't replace §3's plan (still the more rigorous path once real measurements exist) but
+> is now the model's actual working transform. Full derivation: `blender/data/site/SITE_GEO.yaml` →
+> `fence_edge_candidate_transform`; full status: `blender/CURRENT_MODEL.md`.
 
 > **v1.2.0 (2026-07-09):** first Sadot `.blend` built — `blender/sadot_v1_initial.blend` (see
 > `blender/CURRENT_MODEL.md` for the full pointer + caveats). This executed §2/§4 below with one simplification
@@ -92,6 +99,33 @@ the fallback if that doesn't return results.
 Once these 4 distances are in, the transform (translation + confirmation of zero rotation) can be computed
 directly — no further survey work needed.
 
+**Note (2026-07-09): the "confirmation of zero rotation" assumption above did not hold** — see §3b.
+
+## 3b. A candidate transform found by a different method (2026-07-09) — not a replacement for the above
+
+While working in the live Blender model, team_00 identified `walls_119777` (a mashrabiya lattice-screen wall near
+the deck) as the real south-boundary fence. Rather than the 2-corner tie-measurement in §3, this gives a
+**1-edge correspondence**: the wall's own fixed direction should match real survey edge 3G→4G's direction.
+
+**What was computed (exactly, not eyeballed):** the rotation θ that aligns the wall's north→south direction with
+the terrain's own local 3G→4G direction: **θ = 105.28° (CCW about Z)** — i.e. **rotation is NOT ≈0° as §3
+assumed**; a real ~105° rotation exists between the IFC world-coordinate export and the real ITM grid. Plus a
+translation placing the terrain's own 4G point at the wall's south end. Full numbers:
+`blender/data/site/SITE_GEO.yaml` → `fence_edge_candidate_transform`.
+
+**Cross-check (the strongest evidence this isn't a coincidence):** after applying this transform, the terrain's
+own 3G point lands within **3-9cm** of the wall's *other* (north) end — a very tight match for two independently
+derived points to land on. Team_00's own manual eyeball rotation (~103.6°) was also only ~1.7° off the computed
+105.28° — a second independent corroboration.
+
+**Status: strong candidate, NOT an independently confirmed site anchor.** It depends entirely on the hypothesis
+that `walls_119777` really is the physical structure at real edge 3G→4G — this has not been checked against the
+architect's own plan or the client's knowledge of the site. The §3 tie-measurement plan (or Michal's coordinates)
+remains the more rigorous confirmation path and should still be pursued — this candidate transform should be
+treated as the model's current best-working placement, not presented to Niv as a settled fact. If §3's real
+measurements arrive and disagree with this ~105° rotation by more than a few degrees, trust the real
+measurement and treat this whole finding as likely a false match.
+
 ## 4. Build sequence
 
 1. Get the 4 tie-measurements (§3) → compute the IFC→ITM transform. **Still open — not yet done.**
@@ -110,15 +144,14 @@ directly — no further survey work needed.
    OBJs via `wm.obj_import(forward_axis='Y', up_axis='Z')` (the non-default axis setting matters — Blender's OBJ
    importer default assumes OBJ is Y-up and remaps Y↔Z on import, which would have scrambled our own
    easting/northing/elevation axes; both files use X=easting-like, Y=northing-like, Z=real elevation already).
-5. ~~Position `house_shell_v1.obj` using a PROVISIONAL, clearly-flagged approximate anchor~~ **DONE (2026-07-09,
-   translation-only, per the already-established zero-rotation finding):** placed so the front/back
-   reference-corner midpoint sits at local (x=-5, y=-28) relative to point 1G — south-central part of the plot
-   polygon, matching Niv's own description ("מהיכן שרשום בpdf סככה ומחסן ולכיוון דרום") and the real location of
-   the existing shed/storage labels found in the survey re-scan. **This exact position will move once the real
-   tie-measurement or Michal's coordinates arrive — do not treat it as a site-anchored fact.** Visual result: the
-   compact, recognizable house core (deck + windows + doors) sits within the plot boundary as intended; some of
-   the 111 walls (the oversized boundary/retaining-wall elements flagged in step 2) visibly extend beyond it —
-   expected, not a placement bug.
+5. ~~Position `house_shell_v1.obj`~~ **SUPERSEDED TWICE (2026-07-09):** first a translation-only approximation
+   (south-central part of the plot, per Niv's own description); then replaced by §3b's candidate transform — the
+   `terrain` object (not the house, which stays fixed as the datum) is now rotated 105.28° and translated so its
+   own 3G/4G points align with the mashrabiya-wall fence candidate. **Still not a confirmed site-anchored fact —
+   see §3b's status paragraph before treating this placement as final.** Visual result: the compact, recognizable
+   house core (deck + windows + doors) sits right at the plot's south-east corner, matching where the candidate
+   fence sits; some of the 111 walls (the oversized boundary/retaining-wall elements flagged in step 2) visibly
+   extend beyond the plot on the other sides — expected (§2's known limitation), not a placement bug.
 6. ~~Add the plot boundary itself as a reference curve/plane~~ **DONE** — `terrain.obj` imported as its own
    collection (`Terrain_RealSurvey`).
 7. Screenshot + compare against `design/CANONICAL/CONCEPT_SKETCH_REFERENCE.md` (the client's hand sketch analysis)

@@ -20,5 +20,4 @@ __pycache__/
 .DS_Store
 *.blend1
 *.blend2
-blender/sadot_v1_top_view.png
-blender/sadot_v1_reanchored_top_view.png
+blender/sadot_v1_*.png
