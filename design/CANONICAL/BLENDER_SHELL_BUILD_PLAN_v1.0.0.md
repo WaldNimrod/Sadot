@@ -1,5 +1,10 @@
 # BLENDER HOUSE-SHELL BUILD PLAN
-### Sadot · Landscape Architecture · Team 110 · v1.1.0 · 2026-07-09 · **owns: house-shell construction approach for S003** · status: **PLAN — not yet executed, blocked on 3 items (see §5)**
+### Sadot · Landscape Architecture · Team 110 · v1.2.0 · 2026-07-09 · **owns: house-shell construction approach for S003** · status: **v1 INITIAL MODEL BUILT (provisional) — real tie-measurement + exterior-only pruning still open**
+
+> **v1.2.0 (2026-07-09):** first Sadot `.blend` built — `blender/sadot_v1_initial.blend` (see
+> `blender/CURRENT_MODEL.md` for the full pointer + caveats). This executed §2/§4 below with one simplification
+> (all 111 walls exported, not just the exterior perimeter — see §2) and one open item unchanged (§3's
+> tie-measurement still hasn't happened, so placement in §4 step 5 is a flagged approximation, not a site anchor).
 
 > **v1.1.0 (2026-07-09):** dedupe pass — coordinate tables (reference corners, boundary points) now point to
 > `blender/data/site/SITE_GEO.yaml` instead of duplicating the numbers; deck status corrected from "CONFIRMED" to
@@ -101,17 +106,21 @@ directly — no further survey work needed.
    from the nearest visually-adjacent spot-height on the 600 DPI survey re-scan — see `SITE_GEO.yaml`
    `approximate_corner_elevations_v1`, explicitly flagged as indicative, not the surveyor's own formal point-list)
    → `blender/data/site/terrain.obj`.
-4. Open a **dedicated Sadot Blender file** → import both OBJs. **Still blocked as of 2026-07-09: the Blender MCP
-   connection is not established** (`get_scene_info` → "Could not connect to Blender. Make sure the Blender addon
-   is running") — needs the user to open Blender with the MCP addon's server started.
-5. **Since step 1 (tie-measurement) isn't done yet, position `house_shell_v1.obj` using a PROVISIONAL, clearly-flagged
-   approximate anchor** — south-central part of the plot polygon (matching Niv's own description, "מהיכן שרשום
-   בpdf סככה ומחסן ולכיוון דרום," and the real location of the existing שed/storage labels found in the survey
-   re-scan), oriented so the IFC's own Y+ (its declared TrueNorth) aligns with the plot's real northing (zero
-   rotation, per the already-established finding that both systems are independently true-north-aligned) — i.e.
-   translation-only placement, no rotation applied. **This exact position will move once the real tie-measurement
-   or Michal's coordinates arrive — do not treat it as a site-anchored fact.**
-6. Add the plot boundary itself as a reference curve/plane (from `terrain.obj`, §4.3 above).
+4. ~~Open a dedicated Sadot Blender file~~ **DONE (2026-07-09):** `blender/sadot_v1_initial.blend` — imported both
+   OBJs via `wm.obj_import(forward_axis='Y', up_axis='Z')` (the non-default axis setting matters — Blender's OBJ
+   importer default assumes OBJ is Y-up and remaps Y↔Z on import, which would have scrambled our own
+   easting/northing/elevation axes; both files use X=easting-like, Y=northing-like, Z=real elevation already).
+5. ~~Position `house_shell_v1.obj` using a PROVISIONAL, clearly-flagged approximate anchor~~ **DONE (2026-07-09,
+   translation-only, per the already-established zero-rotation finding):** placed so the front/back
+   reference-corner midpoint sits at local (x=-5, y=-28) relative to point 1G — south-central part of the plot
+   polygon, matching Niv's own description ("מהיכן שרשום בpdf סככה ומחסן ולכיוון דרום") and the real location of
+   the existing shed/storage labels found in the survey re-scan. **This exact position will move once the real
+   tie-measurement or Michal's coordinates arrive — do not treat it as a site-anchored fact.** Visual result: the
+   compact, recognizable house core (deck + windows + doors) sits within the plot boundary as intended; some of
+   the 111 walls (the oversized boundary/retaining-wall elements flagged in step 2) visibly extend beyond it —
+   expected, not a placement bug.
+6. ~~Add the plot boundary itself as a reference curve/plane~~ **DONE** — `terrain.obj` imported as its own
+   collection (`Terrain_RealSurvey`).
 7. Screenshot + compare against `design/CANONICAL/CONCEPT_SKETCH_REFERENCE.md` (the client's hand sketch analysis)
    and `SITE_UNDERSTANDING_SKETCH_v1.0.0.svg` for a sanity check before proceeding to S002 concept work on top of
    this base.
@@ -122,11 +131,11 @@ only the already-known small outbuildings and 3 "קו בניין X מ'" building
 different edges), which define a *permitted building envelope*, not a drawn house shape. Flagged back to team_00;
 not used as a precision anchor. Full note: `blender/data/site/SITE_GEO.yaml` (comment above `house_reference_corners`).
 
-## 5. Blockers (unchanged from earlier — restated for this plan's completeness)
+## 5. Blockers
 
-- **Dedicated Blender session** — the currently MCP-connected Blender instance has unsaved microgreens work
-  (`is_dirty: True` on `IsraelMicrogreens_026.blend`) — must not be touched. Needs either that session
-  saved/closed, or a second Blender instance opened by the user.
+- ~~Dedicated Blender session~~ **RESOLVED (2026-07-09):** user opened a fresh Blender instance (MCP on port 9876,
+  clean default scene) — the earlier blocker (a different, MCP-connected instance had unsaved microgreens work)
+  no longer applies. `blender/sadot_v1_initial.blend` was built in this session.
 - **Bonsai install** — not required for the primary plan (§2), only for optional later cross-checking; still
   blocked on explicit "online access" approval if pursued.
 - **Parents' balcony + one children's balcony** — not geometrically confirmed in the IFC (`HOUSE_IFC_REFERENCE.md`
