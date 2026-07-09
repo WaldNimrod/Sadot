@@ -40,10 +40,21 @@ v1 file is a precursor/sanity-check, not that deliverable.
    **Cross-check:** after applying this transform, the terrain's own 3G point lands within **3-9cm** of the
    fence wall's *other* (north) end — an extremely tight match if this is coincidence, and strong (though still
    not independently confirmed) support that `walls_119777` really is the physical fence at real edge 3G→4G.
-   Full numeric derivation: `blender/data/site/SITE_GEO.yaml` → `fence_edge_candidate_transform`.
-3. **Status: strong candidate, not a confirmed site anchor.** It depends entirely on the wall-is-that-real-edge
-   hypothesis, which hasn't been checked against the architect's plan or the client's own knowledge of the site.
-   Treat as the current best working transform, supersedable the moment the real tie-measurement (or Michal's
+   Full numeric derivation: `blender/data/site/SITE_GEO.yaml` → `fence_edge_candidate_transform`. **This
+   rotation+translation (X/Y only) is well-supported by real, cross-checked geometric evidence.**
+3. **The vertical (Z) placement has NO such basis — flagged 2026-07-09 after team_00 asked directly.** The
+   applied Z offset was chosen by arbitrarily setting the fence wall's bottom corner (an IFC-internal
+   world-coordinate value, itself in an unresolved internal Revit datum — `HOUSE_IFC_REFERENCE.md` §0.1 already
+   notes `RefElevation`=1.70m doesn't match the storey elevations 55.99-62.95m) equal to 4G's real surveyed
+   elevation. **There is no evidence linking the house's internal elevation datum to the survey's real elevation
+   datum** — unlike the horizontal placement, this was a placeholder choice, not a derived result. Do not treat
+   the model's current house-vs-terrain height relationship as meaningful. What would resolve it: a real measured
+   height (entrance-floor-threshold height above a known ground point — ask the architect, who likely has this on
+   a section drawing, or add it to the on-site tie-measurement request alongside the horizontal distances).
+4. **Overall status: the X/Y placement is a strong candidate, not a confirmed site anchor; the Z placement is an
+   unjustified placeholder, weaker than "candidate."** The X/Y hypothesis (wall = real edge 3G→4G) hasn't been
+   checked against the architect's plan or the client's own knowledge of the site. Treat X/Y as the current best
+   working transform, supersedable the moment the real tie-measurement (or Michal's
    coordinates) arrives — do not present this rotation to Niv as a settled fact.
 
 ## Role table

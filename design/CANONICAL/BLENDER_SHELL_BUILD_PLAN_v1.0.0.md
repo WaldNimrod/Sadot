@@ -118,13 +118,22 @@ own 3G point lands within **3-9cm** of the wall's *other* (north) end — a very
 derived points to land on. Team_00's own manual eyeball rotation (~103.6°) was also only ~1.7° off the computed
 105.28° — a second independent corroboration.
 
-**Status: strong candidate, NOT an independently confirmed site anchor.** It depends entirely on the hypothesis
-that `walls_119777` really is the physical structure at real edge 3G→4G — this has not been checked against the
-architect's own plan or the client's knowledge of the site. The §3 tie-measurement plan (or Michal's coordinates)
-remains the more rigorous confirmation path and should still be pursued — this candidate transform should be
-treated as the model's current best-working placement, not presented to Niv as a settled fact. If §3's real
-measurements arrive and disagree with this ~105° rotation by more than a few degrees, trust the real
+**Status: strong candidate, NOT an independently confirmed site anchor — and this is X/Y only.** It depends
+entirely on the hypothesis that `walls_119777` really is the physical structure at real edge 3G→4G — this has not
+been checked against the architect's own plan or the client's knowledge of the site. The §3 tie-measurement plan
+(or Michal's coordinates) remains the more rigorous confirmation path and should still be pursued — this candidate
+transform should be treated as the model's current best-working placement, not presented to Niv as a settled fact.
+If §3's real measurements arrive and disagree with this ~105° rotation by more than a few degrees, trust the real
 measurement and treat this whole finding as likely a false match.
+
+**Vertical (Z) placement has NO comparable basis (flagged 2026-07-09, team_00 asked directly).** Everything above
+is a horizontal (X/Y) rotation+translation with real supporting evidence. The model's current height relationship
+between house and terrain was set by arbitrarily equating the fence wall's IFC-internal elevation with 4G's real
+surveyed elevation — no evidence links those two datums, and the IFC file's own internal elevation referencing is
+already known to be inconsistent (`HOUSE_IFC_REFERENCE.md` §0.1: `RefElevation`=1.70m doesn't match the storey
+elevations 55.99-62.95m). §3's tie-measurement request should be extended to also ask for a real height reading
+(e.g. entrance-floor-threshold height above a known ground point/survey benchmark) — see
+`_COMMUNICATION/team_70/DRAFT_MESSAGE_TO_MICHAL_SITE_PLAN_v1.0.0.md`, which should be updated to ask for this too.
 
 ## 4. Build sequence
 

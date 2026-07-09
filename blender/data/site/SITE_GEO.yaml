@@ -166,10 +166,19 @@ fence_edge_candidate_transform:
   # translation to apply to the terrain (not the house) so its own 4G point lands at the wall's south end:
   # terrain.location_xy = -(R(theta) applied to terrain-local 4G point, relative to 1G origin)
   terrain_translation_xy_relative_to_wall_south_end: {x: -51.786384944310136, y: -2.9429229347247094}
-  z_note: "z offset chosen so 4G's real elevation (54.76m) lands at the same Z as the wall's south-end bottom
-    corner (55.5147m in the house's own world coords) MINUS the datum chosen in house_reference_corners.status's
-    origin re-anchor below — see blender/CURRENT_MODEL.md for the exact applied values, not restated here."
-  used_in: "blender/sadot_v1_initial.blend — applied to the 'terrain' object, 2026-07-09, second pass"
+  z_note: "NO REAL BASIS — flagged 2026-07-09 after team_00 asked. The applied z offset was chosen by ARBITRARILY
+    setting the fence wall's bottom corner (an IFC-internal world-coordinate value, 55.5147m, itself in an
+    unresolved internal Revit datum — see HOUSE_IFC_REFERENCE.md §0.1's own note that RefElevation=1.70m doesn't
+    match the storey elevations 55.99-62.95m) equal to 4G's real surveyed elevation (54.76m). Unlike the
+    rotation/translation above (which rest on a real, cross-checked geometric match), there is NO evidence linking
+    the house's internal elevation datum to the survey's real elevation datum — this was a placeholder choice to
+    make the v1 model look plausible, not a derived result. Do not treat the model's current vertical
+    relationship between house and terrain as meaningful. What would actually resolve this: a real measured
+    height (e.g. entrance-floor-threshold height above a known ground point/survey benchmark — ask the architect,
+    who likely has this on a section drawing, or add it to the on-site tie-measurement request alongside the
+    horizontal distances already planned)."
+  used_in: "blender/sadot_v1_initial.blend — applied to the 'terrain' object, 2026-07-09, second pass. Horizontal
+    (X/Y) placement is a well-supported candidate; vertical (Z) placement is NOT — see z_note."
 
 # Re-scan finding (2026-07-09, prompted by architect Michal telling team_00 the survey also marks the new
 # house's position, in the southern part of the plot): re-examined the ENTIRE parcel 122 in the survey PDF at

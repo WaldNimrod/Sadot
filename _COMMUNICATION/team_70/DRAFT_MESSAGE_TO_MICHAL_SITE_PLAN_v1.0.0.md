@@ -3,8 +3,11 @@ id: DRAFT_MESSAGE_TO_MICHAL_SITE_PLAN_v1.0.0
 type: professional-communication draft (NOT sent — for team_00/Nimrod to review, edit, and send)
 from: team_110 (Domain Architect / landscape architect persona)
 to: Michal (Niv Sadot's architect — not a project team member, minimal-ask framing)
-date: 2026-07-09 (updated — v1 offered only the site-plan option, v2/internal revision 1.1 adds a specific-distances
-  alternative per team_00)
+date: 2026-07-09 (updated twice — v1 offered only the site-plan option, v2/internal revision 1.1 adds a
+  specific-distances alternative per team_00; internal revision 1.2 adds a height/elevation question — team_00
+  flagged that we have real supporting evidence for the horizontal (X/Y) placement between house and plot, but
+  NONE at all for the vertical (Z) one; the house's own internal elevation datum has no established link to the
+  survey's real elevation datum)
 rationale: "The simplest possible ask, offered as TWO options so she can pick whichever is less friction — a
   site-plan export she may already have, OR a handful of specific Revit-measured distances — instead of asking
   her to engage with our internal IFC/survey coordinate-reconciliation problem, which is our concern, not hers."
@@ -34,6 +37,10 @@ rationale: "The simplest possible ask, offered as TWO options so she can pick wh
 (אם קל לך יותר לבחור פינות אחרות בבית — גם טוב, רק תגידי לנו איזה פינות בחרת.)
 
 מספיק מרחק מ-2 נקודות גבול לכל פינה (4 מספרים בס"כ) — או אפילו פחות, כל מה שקל לך.
+
+**ובנוסף, שאלה קטנה על גובה:** יש לנו דרך טובה להצמיד את הבית למגרש בכיוונים (X/Y), אבל אין לנו שום דרך לקשר בין
+גובה הרצפה במודל שלך לגובה האמיתי בשטח (מהמדידה). את יודעת במקרה מה הגובה של סף הכניסה מעל פני הקרקע הטבעית
+בנקודה כלשהי שאפשר לזהות גם במדידה המצורפת? (למשל מתוכנית חתך) — גם הערכה גסה תעזור.
 
 מצורף קובץ המדידה של המודד (10111TD122) עם קואורדינטות 6 נקודות הגבול, למקרה שעדיין לא הכנסת אותו למודל.
 
