@@ -35,7 +35,11 @@ Israeli climate, and a client hub. `lifecycle_archetype` is currently `3D_CREATI
 - **Roadmap:** S001 (environment/research/site-analysis+brief) is substantially executed; S002 (concept design)
   and S003 (detailed design + 3D model) are `PLANNED`, not yet started for real. Full state:
   `_aos/roadmap.yaml` (the SSOT — do not trust any WP-count number quoted elsewhere, including in older files in
-  this repo; some drifted and were corrected, `roadmap.yaml` itself is current).
+  this repo; some drifted and were corrected, `roadmap.yaml` itself is current). The original team_00-approved
+  execution plan behind all of this (decision log + streams 1-3 + harvest map) is persisted at
+  `_COMMUNICATION/team_110/PLAN_SADOT_BUILDOUT_ROADMAP_RESEARCH_ENV_v1.0.0.md` — it started as a local Claude Code
+  plan-mode file (`~/.claude/plans/`, not repo-visible) and was copied here verbatim specifically so it is
+  readable from any session, including this one.
 - **Client materials received & curated:** licensed plot survey (boundary/elevation/orientation — real, confirmed
   by direct computation from the survey's own ITM coordinates), the architect's IFC house model (real
   ifcopenshell extraction: storeys, windows, walls, doors, materials — `design/CANONICAL/HOUSE_IFC_REFERENCE.md`),

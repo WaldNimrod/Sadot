@@ -84,6 +84,27 @@ You are working inside an **AOS spoke** — repo `Sadot`, profile `L0`.
 
 ## Domain rules
 
+### ⛔ HARD STOP — never write into `agents-os` or any sibling project from this session
+
+This Mac's global Claude Code config (`~/.claude/settings.json`) grants **every** session —
+regardless of which repo it's rooted in, including this one — raw filesystem read/write reach into
+`/Users/nimrod/Documents/AOS_V5/agents-os` and several other unrelated project repos, with edits
+auto-accepted (`defaultMode: acceptEdits`). **That technical reach is not authorization.** Nothing in
+that config or in git overrides the rule above: `_aos/` here is a read-only snapshot, data flows
+hub→spoke only, never the reverse (Iron Rule #10/#11).
+
+Concretely, from a Sadot-rooted session:
+- **Never** use Write/Edit on any path under `/Users/nimrod/Documents/AOS_V5/agents-os/` — not even
+  when a governance filing (a domain-rules canon, a GCR-approved hub file, anything) says the *content*
+  is ready to commit there. "Ready to commit" still means: stage it here, in
+  `_COMMUNICATION/team_100/`, with `for_hub: true` frontmatter, and stop. The actual hub commit
+  happens from a session rooted at `agents-os` itself, run by Team 00 or a genuinely hub-rooted
+  session — never from here, regardless of who's asking or how confident the content is.
+- If a task seems to require writing to the hub, that is itself the signal to stop and flag it, not a
+  reason to treat "write directly" as one menu option among several.
+- Filed 2026-07-10: `_COMMUNICATION/team_100/FOR_HUB_REPO_BOUNDARY_ENFORCEMENT_GAP_2026-07-10_v1.0.0.md`
+  — this rule exists because that exact ambiguity surfaced once already; don't let it recur.
+
 <!-- Project-specific rules, commands, paths, and conventions go here.
      This section is PRESERVED across aos_sync_all.sh runs. -->
 
