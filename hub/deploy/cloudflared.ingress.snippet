@@ -1,0 +1,14 @@
+# cloudflared ingress for sadot.nimrod.bio (Sadot client hub — public, no-auth)
+# Add this block to /etc/cloudflared/config.yml ABOVE the `- service: http_status:404` catch-all,
+# and DO NOT disturb the existing tt / agros / cm / il-mg hostnames on the shared tunnel.
+
+  - hostname: sadot.nimrod.bio
+    service: http://127.0.0.1:8094
+
+# Then register the DNS route and restart the service (same tunnel ID as tt/agros/cm/il-mg):
+#   cloudflared tunnel route dns 12429a3a-e597-4841-bffb-96d539dadbc9 sadot.nimrod.bio
+#   sudo systemctl restart cloudflared
+#
+# Verify after:
+#   curl -sI https://sadot.nimrod.bio | grep -i x-robots-tag   (expect: noindex, nofollow)
+#   curl -s -o /dev/null -w '%{http_code}\n' https://sadot.nimrod.bio   (expect: 200, NO auth prompt)

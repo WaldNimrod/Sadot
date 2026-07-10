@@ -14,3 +14,41 @@
 }
 
 .hub-brand a { color: var(--accent); }
+
+/* Questions & Decisions page — numbered open-questions list */
+.questions-list {
+  list-style: none;
+  counter-reset: qnum;
+  padding: 0;
+  margin: 1rem 0 2rem;
+}
+
+.questions-list li {
+  counter-increment: qnum;
+  position: relative;
+  padding: .7rem 0 .9rem;
+  padding-inline-start: 2.9rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.questions-list li:last-child { border-bottom: none; }
+
+.questions-list li::before {
+  content: counter(qnum);
+  position: absolute;
+  inset-inline-start: 0;
+  top: .6rem;
+  width: 1.9rem;
+  height: 1.9rem;
+  border-radius: 50%;
+  background: var(--accent);
+  color: #fff;
+  font-weight: 700;
+  font-size: .85rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.q-text { font-size: .95rem; margin-bottom: .4rem; }
+.q-context { font-size: .8rem; color: var(--muted); margin-top: .35rem; }

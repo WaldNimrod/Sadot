@@ -87,8 +87,10 @@ def updates_recent_count(updates: dict, days: int = 30) -> int:
 HUB_NAV_ITEMS: list[tuple[str, str]] = [
     ("index.html", "כניסה"),
     ("what-we-need.html", "מה נדרש ממך"),
+    ("questions-decisions.html", "שאלות פתוחות"),
     ("tasks.html", "משימות והחלטות"),
     ("roadmap.html", "מפת דרכים"),
+    ("updates.html", "יומן עדכונים"),
     ("meeting.html", "תדריך פגישה"),
     ("materials-needed.html", "חומרים נדרשים"),
 ]
@@ -173,7 +175,7 @@ def priority_badge(priority_he: str) -> str:
 # Pages
 # ---------------------------------------------------------------------------
 
-def page_index(updates: dict, roadmap: dict, tasks: dict, decisions: dict,
+def page_index(updates: dict, roadmap: dict, tasks: dict, decisions: dict, questions: dict,
                 generated_iso: str, hub_version: str) -> str:
     milestones = roadmap.get("milestones", [])
     all_tasks: list = []
@@ -182,6 +184,7 @@ def page_index(updates: dict, roadmap: dict, tasks: dict, decisions: dict,
     open_count = sum(1 for t in all_tasks if t.get("status") != "completed")
     done_count = sum(1 for t in all_tasks if t.get("status") == "completed")
     open_decisions = sum(1 for d in decisions.get("decisions", []) if d.get("status") == "pending")
+    open_qs = sum(1 for q in questions.get("questions", []) if q.get("statusHe") == "open")
     recent_n = updates_recent_count(updates)
 
     current = roadmap.get("currentFocusId", "")
@@ -194,8 +197,12 @@ def page_index(updates: dict, roadmap: dict, tasks: dict, decisions: dict,
         f'<div class="stat-label">משימות פתוחות · סגורות</div></div>\n'
     )
     stats_html += (
+        f'<div class="stat-card"><div class="stat-number">{open_qs}</div>'
+        f'<div class="stat-label">שאלות פתוחות</div></div>\n'
+    )
+    stats_html += (
         f'<div class="stat-card"><div class="stat-number">{open_decisions}</div>'
-        f'<div class="stat-label">החלטות ממתינות</div></div>\n'
+        f'<div class="stat-label">החלטות ממתינות (טופס)</div></div>\n'
     )
     stats_html += (
         f'<div class="stat-card"><div class="stat-number">{recent_n}</div>'
@@ -204,8 +211,8 @@ def page_index(updates: dict, roadmap: dict, tasks: dict, decisions: dict,
     stats_html += "</div>\n"
 
     gate_body = (
-        '<p class="index-gate-text">Hub זה הוקם בשלב האתחול (bootstrap) של פרויקט עיצוב הנוף/הגינה '
-        'לניב שדות (בית פרטי, פרדס חנה). עדיין אין תוכן אמיתי — הדפים ימולאו במהלך שלב האפיון והתכנון.</p>\n'
+        '<p class="index-gate-text">Hub זה הוקם בשלב האפיון (הבנת האתר, הבריף והצרכים) של פרויקט עיצוב '
+        'הנוף/הגינה לניב שדות (בית פרטי, פרדס חנה). הדף הזה יתעדכן ככל שהפרויקט מתקדם.</p>\n'
     )
     gate_body += (
         '<div class="card index-cta-needs">'
@@ -214,9 +221,11 @@ def page_index(updates: dict, roadmap: dict, tasks: dict, decisions: dict,
         "</div>\n"
     )
     gate_body += (
-        f'<p class="subtitle"><a href="meeting.html">תדריך פגישה</a> · '
+        f'<p class="subtitle"><a href="questions-decisions.html">שאלות פתוחות + ההנחיות שקיבלנו ממך</a> · '
+        f'<a href="meeting.html">תדריך פגישה</a> · '
         f'<a href="tasks.html">משימות והחלטות, ייצוא JSON</a> · '
         f'<a href="roadmap.html">מפת דרכים</a> · '
+        f'<a href="updates.html">יומן עדכונים מלא</a> · '
         f'<a href="materials-needed.html">חומרים נדרשים</a></p>\n'
     )
 
@@ -224,13 +233,14 @@ def page_index(updates: dict, roadmap: dict, tasks: dict, decisions: dict,
     items = updates_items_newest_first(updates)
     if items:
         updates_body += '<ul class="archive-list">\n'
-        for it in items[:10]:
+        for it in items[:5]:
             updates_body += (
                 f'<li><span class="card-date">{escape(it.get("date",""))}</span> '
                 f'<strong>{escape(it.get("titleHe",""))}</strong><br>'
                 f'<span class="card-body">{escape(it.get("bodyHe",""))}</span></li>\n'
             )
         updates_body += "</ul>\n"
+        updates_body += '<p class="subtitle"><a href="updates.html">לכל העדכונים ←</a></p>\n'
     else:
         updates_body = '<p class="subtitle">אין עדכונים עדיין — הלוג יתמלא במהלך העבודה על הפרויקט.</p>\n'
 
@@ -474,6 +484,78 @@ def page_materials_needed(materials: dict, generated_iso: str) -> str:
     return html
 
 
+def page_questions_decisions(questions: dict, guidance: dict, generated_iso: str) -> str:
+    q_body = f'<p class="subtitle">{escape(questions.get("introHe", ""))}</p>\n'
+    qlist = questions.get("questions", [])
+    if qlist:
+        q_body += '<ol class="questions-list">\n'
+        for q in sorted(qlist, key=lambda x: x.get("number", 0)):
+            waiting = q.get("waitingOnHe", "")
+            waiting_html = (
+                f'<span class="badge badge-pending">ממתין ל: {escape(waiting)}</span>' if waiting else ""
+            )
+            ctx = (
+                f'<div class="q-context">{escape(q["contextHe"])}</div>' if q.get("contextHe") else ""
+            )
+            q_body += (
+                f'<li><div class="q-text">{escape(q.get("textHe",""))}</div>'
+                f'{waiting_html}{ctx}</li>\n'
+            )
+        q_body += "</ol>\n"
+    else:
+        q_body += '<p class="callout">אין שאלות פתוחות כרגע.</p>\n'
+
+    g_body = f'<p class="subtitle">{escape(guidance.get("introHe", ""))}</p>\n'
+    glist = guidance.get("items", [])
+    if glist:
+        for g in glist:
+            g_body += (
+                f'<div class="card">'
+                f'<div class="card-title">{escape(g.get("titleHe",""))} '
+                f'<span class="badge badge-done">מוגדר</span></div>'
+                f'<div class="card-body">{escape(g.get("sourceHe",""))}</div>'
+                "</div>\n"
+            )
+    else:
+        g_body += '<p class="callout">טרם נקלטו הנחיות.</p>\n'
+
+    html = head("שאלות והחלטות — Sadot")
+    html += nav("questions-decisions")
+    html += '<div class="wrap">\n<h1>שאלות והחלטות</h1>\n'
+    html += '<h2>שאלות פתוחות להחלטה</h2>\n'
+    html += q_body
+    html += '<h2>החלטות — סיכום ההנחיות הראשוניות ממך</h2>\n'
+    html += g_body
+    html += "</div>\n"
+    html += foot(generated_iso)
+    return html
+
+
+def page_updates(updates: dict, generated_iso: str) -> str:
+    body = (
+        '<p class="subtitle">כל עדכון מהותי בפרויקט נרשם כאן, עם תאריך, כדי שהמידע כאן תמיד ישקף את המצב '
+        "בפועל.</p>\n"
+    )
+    items = updates_items_newest_first(updates)
+    if items:
+        for it in items:
+            body += (
+                f'<div class="card"><div class="card-date">{escape(it.get("date",""))}</div>'
+                f'<div class="card-title">{escape(it.get("titleHe",""))}</div>'
+                f'<div class="card-body">{escape(it.get("bodyHe",""))}</div></div>\n'
+            )
+    else:
+        body += '<p class="callout">אין עדכונים עדיין.</p>\n'
+
+    html = head("יומן עדכונים — Sadot")
+    html += nav("updates")
+    html += '<div class="wrap">\n<h1>יומן עדכונים</h1>\n'
+    html += body
+    html += "</div>\n"
+    html += foot(generated_iso)
+    return html
+
+
 # ---------------------------------------------------------------------------
 # Build
 # ---------------------------------------------------------------------------
@@ -487,6 +569,8 @@ def build(dist_dir: Path) -> None:
     updates = load_json(DATA_DIR / "updates.json")
     tasks = load_json(DATA_DIR / "tasks.json")
     decisions = load_json(DATA_DIR / "decisions.json")
+    questions = load_json(DATA_DIR / "questions.json")
+    guidance = load_json(DATA_DIR / "established-guidance.json")
     meeting_brief = load_json(DATA_DIR / "meeting-brief.json")
     what_we_need = load_json(DATA_DIR / "what-we-need.json")
     materials_needed = load_json(DATA_DIR / "materials-needed.json")
@@ -504,10 +588,14 @@ def build(dist_dir: Path) -> None:
             print(f"[WARN] Asset not found: {src}")
 
     (dist_dir / "index.html").write_text(
-        page_index(updates, roadmap, tasks, decisions, generated_iso, hub_ver), encoding="utf-8"
+        page_index(updates, roadmap, tasks, decisions, questions, generated_iso, hub_ver), encoding="utf-8"
     )
     (dist_dir / "roadmap.html").write_text(page_roadmap(roadmap, generated_iso), encoding="utf-8")
     (dist_dir / "tasks.html").write_text(page_tasks(tasks, decisions, generated_iso), encoding="utf-8")
+    (dist_dir / "questions-decisions.html").write_text(
+        page_questions_decisions(questions, guidance, generated_iso), encoding="utf-8"
+    )
+    (dist_dir / "updates.html").write_text(page_updates(updates, generated_iso), encoding="utf-8")
     (dist_dir / "meeting.html").write_text(page_meeting(meeting_brief, generated_iso), encoding="utf-8")
     (dist_dir / "what-we-need.html").write_text(
         page_what_we_need(what_we_need, generated_iso), encoding="utf-8"
@@ -535,6 +623,8 @@ def build(dist_dir: Path) -> None:
         "updates.json",
         "tasks.json",
         "decisions.json",
+        "questions.json",
+        "established-guidance.json",
         "meeting-brief.json",
         "what-we-need.json",
         "materials-needed.json",

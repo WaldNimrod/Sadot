@@ -46,12 +46,34 @@ python3 -m http.server 8000 --directory hub/dist
 
 | Page | Data source | Notes |
 |------|-------------|-------|
-| `index.html` | `updates.json`, `roadmap.json`, `tasks.json`, `decisions.json` | Landing page, stats, recent updates log |
+| `index.html` | `updates.json`, `roadmap.json`, `tasks.json`, `decisions.json`, `questions.json` | Landing page, stats, recent updates teaser |
+| `questions-decisions.html` | `questions.json` + `established-guidance.json` | Numbered open questions (each tagged who it's waiting on) + a plain-language summary of Niv's own established guidance so far |
+| `tasks.html` | `tasks.json` + `decisions.json` | Merged view: formal decisions accordion (with JSON export) + task list — distinct from `questions-decisions.html`: this page is for structured decisions with an exportable answer, not the running list of open clarifying questions |
 | `roadmap.html` | `roadmap.json` | Milestones table + current focus |
-| `tasks.html` | `tasks.json` + `decisions.json` | Merged view: decisions accordion (with JSON export) + task list |
+| `updates.html` | `updates.json` | Full, dated changelog — every hub-facing update gets an entry here (see "Keeping this hub current" below) |
 | `meeting.html` | `meeting-brief.json` | Meeting prep/agenda |
 | `what-we-need.html` | `what-we-need.json` | Prioritized client-input list |
 | `materials-needed.html` | `materials-needed.json` | Materials/photos/approvals tracker |
+
+## Keeping this hub current
+
+Every hub-facing change (a new question, an answered one, a new milestone, a corrected fact) should:
+
+1. Update the owning data file first (`questions.json`, `established-guidance.json`, `roadmap.json`, etc.) —
+   never hand-edit anything under `dist/`.
+2. Add a new entry to `updates.json` (newest on top: `id`, `date`, `titleHe`, `bodyHe`) — one line, written for
+   Niv, describing what changed and when. This is what `updates.html` and the index teaser render.
+3. Rebuild (`python3 scripts/build_sadot_client_hub.py`) and redeploy (see Deployment below).
+
+This mirrors the update discipline used on the `IsraelMicrogreens` project's client hub
+(`CLIENT_HUB_UPDATE_PROCEDURE.md`), simplified for Sadot's single-script build (no separate SoT/template
+layer to keep in sync).
+
+## Nav
+
+All 8 pages share one nav bar, defined in exactly one place: `HUB_NAV_ITEMS` +
+the `nav()` function in `scripts/build_sadot_client_hub.py`. Adding a page = adding one tuple to that list —
+never hand-write a `<nav>` block in a page function.
 
 ## What's deliberately not here
 

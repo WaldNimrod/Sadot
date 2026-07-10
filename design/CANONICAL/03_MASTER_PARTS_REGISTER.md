@@ -1,5 +1,5 @@
 # 03 · MASTER PARTS REGISTER
-### Sadot · Landscape Architecture · Team 110 · v0.2.0 · 2026-07-10 · **owns: Parts** · status: **PARTIAL — S001-stage candidate list, NOT the final S003-locked register**
+### Sadot · Landscape Architecture · Team 110 · v0.2.1 · 2026-07-10 · **owns: Parts** · status: **PARTIAL — S001-stage candidate list, NOT the final S003-locked register**
 
 > Harvested/adapted from `IsraelMicrogreens-BlenderV2-Project/CANONICAL/03_MASTER_PARTS_REGISTER.md`, 2026-07-08,
 > per `HANDOFF_TO_NEXT_team_110_SADOT_BUILDOUT_2026-07-08_v1.0.0.md` §C.2. Populated 2026-07-10 with a
@@ -151,6 +151,13 @@ material is sufficient; shell engineering is out of scope for this list.
 
 Any grading changes implied by §I (level-continuity, banana-circle earthwork) modify this existing terrain
 mesh — they are not separate new geometry files.
+
+**Fill + soil note (team_00, 2026-07-10):** most of the yard currently sits below final target grade — hamra
+fill is planned to bring it up. Fill (and existing ground generally) is debris-laden (construction rubble)
+essentially everywhere except the already-good-grade east path — a real cost/method factor for every
+excavation-touching part above (pool shell §C, banana circle + vegetable bed §I, retaining-course footings
+§B). See `blender/data/site/SITE_GEO.yaml` → `soil_and_grade` for full detail; not a substitute for a formal
+geotechnical test.
 
 ## Reconciliations applied this pass
 

@@ -1,7 +1,7 @@
 # 02 · SPATIAL SSOT & GEOMETRY
-### Sadot · Landscape Architecture · Team 110 · v0.3.0 · 2026-07-09 · **owns: Geometry** · status: **PARTIAL — plot boundary + elevations confirmed by licensed survey; hardscape layout still pending S002/S003**
+### Sadot · Landscape Architecture · Team 110 · v0.4.0 · 2026-07-10 · **owns: Geometry** · status: **PARTIAL — plot boundary + elevations confirmed by licensed survey; soil + qualitative sun/shade received 2026-07-10; hardscape layout + rigorous sun-path model still pending S002/S003**
 
-> Harvested/adapted from `IsraelMicrogreens-BlenderV2-Project/CANONICAL/02_SPATIAL_SSOT_and_GEOMETRY.md`, 2026-07-08, per `HANDOFF_TO_NEXT_team_110_SADOT_BUILDOUT_2026-07-08_v1.0.0.md` §C.2. Updated 2026-07-08 with real client survey data.
+> Harvested/adapted from `IsraelMicrogreens-BlenderV2-Project/CANONICAL/02_SPATIAL_SSOT_and_GEOMETRY.md`, 2026-07-08, per `HANDOFF_TO_NEXT_team_110_SADOT_BUILDOUT_2026-07-08_v1.0.0.md` §C.2. Updated 2026-07-08 with real client survey data; updated 2026-07-10 with real soil/grade + qualitative sun-shade information.
 
 Conflict law: **geometry → this doc wins**, and **the current Sadot .blend is the geometric tiebreaker** — see `blender/CURRENT_MODEL.md` for the version pointer, once a model is authored. Authoritative detail lives in `blender/data/site/SITE_GEO.yaml` (the licensed-survey extraction) until a BUILD_DATA-equivalent is created under S003 (detailed design). This doc is the locked geometric frame, once locked.
 
@@ -42,10 +42,20 @@ as evidence of the current house layout — use `HOUSE_IFC_REFERENCE.md` for tha
 be affected by this — trees generally aren't removed just because a house was rebuilt — but treat with the same
 general caution until confirmed.)
 
-## Existing conditions (as of 2026-07-08)
+## Existing conditions (as of 2026-07-08, soil/sun-shade added 2026-07-10)
 - **13 existing trees** per the survey's tree schedule (12 generic + 1 olive, olive at 6.00m height/0.35m diameter;
   item #11 does not appear in the printed schedule — numbering skips #10→#12) — full per-tree table in
   `blender/data/site/SITE_GEO.yaml`. Preservation/removal decisions deferred to S002.
+- **Soil + current grade (team_00, 2026-07-10, qualitative — not a lab test):** hamra mixed with construction
+  debris essentially everywhere; most of the yard sits below final target grade (hamra fill planned); the
+  narrow east-side path (house-to-long-fence) is already at good grade but equally debris-laden. Real
+  engineering implication for any excavation (pool, banana circle, footings) — expect rubble, not clean soil.
+- **Sun/shade (team_00, 2026-07-10, qualitative):** near-full sun most of the day across almost the whole
+  garden; west neighbor (Tasi) casts some afternoon shade; the western fence line (house-adjacent) shades
+  mainly in winter; the north/back yard is shaded most of the day. A rigorous multi-date/multi-hour sun-path
+  model is still needed and is flagged **critical for S002** — sequenced after the real geographic position
+  (tie-measurement) resolves. Full detail, not restated here: `blender/data/site/SITE_GEO.yaml` →
+  `soil_and_grade` / `sun_and_shade` / `sun_shade_modeling_still_needed`.
 - **House/architectural reference:** `raw-materials/from-client/NSB02.ifc` (Autodesk Revit 2023 export, IFC2X3,
   project name decodes to "ניב שדות") — the house-model basis for the site-anchored Blender build in S003, and
   the ONLY reliable source for the current house's layout (see scope note above — the survey PDF's building
@@ -58,10 +68,12 @@ general caution until confirmed.)
   specific reference measurements from the architect/client to reconcile precisely (see that doc §0.1); the old
   survey's structure positions can no longer be used as an anchoring shortcut (see scope note above).
 
-## Model state (current — none yet)
-- File: **none authored yet.** Pointer convention harvested to `blender/CURRENT_MODEL.md`; will name the live `.blend` once the site-anchored model exists (S003).
+## Model state (current — provisional v1, not yet site-anchored)
+- File: `blender/sadot_v1_initial.blend` — a deliberately provisional "show what we understood" pass (real IFC
+  house geometry + real surveyed boundary), NOT the site-anchored S003 deliverable. Full state, caveats, and
+  the 4-pass rotation-resolution history: `blender/CURRENT_MODEL.md` (not restated here).
 - Audit: TBD — no export/inventory artifacts exist yet (pattern to follow: microgreens `exports/ai_bridge/*_inventory.json`).
-- Built & SSOT-matched: nothing yet.
+- Built & SSOT-matched: rotation confirmed (0°); X/Y position and exact Z remain open approximations.
 
 ---
-*02 · Spatial SSOT & Geometry · v0.3.0 · 2026-07-09 · Team 110. Geometric tiebreaker = the current Sadot .blend, see `blender/CURRENT_MODEL.md` (no model authored yet). Plot boundary/elevations/tree count/orientation confirmed by survey; house reference corners identified pending tie-measurement; hardscape layout still pending.*
+*02 · Spatial SSOT & Geometry · v0.4.0 · 2026-07-10 · Team 110. Geometric tiebreaker = the current Sadot .blend, see `blender/CURRENT_MODEL.md` (provisional v1 exists, not yet site-anchored). Plot boundary/elevations/tree count/orientation confirmed by survey; soil + qualitative sun/shade received; house reference corners identified pending tie-measurement; hardscape layout + rigorous sun-path model still pending.*

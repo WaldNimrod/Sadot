@@ -6,9 +6,11 @@
 # raw-materials/ itself is git-ignored — this file is the CURATED, tracked extraction.
 
 site_id: sadot_niv_pardes_hanna
-status: partial — plot boundary, elevations, and orientation confirmed by licensed survey; sun/shade + soil-test
-  still pending; more client materials expected in future batches (see hub/data/materials-needed.json)
-updated: '2026-07-09'
+status: partial — plot boundary, elevations, and orientation confirmed by licensed survey; real qualitative
+  soil + sun/shade information received 2026-07-10 (see soil_and_grade / sun_and_shade below); a formal soil
+  lab test and the rigorous multi-date/multi-hour sun-path model (critical for S002) remain open; more client
+  materials expected in future batches (see hub/data/materials-needed.json)
+updated: '2026-07-10'
 approved_by: team_00
 
 # SCOPE NOTE: the survey PDF (10111TD122) is authoritative ONLY for the plot boundary and elevation/topography
@@ -222,6 +224,47 @@ client_confirmed_height_facts:
   named_reference: "The round deck slab (IfcSlab #51836) is the 'front deck' (מרפסת קידמית), confirmed by the
     client to face the large glass door on the south side -- see HOUSE_IFC_REFERENCE.md sec 4 for which of the
     two nearby doors that actually corresponds to (door #7639, not #112958)."
+
+# Soil composition + sun/shade pattern (2026-07-10, team_00) -- real, first-hand qualitative site knowledge,
+# answering (in part) the still-open P002-WP004 research item. NOT a substitute for a formal geotechnical soil
+# lab test, and NOT yet the rigorous multi-date/multi-hour sun-path model that S002 explicitly needs (see
+# sun_shade_modeling_still_needed below) -- but real, usable qualitative input for S002 planning.
+soil_and_grade:
+  composition: "Hamra (חמרה, the region's native reddish sandy-loam soil -- see
+    knowledge/climate/ISRAELI_CLIMATE_SOIL_PARDES_HANNA.md for the general regional profile) mixed with a
+    substantial amount of construction debris/rubble (זבל בניין) essentially everywhere across the plot."
+  current_grade: "Most of the yard area currently sits BELOW the final target grade -- hamra fill will be
+    brought in to bring it up to level. This is a planned construction step, not a discovered fact to design
+    around passively."
+  exception_east_path: "The narrow path east of the house, between the house and the long (eastern) fence, is
+    different: existing ground there is ALREADY at a good/correct height (does not need fill) -- but it is
+    still just as debris-laden as everywhere else on the plot."
+  engineering_implication: "Any excavation anywhere on the plot (pool shell, banana-circle pit, tree planting
+    holes, retaining-wall footings) should expect to hit construction rubble, not clean soil -- relevant to
+    RESEARCH_FINDINGS_POOL_CONSTRUCTION_v1.0.0.md's open geotechnical question and to footing/planting-hole
+    costing generally. Still NOT a substitute for a real geotechnical/soil lab test before final engineering."
+  source: "team_00, 2026-07-10 (direct/first-hand site knowledge, not a lab test or instrument measurement)."
+
+sun_and_shade:
+  general: "Full sun from sunrise, nearly all day, across almost the entire garden."
+  west_afternoon: "In the afternoon, the neighbor's house to the west (Tasi, per client_brief sec 8) casts some
+    shade."
+  west_fence_winter: "Along the western fence -- the fence line the house itself is built close/adjacent to --
+    shade forms mainly in winter (low sun angle)."
+  north_back_yard: "The back yard (the north side) is shaded most of the day -- consistent with the house's
+    own orientation (the house blocks southward sun from reaching its own north side for much of the day)."
+  source: "team_00, 2026-07-10 (direct/first-hand qualitative observation, not an instrument-measured sun-path
+    study)."
+
+sun_shade_modeling_still_needed:
+  status: "OPEN -- explicitly flagged by team_00 (2026-07-10) as CRITICAL for S002 (concept design). Once the
+    house is geographically positioned on the real plot (i.e. once the house_reference_corners tie-measurement
+    above resolves the real X/Y position -- currently the one remaining open item, rotation is already
+    confirmed), a real sun-path/shadow study must be modeled across multiple dates and multiple hours per date
+    (e.g. summer solstice, winter solstice, both equinoxes, at several hours each) -- not just the qualitative
+    pattern captured above. Sequencing: real geographic position (blocked on Michal / on-site tie-measurement)
+    -> sun-path model -> S002 concept design can use it with confidence."
+  depends_on: "house_reference_corners tie-measurement (this file, above) / translation_still_open."
 
 architectural_reference:
   ifc_file: "raw-materials/from-client/NSB02.ifc"

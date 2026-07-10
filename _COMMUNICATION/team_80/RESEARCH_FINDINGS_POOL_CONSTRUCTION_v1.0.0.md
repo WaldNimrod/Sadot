@@ -140,7 +140,11 @@ this explicitly if the swim-pond option is raised with him.
   regional cost/lead-time — confirm directly with a licensed local pool contractor.
 - Final soil/geotechnical conditions at the pool location (kurkar bedrock proximity, water table depth, expansive
   soil) — pending the soil lab test (`SDT-S001-P002-WP004`, IN_PROGRESS); affects shell/waterproofing engineering
-  and must come from a licensed engineer, not this research.
+  and must come from a licensed engineer, not this research. **Qualitative update (team_00, 2026-07-10):** the
+  plot's soil is hamra mixed with substantial construction debris essentially everywhere (see
+  `blender/data/site/SITE_GEO.yaml` → `soil_and_grade`) — excavation for the pool shell should expect to hit
+  rubble, not clean soil. Real, useful planning input, but this explicitly does **not** replace the formal
+  geotechnical test above.
 
 ## Cross-references
 
