@@ -35,7 +35,7 @@ project:
                                        # once team_100 authors the hub PLA + README update per the GCR filed at
                                        # _COMMUNICATION/team_100/GOVERNANCE_CHANGE_REQUEST_LANDSCAPE_DESIGN_ARCHETYPE_INHERITANCE_v1.0.0.md
                                        # (team_110, 2026-07-08). See: methodology/lifecycle-archetypes/README.md
-  lean_kit_version: "3.4.0+65fa386"
+  lean_kit_version: "3.4.0+20e2011"
   created: "2026-07-08"
   owner: "sadot_sd"         # system_designer team ID
   active_milestone: "S001"   # currently active milestone
