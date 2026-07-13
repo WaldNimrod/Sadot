@@ -178,6 +178,16 @@ v1 file is a precursor/sanity-check, not that deliverable.
    precise (55.97/54.5/1.47 exact). Front-section grading is now a real, numbered design input, not an open
    question.**
 
+10. **2026-07-14, later same day — two wall-height precision fixes (team_00 direct instruction):**
+    - `walls_119777_Basic_Wall:משראביה:6071941` (south-edge wall): shifted rigidly so its bottom sits at
+      EXACTLY real 54.50m (was 54.56m) — matches the `SOUTH_EDGE_REF_54_5m` anchor precisely, top moved by
+      the same amount (56.06m → 56.00m), preserving the wall's own height.
+    - `walls_119777_Basic_Wall:משראביה:6071941.089` (west-side wall): bottom vertices extended down to follow
+      the real, interpolated ground height along the wall's length (linearly interpolated between the real
+      4G elevation, 54.76m, and 5G elevation, 55.80m, by each vertex's own Y position) — bottom now varies
+      54.76m→55.03m along the wall's run instead of sitting flat at 55.99m. Top vertices left completely
+      unchanged (57.49m real), per instruction ("שיא הגובה של הקיר ללא שינוי").
+
 ## Role table
 
 | Role | File | Notes |

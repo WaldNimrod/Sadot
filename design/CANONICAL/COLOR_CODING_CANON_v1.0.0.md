@@ -20,11 +20,12 @@ in Blender — not the other way around, so the convention stays discoverable an
 | Category | Color / material | Hex (approx) | Applies to |
 |---|---|---|---|
 | Labels & annotations | Glowing yellow (emissive) | `#FFD400` emission | All `FONT` text objects — boundary corner labels, height-reference labels, flag notes, north-arrow label. Emissive so they read clearly regardless of scene lighting/angle. |
-| House | Gray — concrete | `#8C8C8C` (matte, non-emissive) | The main house structure (the compact cluster including the round front deck) — currently the majority-piece cluster of the joined `walls_119777_Basic_Wall...` object family. |
-| Walls / fences (חומות) | Light gray | `#B8B8B8` (matte, non-emissive) | Property boundary walls / fences / screen elements — currently the smaller, spatially-separate cluster of the same object family (includes the mashrabiya screen run). Distinct from "House" — these are boundary/fence structures, not the building itself. |
+| House (NEW, in-scope) | Gray — concrete | `#737373` (matte, non-emissive) | The current/new house — the actual design scope. 268-piece cluster of the `walls_119777_Basic_Wall...` family. |
+| **House (OLD, reference only)** | Dark gray, fully transparent | `#383838` @ 25% alpha | **CORRECTION (2026-07-14): this is NOT a fence/screen — it is the OLD, pre-existing house, shown only for reference/context.** Not part of the design scope. 29-piece cluster, spatially separate from the new house. First misidentified as "walls/fences" — corrected same day team_00 flagged it. |
 
 | Terrain / original ground | Light brown, 50% transparent | `#C29A6B` @ 50% alpha | The surveyed 6-point terrain polygon (`terrain` object). |
-| Roof (flat, placeholder) | Dark warm gray (PLACEHOLDER — not yet client-specified) | `#59544D` | `ROOF_flat_whole_house` — added 2026-07-14 to cover the IFC's missing roof data (real gap: no `IfcRoof` geometry exists in the source file). Color not yet confirmed with team_00 — ask before treating as final. |
+| Roof (flat, placeholder) | Dark warm gray (PLACEHOLDER — not yet client-specified) | `#59544D` | **`ROOF_section_<id>` — one piece PER ROOM/SECTION** (2026-07-14 correction: a single roof slab over the whole house was rejected as too crude). Each section's own footprint (hull of its own walls) and own height (that section's real wall-top elevation + 5cm clearance), not one uniform height. Built via height+proximity clustering of the 268 new-house wall pieces into ~7 groups (a 163-piece main volume, a 46-piece upper volume, plus 5 smaller sections) — small degenerate slivers (<2 sqm) skipped, and the open deck excluded (no roof over an open porch). Color not yet client-confirmed. |
+| Decking (wood) | Warm wood brown | `#734A26` | `DECKING_wood_front_porch` — 15cm layer on the concrete front deck (2026-07-14, team_00 instruction), real elevation 55.97m (concrete) to 56.12m (finished decking surface). |
 
 ## Still open (not yet defined — ask before assuming)
 
