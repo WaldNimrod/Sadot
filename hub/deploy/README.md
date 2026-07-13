@@ -7,10 +7,12 @@ way; don't add an auth gate without a fresh explicit ask.
 
 ## Status
 
-**Prepared, not yet applied.** These files are ready to use; the live server (nginx site, cloudflared
-route, port-registry entry) has not been touched yet. Applying them means editing shared infra on
-waldhomeserver (which also serves tt/agros/cm/il-mg) — do that deliberately, not as a side effect of
-routine hub content updates.
+**LIVE as of 2026-07-10.** `https://sadot.nimrod.bio` is up (200, no auth, `noindex, nofollow`) — nginx
+vhost, cloudflared route, and first content deploy are all applied on waldhomeserver, team_00-approved.
+Run `bash hub/deploy/deploy_sadot_hub.sh` for every future content update (no further one-time setup
+needed). **One item still open, bookkeeping-only:** the `port-registry.yaml` SSOT entry itself couldn't be
+committed from this Sadot-rooted session (hub-write boundary) — needs a hub-rooted session to apply it;
+see `_COMMUNICATION/team_120/REPORT_TO_team_120_PORT_CANON_PROCESS_GAP_v1.0.0.md`.
 
 ## Files here
 

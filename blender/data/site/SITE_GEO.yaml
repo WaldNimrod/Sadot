@@ -7,10 +7,12 @@
 
 site_id: sadot_niv_pardes_hanna
 status: partial — plot boundary, elevations, and orientation confirmed by licensed survey; real qualitative
-  soil + sun/shade information received 2026-07-10 (see soil_and_grade / sun_and_shade below); a formal soil
-  lab test and the rigorous multi-date/multi-hour sun-path model (critical for S002) remain open; more client
-  materials expected in future batches (see hub/data/materials-needed.json)
-updated: '2026-07-10'
+  soil + sun/shade information received 2026-07-10 (see soil_and_grade / sun_and_shade below); real absolute
+  deck elevation (+55.97m) + building-line-to-house siting received 2026-07-13 from Michal's site-tied sheet
+  (see deck_absolute_elevation_2026-07-13 / kav_binyan_2026-07-13 below) — X/Y translation still open, now
+  better-bounded; a formal soil lab test and the rigorous multi-date/multi-hour sun-path model (critical for
+  S002) remain open; more client materials expected in future batches (see hub/data/materials-needed.json)
+updated: '2026-07-13'
 approved_by: team_00
 
 # SCOPE NOTE: the survey PDF (10111TD122) is authoritative ONLY for the plot boundary and elevation/topography
@@ -174,11 +176,69 @@ rotation_resolution:
     corrected deck-door identification (door #7639, not the originally-cited #112958, which faces ENE)."
   used_in: "blender/sadot_v1_initial.blend -- terrain rotation reverted to 0 deg, 2026-07-09 third pass."
 
-# Translation (X/Y position) remains OPEN -- unchanged from the original plan, no shortcut was found:
+# Z anchor RESOLVED PRECISELY 2026-07-14 (team_00 direct instruction):
+z_anchor_precise_2026-07-14:
+  deck_reference_point_real_m: 55.97
+  deck_reference_note: "Structural/pre-decking level of the round front deck (מרפסת קידמית). A finished
+    decking layer (+15cm) will sit on top -- finished walkable surface = 56.12m real. The 55.97 value is the
+    one used for THIS anchor calculation, per team_00's explicit instruction."
+  south_edge_reference_point_real_m: 54.5
+  south_edge_reference_note: "team_00-specified representative ground height at the south edge of the plot --
+    a clean design-reference value, distinct from (but close to) the individually surveyed corners 3G=54.47
+    and 4G=54.76. Marked in the model at the midpoint of the real 3G-4G boundary edge."
+  difference_real_m: 1.47
+  difference_note: "EXACT by construction -- both points set precisely in Blender via the shared local-Z
+    datum (local_Z + 54.76 = real elevation, confirmed exact across all 6 survey boundary corners)."
+  iron_rule: "Finished ground must never exceed 55.97m real anywhere on the property -- any point that would
+    rise above this needs grading/design treatment (terracing, retaining, drainage). team_00 directive,
+    2026-07-14."
+  grading_calc_front_section_2026-07-14:
+    real_distance_deck_to_south_boundary_m: 9.00
+    rise_m: 1.47
+    average_slope_pct: 16.3
+    average_slope_ratio: "1 in 6.1"
+    flag: "16.3% average slope is STEEP for a simple graded lawn/walkable surface (comfortable walking grades
+      are generally under ~5%; ADA-ramp-equivalent is 8.3%; beyond ~15-20% a uniform grade becomes impractical
+      and terracing/retaining is the normal solution). This is a real, load-bearing finding for the design,
+      not just a number -- it directly supports the already-planned kurkar/basalt terracing + rockery
+      ('מסלעה לטרסות') approach rather than a single continuous slope for the front section."
+
+# Translation (X/Y) + rotation RESOLVED 2026-07-14 by team_00 direct manual placement in Blender (not by
+# further independent computation) -- see rotation_RECONSIDERED_2026-07-14 above. Visually verified: house's
+# long axis now runs along the plot's long axis, matching Michal's site plan's real shape. This SUPERSEDES the
+# "still open" status below, kept for history:
 translation_still_open:
-  status: "The house_reference_corners tie-measurement plan (above) is still the path to a real X/Y position.
-    v1 model uses a provisional placeholder position (south-central part of the plot, matching Niv's own
-    description) -- NOT a confirmed position, only the rotation is confirmed."
+  status: "SUPERSEDED 2026-07-14 -- team_00 manually positioned X/Y + rotation directly in Blender and
+    confirmed correct by visual inspection against the real site plan. Kept below for history/process record,
+    not because the position is still open.
+    [Original text:] The house_reference_corners tie-measurement plan (above) is still the path to a real X/Y
+    position. v1 model uses a provisional placeholder position (south-central part of the plot, matching
+    Niv's own description) -- NOT a confirmed position, only the rotation is confirmed."
+  update_2026-07-13: "New site-tied sheet from Michal (raw-materials/from-client/שטח ובית.pdf) plots the real
+    house footprint against the real surveyed boundary (corner IDs 4G/5G visible, 3 independent edge-length
+    matches against boundary_itm below: 52.80m/10.10m/15.25m). Two independent extraction attempts (raster
+    pixel-georeferencing off a 200 DPI render; vector PDF extraction via PyMuPDF, isolating the boundary's
+    distinct stroke color) both located the right boundary path but did not reach a confidence level this
+    project trusts for a 'precise' claim -- see
+    design/CANONICAL/SITE_HOUSE_TIE_ANALYSIS_2026-07-13_v1.0.0.md sec 1c for the full attempt + why it stopped
+    short. Real building-line proximities (kav_binyan below) now bound the placement better than before, but
+    the exact numeric translation is still open. Cheapest real fix: ask Michal for the DWG/DXF source or her
+    own stated offset -- she has the exact number already.
+    CORRECTION, same day: an initial rough re-centering (matching bounding-box centers) was caught as visibly
+    wrong by team_00 and redone properly -- point-in-polygon test against the real 6-point boundary (not a
+    bbox check), robust core-cluster centroid (median-based, excluding 20 structurally-separate wall objects)
+    matched to the plot's true area-weighted centroid. Full corrected numbers: blender/CURRENT_MODEL.md pass 7."
+
+# Building lines (setback), now seen directly against the real house footprint (2026-07-13), not just
+# abstractly as in the 2026-07-09 re-scan below:
+kav_binyan_2026-07-13:
+  source: "raw-materials/from-client/שטח ובית.pdf, site-siting portion of the sheet"
+  finding: "5m building line runs near the 5G/north end of the plot; 7m building line runs near the 4G/south
+    end -- both drawn directly against the real house footprint on this sheet (unlike the 2026-07-09 re-scan,
+    which found the same 3 lines only in the abstract, with no house to relate them to). A 4m line (matching
+    the 2026-07-09 finding) is also present near the eastern boundary, partially obscured in the scan."
+  caveat: "Useful siting context and a real improvement, but does not by itself give a precise house corner
+    coordinate -- see translation_still_open above."
 
 # Z (vertical) placement: still approximate, now based on a real client-provided relative fact rather than an
 # arbitrary guess -- see approximate_corner_elevations_v1 and the north/east floor-to-grade note there.
@@ -208,8 +268,50 @@ approximate_corner_elevations_v1:
     scanned drawing, not a formal point list, AND (2) that drawing may itself predate the current grading."
   points: {1G: 56.56, 2G: 56.76, 3G: 54.47, 4G: 54.76, 5G: 55.80, 6G: 56.49}
 
-# Real client-confirmed relative height facts (2026-07-09) -- the actual usable Z information for this project,
-# volunteered after team_00 pointed out the old survey's "natural ground" no longer exists in reality:
+# Real absolute elevation anchor (2026-07-13) -- SUPERSEDES the relative-only facts below as the primary
+# Z-reference. Source: raw-materials/from-client/שטח ובית.pdf, site-siting portion. The round deck (IfcSlab
+# #51836, already identified as the front deck facing south) is explicitly labeled "מרפסת, מפלס יח' הורים"
+# (deck, parents'-unit level) with an absolute elevation callout: +55.97 m, "-0.02" noted beneath it. Verified
+# against the PDF's own embedded text layer (not a visual/OCR read) -- most of this sheet's dimensions are
+# vector outlines with no real text, but this specific label IS real extractable PDF text, at PDF coordinates
+# (853-890, 2586-2596). This is the same sheet independently confirmed (3 edge-length matches) to be tied to
+# the real boundary_itm datum -- so this is a real, same-datum absolute elevation for an already-identified
+# house point, not a rough guess. Full analysis: design/CANONICAL/SITE_HOUSE_TIE_ANALYSIS_2026-07-13_v1.0.0.md
+# sec 1a. Three more real elevation ties (utility inspection chambers, T.L./I.L., near the entrance walkway):
+# T.L.=55.70/I.L.=54.70 (west, near pergola); T.L.~55.3x/I.L.~54.x (middle, partially obscured in scan);
+# T.L.=55.53/I.L.=54.89 (east, near "גינון"). All consistent with the survey's known elevation scatter
+# (54.47-57.59) -- corroborating, not contradicting, the existing data.
+rotation_RECONSIDERED_2026-07-14: "team_00 manually rotated the house in Blender (to ~-105.5 deg from the
+  prior 0 deg state) and confirmed by direct inspection that this is correct -- verified visually: with this
+  rotation the house's long axis runs along the plot's own long axis (matching Michal's site plan's real
+  shape), not across it as the previous '0 deg, rigorously confirmed via 3 independent IFC placement-hierarchy
+  methods' state showed. The earlier rigorous finding was NOT wrong about internal IFC consistency (Project/
+  Site/Building/Storeys really do share one identity rotation, relative to the IFC's OWN declared TrueNorth)
+  -- what was wrong was the assumption that IFC-native Y = real ITM Northing directly. That mapping was never
+  independently verified against a real, trusted external reference; team_00's direct knowledge of how the
+  house actually sits on this specific narrow lot is exactly that missing external check. Net effect: rotation
+  is NOT 0 deg between IFC-native and real ITM -- it is ~-105.5 deg (team_00-verified, not yet re-derived via
+  an independent rigorous method the way the original 0 deg claim was). Kept here rather than silently
+  overwriting the prior entry -- see also blender/CURRENT_MODEL.md for the full history including this
+  correction."
+
+deck_absolute_elevation_2026-07-13:
+  value_m: 55.97
+  offset_note: "-0.02 annotated beneath the +55.97m callout on the same label"
+  point: "Round deck / front porch, IfcSlab #51836, 'מרפסת קדמית' -- facing the south glass door (door #7639,
+    per HOUSE_IFC_REFERENCE.md sec 4)"
+  confidence: "HIGH for the number itself (real embedded PDF text, same sheet independently tied to the real
+    boundary survey via 3 edge-length matches) -- but note this is the DESIGN/PLANNED deck elevation per this
+    architectural sheet, not an as-built field measurement."
+  blender_datum_conversion: "IMPORTANT if reusing this number in Blender: terrain.obj uses a LOCAL vertical
+    datum, NOT real absolute elevation directly -- empirically confirmed (2026-07-13) local_Z + 54.76 = real
+    absolute elevation, exact and consistent across all 6 boundary_itm points. Convert this 55.97 value via
+    (55.97 - 54.76 = 1.21) before using it as a Blender world/local Z -- using 55.97 directly caused the house
+    to appear ~55m above the terrain the first time this was tried (caught and fixed same session, see
+    blender/CURRENT_MODEL.md pass 6)."
+
+# Real client-confirmed relative height facts (2026-07-09) -- superseded above as the PRIMARY Z-anchor, kept
+# here since they're still the only source for the north/east/south relative relationships:
 client_confirmed_height_facts:
   north_and_east: "Current real ground, on the north and east sides of the house, sits approximately 0.30-0.40m
     BELOW the house's '00' entrance-floor level. Client-stated (2026-07-09), not measured/surveyed -- but this is
@@ -284,3 +386,4 @@ references:
   - design/CANONICAL/02_SPATIAL_SSOT_and_GEOMETRY.md
   - design/CLIENT_BRIEF_NIV_SADOT_v1.0.0.md
   - _aos/work_packages/S001/LOD300_milestone.md
+  - design/CANONICAL/SITE_HOUSE_TIE_ANALYSIS_2026-07-13_v1.0.0.md

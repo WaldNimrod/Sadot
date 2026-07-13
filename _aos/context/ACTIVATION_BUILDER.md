@@ -22,6 +22,10 @@
 5. Raise spec ambiguities to architecture_agent (sadot_arch) — never silently drift
 6. Never fabricate plot-specific geometry — `blender/scripts/site/` geo-anchoring requires real survey data from
    `raw-materials/from-client/`; if absent, the WP stays BLOCKED
+7. **Before any Blender placement/rotation/elevation work:** read
+   `design/CANONICAL/BLENDER_MODELING_TEAM_CHARTER_v1.0.0.md` (team_00 mandate, 2026-07-13) — landscape-design
+   precision context, tool setup (ifcopenshell path, MCP is a live GUI session), and the specific geometric
+   mistakes this project has already made and fixed. Required reading, not optional background.
 
 ## What You Do NOT Do
 - Declare L-GATE_VALIDATE PASS on your own work (cross-engine rule)

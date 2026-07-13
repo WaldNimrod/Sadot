@@ -1,2 +1,3 @@
 2026-07-09T21:03:33Z event=capture from=team_110 to=team_100(team) kind=handoff ref=_COMMUNICATION/team_100/HANDOFF_TO_team_100_SADOT_PARALLEL_CHANNEL_v1.0.0.md degrade=1
 2026-07-09T21:29:44Z event=capture from=team_110 to=team_120(team) kind=completion ref=_COMMUNICATION/team_110/COMPLETION_REPORT_SADOT_S001_BUILDOUT_v1.0.0.md degrade=1
+2026-07-10T20:59:00Z event=send from=team_110 to=team_120(team) kind=note subject="Port-canon process gap: sadot-hub live but registry commit blocked by hub-write boundary" ref=_COMMUNICATION/team_120/REPORT_TO_team_120_PORT_CANON_PROCESS_GAP_v1.0.0.md degrade=1 http_status=401

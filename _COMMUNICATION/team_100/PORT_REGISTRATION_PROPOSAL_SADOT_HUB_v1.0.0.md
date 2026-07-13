@@ -62,14 +62,26 @@ not the `TikTrack`/`agents-os` tiered pattern):
         status: RESERVED    # -> ACTIVE once the one-time setup in hub/deploy/README.md is applied live
 ```
 
+## Status update (2026-07-10, team_00-approved, executed)
+
+Steps 2 (server-side setup) and the `RESERVED → ACTIVE` real-world condition are **done**: nginx vhost
+live on waldhomeserver (port 8094), cloudflared ingress added to the shared tunnel (config backed up first,
+diff-verified as a 2-line-only change), DNS routed, first content deploy run. Verified live:
+`https://sadot.nimrod.bio` → 200, `x-robots-tag: noindex, nofollow`, no auth prompt.
+
+**Still open — step 1 only:** the actual `port-registry.yaml` commit could not be made from this
+Sadot-rooted session (hub-repo-boundary hard-stop — no spoke session may write under `agents-os/`,
+regardless of readiness). Needs team_100/team_60/team_00 to apply the entry below from a hub-rooted
+session and flip its `status:` to `ACTIVE` (bookkeeping catch-up only — the real-world state already
+matches `ACTIVE`). Full report, including a 2nd-instance process-gap flag:
+`_COMMUNICATION/team_120/REPORT_TO_team_120_PORT_CANON_PROCESS_GAP_v1.0.0.md`.
+
 ## What's needed to close this out
 
 1. team_100 + team_60 (or team_00 directly) reviews + applies this entry to the live
-   `port-registry.yaml`.
-2. Someone with shell access to waldhomeserver runs the one-time setup in
-   `Sadot/hub/deploy/README.md` (nginx vhost, cloudflared route, first deploy).
-3. Flip `status: RESERVED` → `ACTIVE` once step 2 is confirmed live (`curl -sI https://sadot.nimrod.bio`
-   returns 200 with no auth prompt).
-
-Prepared but **not applied** — this session did not edit the live `port-registry.yaml`, nginx, or
-cloudflared config, since those are shared infra touching other live projects on the same host.
+   `port-registry.yaml`, then flips `status: RESERVED` → `ACTIVE`. (Steps 2-3 below are DONE — see status
+   update above.)
+2. ~~Someone with shell access to waldhomeserver runs the one-time setup in `Sadot/hub/deploy/README.md`~~
+   — **DONE 2026-07-10.**
+3. ~~Flip `status: RESERVED` → `ACTIVE` once step 2 is confirmed live~~ — **server-side confirmed live**;
+   the registry file itself still needs the flip (see item 1).
