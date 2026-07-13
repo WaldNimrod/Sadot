@@ -1,19 +1,21 @@
 # CURRENT MODEL — pointer (single source of truth for "which .blend")
 
-**LIVE = `blender/sadot_v5_roof_slopes_2026-07-14.blend`** · *(2026-07-14, same session — Save-As'd from
-`sadot_v4_roof_precision_2026-07-14.blend` after pass 12 (real gabled slopes, deck roof, unified
-no-double-coverage pass — team_00 rejected pass 11's flat-only roof) was verified. `sadot_v4_...` held pass 11
-(real per-storey roof rebuild, north arrow fixes), Save-As'd from `sadot_v3_site_tie_2026-07-14.blend`, which
-itself was Save-As'd from `sadot_v3_site_tie_2026-07-13.blend` once earlier work crossed midnight into
-2026-07-14; passes 7-10 (team_00's manual rotation/position correction, the precise Z anchor, the
-now-superseded synthetic per-room roofs, the old-house reference material, the wall-height fixes) live in that
-file. `sadot_v3_site_tie_2026-07-13.blend` was itself a new copy made from `sadot_v1_initial.blend` per
-team_00's explicit instruction to work only on a new copy. NOT a site-anchored, concept-approved model — see
-caveats below before treating anything in it as final. Rotation/X/Y position are LOCKED (see pass 11) but that
-is a different claim from "concept-approved" — S002 concept sign-off is still a separate, not-yet-reached
-gate. Roof is now real-slope + deck-covered (pass 12) but slope POSITION (where exactly each gable ridge sits
-relative to the architect's own design) is a defensible approximation, not a rederivation — see pass 12's
-"not attempted" note.)*
+**LIVE = `blender/sadot_v6_roof_removed_2026-07-14.blend`** · *(2026-07-14, same session — team_00 rejected
+pass 12's gabled/sloped roof too ("תמחקו את הגג זה לא עובד" — delete the roof, it's not working) and asked for
+a different approach to be found before trying again. **The model currently has NO roof geometry at all** —
+all 5 pass-12 objects (`ROOF_ground_floor`/`ROOF_upper_floor`/`ROOF_roof6_0`/`ROOF_roof6_1`/`ROOF_deck_porch`)
+were deleted, Save-As'd forward from `sadot_v5_roof_slopes_2026-07-14.blend`. This is now open, unsolved work
+— see pass 13 below. Everything else (walls, terrain, deck, boundary markers, north arrow, LOCKED
+rotation/position) is unaffected and still holds. `sadot_v5_...` held pass 12 (real gabled slopes, deck roof,
+unified no-double-coverage pass), Save-As'd from `sadot_v4_roof_precision_2026-07-14.blend` (pass 11's flat
+per-storey roof, north arrow fixes), Save-As'd from `sadot_v3_site_tie_2026-07-14.blend`, which itself was
+Save-As'd from `sadot_v3_site_tie_2026-07-13.blend` once earlier work crossed midnight into 2026-07-14; passes
+7-10 (team_00's manual rotation/position correction, the precise Z anchor, the old-house reference material,
+the wall-height fixes) live in that file. `sadot_v3_site_tie_2026-07-13.blend` was itself a new copy made from
+`sadot_v1_initial.blend` per team_00's explicit instruction to work only on a new copy. NOT a site-anchored,
+concept-approved model — see caveats below before treating anything in it as final. Rotation/X/Y position are
+LOCKED (see pass 11) but that is a different claim from "concept-approved" — S002 concept sign-off is still a
+separate, not-yet-reached gate.)*
 
 **Note on `sadot_v2_initial.blend`:** this file exists on disk (created 2026-07-10 00:45, after v1's last save)
 but was **never documented or adopted as LIVE** — inspecting it (2026-07-13) found it contains an *earlier*
@@ -47,7 +49,14 @@ via `blender/scripts/site/export_house_shell_obj.py` — collection `HouseShell_
 - The wall export includes ALL 111 IFC walls (interior partitions + some oversized boundary/retaining-wall
   elements), not an exterior-only shell — visible in the model as wall geometry extending beyond the compact,
   recognizable house core. Pruning to true exterior-only is a later refinement.
-- Roofs are NOT in the source IFC — the 6 `IfcRoof` entities have no geometric `Representation` in that export
+- **ROOF: REMOVED 2026-07-14 (pass 13) — the model currently has no roof geometry at all.** Two rebuild
+  attempts (pass 11: flat per-storey; pass 12: real gabled slopes + deck roof) were both tried and both
+  rejected by team_00 as not working, the second time with "we'll need to find a different way" — i.e. not
+  "iterate again the same way," a real open problem. The history below (real per-storey grouping, real
+  IFC-derived slope magnitudes, the deck-footprint approach, the no-double-coverage logic) is kept for the
+  record — some of it may still be useful raw material for whatever the different approach turns out to be —
+  but none of it is currently in the scene and none of it should be presented as settled. See pass 13.
+  Roofs are NOT in the source IFC — the 6 `IfcRoof` entities have no geometric `Representation` in that export
   at all (a real data gap, confirmed, not a script bug). A separate lead — 8 `IfcSlab` entities tagged
   `PredefinedType=ROOF` that DO carry geometry (a common Revit/IFC export pattern) — was checked and rejected
   2026-07-14: cross-validated against the trusted deck-slab reference, that geometry sits 10+ meters from the
@@ -299,11 +308,22 @@ v1 file is a precursor/sanity-check, not that deliverable.
     - Verified visually (angled material-shaded screenshot): real ridge lines with two sloping faces on both
       gables, distinct deck cap, ground/upper/roof6/deck all visually distinguishable.
 
+13. **2026-07-14, same session — team_00 rejected pass 12 too: "תמחקו את הגג זה לא עובד. נצטרך למצוא דרך
+    אחרת" (delete the roof, it's not working. We'll need to find a different way).** All 5 pass-12 roof
+    objects deleted. No diagnosis was given beyond "not working" — do not guess or invent a specific reason
+    (proportions, style, a rendering issue, something about the underlying wall data, etc.) without asking;
+    none of the possibilities has evidence over any other. **Current state: no roof geometry in the model at
+    all.** This is now open, unsolved work, explicitly flagged by team_00 as needing a different approach
+    before trying again — not a cue to immediately attempt a pass 14 with more of the same method. Two
+    approaches (flat per-storey; real-slope gabled) are now ruled out. Everything else in the model (walls,
+    terrain, deck, boundary markers, north arrow, the locked rotation/position) is untouched by this pass.
+
 ## Role table
 
 | Role | File | Notes |
 |---|---|---|
-| **LIVE** | `blender/sadot_v5_roof_slopes_2026-07-14.blend` | Rotation -105.500031° (exact) + X/Y **LOCKED** by team_00. Real per-storey/per-space roof: `ROOF_ground_floor`/`ROOF_upper_floor` (15° gables, slope from real IFC tile-roof data), `ROOF_roof6_0`/`ROOF_roof6_1` (8°, storey-confirmed), `ROOF_deck_porch` (new — the deck previously had no roof at all, team_00 flagged this). Grid-rasterized + flood-filled true footprints (not hull-based), single unified no-double-coverage priority pass. See pass 12 above. Still not site-anchored/concept-approved (that verification is team_00's direct inspection, not a surveyed tie); roof slope *position* (exact ridge placement) is a defensible approximation, not a rederivation of the architect's design. |
+| **LIVE** | `blender/sadot_v6_roof_removed_2026-07-14.blend` | Rotation -105.500031° (exact) + X/Y **LOCKED** by team_00 — unaffected by this pass. **No roof geometry at all** — team_00 rejected pass 12's real-slope gabled roof too, asked for a different approach (see pass 13). Walls/terrain/deck/boundary-markers/north-arrow all otherwise unchanged. Still not site-anchored/concept-approved. |
+| previous LIVE | `blender/sadot_v5_roof_slopes_2026-07-14.blend` | Superseded 2026-07-14 (same session — team_00 rejected this pass's roof too, see pass 13). Had real gabled/sloped per-storey roof + deck roof — see pass 12. Kept, not deleted. |
 | previous LIVE | `blender/sadot_v4_roof_precision_2026-07-14.blend` | Superseded 2026-07-14 (same session — team_00 rejected this pass's flat-only roof, see pass 12). Real per-storey filled roof but flat (no slope), deck excluded — see pass 11. Kept, not deleted. |
 | previous LIVE | `blender/sadot_v3_site_tie_2026-07-14.blend` | Superseded 2026-07-14 (Save-As'd forward same session — same lineage, not a fork). Precise Z anchor (55.97/54.5/1.47), the now-superseded synthetic hull-based per-room roofs, old-house reference material, wall-height fixes — see passes 7-10 above. Kept, not deleted. |
 | previous LIVE | `blender/sadot_v3_site_tie_2026-07-13.blend` | Superseded 2026-07-14 (Save-As'd forward once work crossed midnight — same lineage, not a fork). Real Z anchor (deck +55.97m) + X/Y placement bug fix — see pass 6 above. Kept, not deleted. |
