@@ -86,9 +86,17 @@ existing_trees:
   note: "Full table transcribed directly from the source PDF (raw-materials/from-client/10111TD122 (1).pdf) לוח עצים. Species codes beyond 'generic tree' vs. olive are not given by the survey — a proper species ID would need an on-site arborist visit, not inferrable from this drawing."
 
 blender_datum:
-  blend_live: "none yet — see blender/CURRENT_MODEL.md"
-  object_name: "SITE.geo_anchor"
-  status: TBD — set when the first Sadot .blend is created (S003); anchor to boundary_itm point "1G" or plot centroid, team_110/team_10 to decide at that time.
+  blend_live: "blender/CURRENT_MODEL.md — see LIVE pointer"
+  object_name: "BOUNDARY_4G"
+  status: "RESOLVED 2026-07-14 (team_00 direct instruction) — world origin (0,0,0) reset to boundary_itm point
+    4G (the plot's SW corner), not 1G or plot centroid as this entry originally speculated. Every object in
+    the scene (326 total, verified zero parented) was rigidly shifted by the same vector so BOUNDARY_4G lands
+    at exactly (0,0,0) in all three axes — X/Y at the corner's real planimetric position, Z at its own real
+    local elevation (0.0 local = 54.76m real, via the established local_Z+54.76=real conversion — i.e. Z=0
+    is that corner's own real ground height, not an arbitrary datum). Verified: relative distances/positions
+    between other objects are bit-exact identical before and after (spot-checked). This is now the single
+    origin for the whole model AND the house — not two separate reference frames. Full record:
+    blender/CURRENT_MODEL.md pass 14."
 
 orientation:
   status: >-

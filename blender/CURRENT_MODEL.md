@@ -1,19 +1,18 @@
 # CURRENT MODEL — pointer (single source of truth for "which .blend")
 
-**LIVE = `blender/sadot_v6_roof_removed_2026-07-14.blend`** · *(2026-07-14, same session — team_00 rejected
-pass 12's gabled/sloped roof too ("תמחקו את הגג זה לא עובד" — delete the roof, it's not working) and asked for
-a different approach to be found before trying again. **The model currently has NO roof geometry at all** —
-all 5 pass-12 objects (`ROOF_ground_floor`/`ROOF_upper_floor`/`ROOF_roof6_0`/`ROOF_roof6_1`/`ROOF_deck_porch`)
-were deleted, Save-As'd forward from `sadot_v5_roof_slopes_2026-07-14.blend`. This is now open, unsolved work
-— see pass 13 below. Everything else (walls, terrain, deck, boundary markers, north arrow, LOCKED
-rotation/position) is unaffected and still holds. `sadot_v5_...` held pass 12 (real gabled slopes, deck roof,
-unified no-double-coverage pass), Save-As'd from `sadot_v4_roof_precision_2026-07-14.blend` (pass 11's flat
-per-storey roof, north arrow fixes), Save-As'd from `sadot_v3_site_tie_2026-07-14.blend`, which itself was
-Save-As'd from `sadot_v3_site_tie_2026-07-13.blend` once earlier work crossed midnight into 2026-07-14; passes
-7-10 (team_00's manual rotation/position correction, the precise Z anchor, the old-house reference material,
-the wall-height fixes) live in that file. `sadot_v3_site_tie_2026-07-13.blend` was itself a new copy made from
-`sadot_v1_initial.blend` per team_00's explicit instruction to work only on a new copy. NOT a site-anchored,
-concept-approved model — see caveats below before treating anything in it as final. Rotation/X/Y position are
+**LIVE = `blender/sadot_v7_origin_at_sw_corner_2026-07-14.blend`** · *(2026-07-14, same session — pass 14:
+world origin (0,0,0) reset to the plot's SW corner (`BOUNDARY_4G`), team_00 direct instruction. Every object
+rigidly shifted by the same vector — verified zero relative drift. See pass 14 below.)*
+
+**Roof status: NONE.** All roof geometry was built twice (flat per-storey, then real gabled/sloped) and both
+attempts were rejected and deleted (pass 11-13) — team_00 asked for a different approach, not tried yet. Do
+not add a roof without new direction.
+
+*(Fuller lineage, condensed — full detail in the numbered passes below: `sadot_v6_roof_removed` (pass 13,
+roof deleted) ← `sadot_v5_roof_slopes` (pass 12, roof rejected) ← `sadot_v4_roof_precision` (pass 11, roof
+rejected) ← `sadot_v3_site_tie_2026-07-14` (passes 7-10: team_00's manual rotation/position correction, the
+precise Z anchor, old-house reference material, wall-height fixes) ← `sadot_v3_site_tie_2026-07-13` ←
+`sadot_v1_initial`. NOT a site-anchored, concept-approved model — see caveats below. Rotation/X/Y position are
 LOCKED (see pass 11) but that is a different claim from "concept-approved" — S002 concept sign-off is still a
 separate, not-yet-reached gate.)*
 
@@ -318,11 +317,40 @@ v1 file is a precursor/sanity-check, not that deliverable.
     approaches (flat per-storey; real-slope gabled) are now ruled out. Everything else in the model (walls,
     terrain, deck, boundary markers, north arrow, the locked rotation/position) is untouched by this pass.
 
+14. **2026-07-14, same session — world origin reset to the plot's SW corner (team_00 direct instruction):**
+    "נא לאפס את מערכת הצירים הכללית כך שתהיה בדיוק בפינת המגרש - דרום מערב. שם גם צריכה להיות ה 00 של המודל
+    כולו וגם של הבית" (reset the general axis system so it's exactly at the plot's corner — southwest. That's
+    also where the 00 of the whole model, and of the house, needs to be).
+    - **SW corner = `BOUNDARY_4G`**, per this project's own already-established convention (charter §2 point
+      6: team_00 previously stated "use the SW corner as the anchor point and rotation axis"; pass 7 already
+      re-origined the joined house to this same corner once). Not re-derived from the boundary coordinates —
+      reused the existing, already-marked reference point.
+    - **Method:** confirmed zero parented objects across the whole scene (326 total) — this makes a rigid
+      whole-scene shift exact and safe: subtracting `BOUNDARY_4G`'s own location from every object's
+      `location` translates each object's world position by the identical vector regardless of that object's
+      own rotation (translation and rotation compose independently in the transform matrix), so no relative
+      position, rotation, or shape can be altered by construction. Applied to all 326 objects.
+    - **Verified three ways:** (1) `BOUNDARY_4G` now reads exactly `(0.0, 0.0, 0.0)`. (2) The distance between
+      two unrelated objects (`BOUNDARY_1G` and a house wall) is bit-identical before and after
+      (36.122586m both times). (3) Visually — top-down screenshot shows the world grid's origin (red/green
+      axis crossing) landing exactly on the plot's SW corner point.
+    - **Z is included, not just X/Y:** `BOUNDARY_4G`'s Z was already `0.0` in the pre-shift local-Z convention
+      (`local_Z + 54.76 = real elevation` — see `rotation_resolution`/`deck_absolute_elevation_2026-07-13` in
+      `SITE_GEO.yaml`), which independently cross-checks against 4G's own real surveyed elevation, 54.76m —
+      exact match. So Z=0 at the new origin is that corner's own real ground height, not an arbitrary datum;
+      the shift moved X/Y only in practice (4G's Z was already 0).
+    - **One shared origin for site and house, not two** — satisfies the "also of the house" half of the
+      instruction: there is no separate house-local origin to set, since every house wall object was included
+      in the same uniform shift into this one coordinate system.
+    - Full technical record: `blender/data/site/SITE_GEO.yaml` → `blender_datum` (updated from its prior TBD
+      placeholder, which had speculated 1G or plot-centroid — superseded by this direct instruction for 4G).
+
 ## Role table
 
 | Role | File | Notes |
 |---|---|---|
-| **LIVE** | `blender/sadot_v6_roof_removed_2026-07-14.blend` | Rotation -105.500031° (exact) + X/Y **LOCKED** by team_00 — unaffected by this pass. **No roof geometry at all** — team_00 rejected pass 12's real-slope gabled roof too, asked for a different approach (see pass 13). Walls/terrain/deck/boundary-markers/north-arrow all otherwise unchanged. Still not site-anchored/concept-approved. |
+| **LIVE** | `blender/sadot_v7_origin_at_sw_corner_2026-07-14.blend` | World origin (0,0,0) reset to the plot's SW corner (`BOUNDARY_4G`), team_00 direct instruction — see pass 14. Rotation -105.500031° (exact) + X/Y **LOCKED** by team_00, unaffected (a whole-scene rigid shift preserves every relative position/rotation by construction — verified). **Still no roof geometry** — see pass 13. Still not site-anchored/concept-approved. |
+| previous LIVE | `blender/sadot_v6_roof_removed_2026-07-14.blend` | Superseded 2026-07-14 (same session — world origin reset, see pass 14). No roof geometry — team_00 rejected pass 12's roof, asked for a different approach (pass 13). Kept, not deleted. |
 | previous LIVE | `blender/sadot_v5_roof_slopes_2026-07-14.blend` | Superseded 2026-07-14 (same session — team_00 rejected this pass's roof too, see pass 13). Had real gabled/sloped per-storey roof + deck roof — see pass 12. Kept, not deleted. |
 | previous LIVE | `blender/sadot_v4_roof_precision_2026-07-14.blend` | Superseded 2026-07-14 (same session — team_00 rejected this pass's flat-only roof, see pass 12). Real per-storey filled roof but flat (no slope), deck excluded — see pass 11. Kept, not deleted. |
 | previous LIVE | `blender/sadot_v3_site_tie_2026-07-14.blend` | Superseded 2026-07-14 (Save-As'd forward same session — same lineage, not a fork). Precise Z anchor (55.97/54.5/1.47), the now-superseded synthetic hull-based per-room roofs, old-house reference material, wall-height fixes — see passes 7-10 above. Kept, not deleted. |
