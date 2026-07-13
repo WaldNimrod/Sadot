@@ -1,8 +1,15 @@
 # CURRENT MODEL — pointer (single source of truth for "which .blend")
 
-**LIVE = `blender/sadot_v3_site_tie_2026-07-13.blend`** · *(2026-07-13 — a new copy made from
-`sadot_v1_initial.blend` per team_00's explicit instruction to work only on a new copy. NOT a site-anchored,
-concept-approved model — see caveats below before treating anything in it as final.)*
+**LIVE = `blender/sadot_v4_roof_precision_2026-07-14.blend`** · *(2026-07-14, next session — Save-As'd from
+`sadot_v3_site_tie_2026-07-14.blend` after pass 11 (real per-storey roof rebuild, north arrow fixes) was
+verified. `sadot_v3_site_tie_2026-07-14.blend` was itself Save-As'd from `sadot_v3_site_tie_2026-07-13.blend`
+once earlier work crossed midnight into 2026-07-14; passes 7-10 (team_00's manual rotation/position
+correction, the precise Z anchor, the now-superseded synthetic per-room roofs, the old-house reference
+material, the wall-height fixes) live in that file. `sadot_v3_site_tie_2026-07-13.blend` was itself a new copy
+made from `sadot_v1_initial.blend` per team_00's explicit instruction to work only on a new copy. NOT a
+site-anchored, concept-approved model — see caveats below before treating anything in it as final. Rotation/
+X/Y position are LOCKED (see pass 11) but that is a different claim from "concept-approved" — S002 concept
+sign-off is still a separate, not-yet-reached gate.)*
 
 **Note on `sadot_v2_initial.blend`:** this file exists on disk (created 2026-07-10 00:45, after v1's last save)
 but was **never documented or adopted as LIVE** — inspecting it (2026-07-13) found it contains an *earlier*
@@ -15,15 +22,50 @@ silently erase), but **not the lineage this file continues from** — v3 branche
 via `blender/scripts/site/export_house_shell_obj.py` — collection `HouseShell_v1_PROVISIONAL`) and the real
 6-point surveyed plot boundary/terrain (collection `Terrain_RealSurvey`, from `blender/data/site/terrain.obj`).
 **Known limitations (read before using):**
-- **Rotation is now RESOLVED (0°, rigorously confirmed 2026-07-09 — see "Origin convention" below); position
-  (X/Y translation) is still an open, flagged approximation**, and Z is still approximate too (though now
-  grounded in a real client-stated fact). Not the same as a surveyed tie-measurement. See
-  `design/CANONICAL/BLENDER_SHELL_BUILD_PLAN_v1.0.0.md` §3/§3b.
+- **Rotation is NOT 0° — see "Origin convention" pass 8 below.** The 2026-07-09 "0°, rigorously confirmed"
+  finding was real but answered a narrower question (IFC-internal placement consistency) than assumed; actual
+  rotation is **exactly -105.500031°** (read directly from `rotation_euler.z` on all 268 new-house wall objects
+  in the live scene, 2026-07-14 — uniform to full float precision, confirming team_00's manual value was a
+  clean -105.5° input). **LOCKED 2026-07-14 (explicit team_00 instruction): rotation and X/Y position are
+  correct and final — do not move, re-derive, or re-verify them further.** This is not a reversal of the
+  "not yet independently re-derived" caveat that stood after pass 9 — it is team_00 closing that question
+  directly. Incidentally, unrelated verification work the same day (fitting an IFC-native-to-Blender-world
+  transform in order to correctly place newly-extracted IFC geometry, for the roof rebuild below) matched
+  268+29=297 walls' combined point-cloud shape to the source IFC's wall geometry to sub-centimeter accuracy,
+  and separately landed the independently-trusted deck-slab reference within ~25cm — a real, if incidental,
+  geometric cross-check via a third method (point-cloud registration, distinct from both the original
+  IFC-placement-hierarchy walk and team_00's own visual inspection) that happens to support the locked value.
+  This was not requested and should not be read as "the position was re-litigated" — it is offered only as
+  corroborating context. **Z is fully precise**, not approximate: deck reference = 55.97m real, south-edge
+  reference = 54.5m real, difference = 1.47m exact (pass 6/10). See
+  `design/CANONICAL/BLENDER_SHELL_BUILD_PLAN_v1.0.0.md` §3/§3b for the pre-pass-7 method detail (historical;
+  superseded by the lock above).
 - The wall export includes ALL 111 IFC walls (interior partitions + some oversized boundary/retaining-wall
   elements), not an exterior-only shell — visible in the model as wall geometry extending beyond the compact,
   recognizable house core. Pruning to true exterior-only is a later refinement.
-- Roofs are NOT included — the 6 `IfcRoof` entities have no geometric `Representation` in this IFC export at all
-  (a real data gap, confirmed, not a script bug).
+- Roofs are NOT in the source IFC — the 6 `IfcRoof` entities have no geometric `Representation` in that export
+  at all (a real data gap, confirmed, not a script bug). A separate lead — 8 `IfcSlab` entities tagged
+  `PredefinedType=ROOF` that DO carry geometry (a common Revit/IFC export pattern) — was checked and rejected
+  2026-07-14: cross-validated against the trusted deck-slab reference, that geometry sits 10+ meters from the
+  real walls (one entity is 130m away, clearly a stray/neighbor-context object); the draft-sounding family
+  names ("Generic -15new 2") are consistent with unfinished/mispositioned Revit placeholders, not the
+  architect's real roof design. Not used.
+  **Roof rebuilt 2026-07-14 (pass 11, superseding pass 10's synthetic hull-based pieces):** real per-storey
+  construction, not guessed clustering. Each new-house wall (268 objects) was matched to its true IFC
+  `IfcBuildingStorey` (ground floor "0- קומת כניסה" / upper floor "יח' הורים" / "גג 6") via nearest-neighbor
+  point matching against the IFC source (using the validated IFC→Blender transform above) — 268/268 matched,
+  median offset 0.48m. Each storey's roof footprint is a real filled union of that storey's own wall
+  footprints (grid-rasterized at 10cm + flood-filled from outside so walls act as barriers and enclosed
+  room interiors become solid — NOT a convex hull, and NOT just a hollow trace of the wall lines), at that
+  storey's own max wall-top height + 5cm clearance. The ground-floor piece has the upper-floor and "roof 6"
+  footprints subtracted so it doesn't wrongly cap the double-height sections. Result: `ROOF_ground_floor`
+  (z=5.56-5.76m), `ROOF_upper_floor` (z=8.28-8.48m), `ROOF_roof6_0`/`ROOF_roof6_1` (z=8.28-8.48m) — visually
+  confirmed (front-orthographic screenshot) as two distinct height bands, and top-down confirmed to precisely
+  trace real room notches/jogs rather than a smoothed outline. Replaces the old `ROOF_section_<id>` objects
+  (deleted). See `COLOR_CODING_CANON_v1.0.0.md`. Color is still a placeholder, not client-confirmed. Known
+  simplification: height is per-storey (matching real architectural levels), not per-room within a storey —
+  interior partition walls that sit below their storey's own roof height is normal (real ceilings are flat
+  per level) and not a defect.
 - Per-corner terrain elevations are approximate (read from the nearest visually-adjacent spot-height label on the
   survey, not the surveyor's own formal point-elevation list — see `SITE_GEO.yaml` `approximate_corner_elevations_v1`).
 
@@ -173,10 +215,9 @@ v1 file is a precursor/sanity-check, not that deliverable.
      approach rather than one continuous slope. Full numbers: `blender/data/site/SITE_GEO.yaml` →
      `z_anchor_precise_2026-07-14`.
 9. **Overall status (2026-07-14): rotation + X/Y position = team_00-verified correct by direct inspection
-   against the real site plan (not yet independently re-derived computationally — that would be the next
-   rigor step if time allows, matching this project's own "cross-check at least 2 ways" standard). Z = fully
+   against the real site plan. LOCKED same day (see pass 11) — not open for further re-derivation.** Z = fully
    precise (55.97/54.5/1.47 exact). Front-section grading is now a real, numbered design input, not an open
-   question.**
+   question.
 
 10. **2026-07-14, later same day — two wall-height precision fixes (team_00 direct instruction):**
     - `walls_119777_Basic_Wall:משראביה:6071941` (south-edge wall): shifted rigidly so its bottom sits at
@@ -188,11 +229,36 @@ v1 file is a precursor/sanity-check, not that deliverable.
       54.76m→55.03m along the wall's run instead of sitting flat at 55.99m. Top vertices left completely
       unchanged (57.49m real), per instruction ("שיא הגובה של הקיר ללא שינוי").
 
+11. **2026-07-14, next session (team_00 instructions, picking up the handoff) — rotation/position LOCKED,
+    roof rebuilt for real precision, north arrow fixed:**
+    - **Rotation/X/Y position explicitly LOCKED by team_00** — "הבית כבר ממוקם על המגרש נכון - זה נעול - נא
+      לעדכן ולא יזוז" (the house is already correctly positioned on the plot — this is locked — update the
+      docs and it must not move). Read the exact live value (-105.500031°, see the "Known limitations" bullet
+      above) but did not move anything. No further re-derivation is open work.
+    - **Roof rebuilt (pass 10's synthetic hull-based pieces replaced) — see the "Known limitations" roof
+      bullet above for the full method.** Summary: real per-IFC-storey grouping (not guessed clustering) +
+      grid-rasterized filled footprint (not a convex hull, not a hollow wall-trace) + per-storey real height,
+      with the ground floor cut back where the upper floor/roof-6 continue above it. Verified both numerically
+      (storey Z values) and visually (top-down: precise room-notch tracing; front-ortho: two distinct height
+      bands as separate horizontal lines).
+    - **North arrow: two real bugs found and fixed, both flagged by team_00 as imprecise/missing:**
+      (1) the arrowhead cone's `rotation_euler.x` was `+90°`, pointing the apex south (toward the shaft)
+      instead of north — sign-flipped to `-90°`, verified by transforming the apex vertex to world space
+      (now north of the base, as it should be). (2) the whole containing collection (`Collection` — also
+      holds the 6 `BOUNDARY_*G` markers/labels and the undocumented `AXISCHECK_*` objects) had its viewport
+      visibility toggled off at the collection level, independent of any object's own hide flag — this is
+      almost certainly why it read as "missing" even though the objects existed. Unhidden. Visually confirmed
+      after both fixes: a clean triangle pointing at the "N" label.
+    - Not investigated this pass: the 4 `AXISCHECK_house_*`/`AXISCHECK_terrain_*` objects (also in the
+      now-unhidden `Collection`) — undocumented anywhere in this file, purpose unknown, left as-is.
+
 ## Role table
 
 | Role | File | Notes |
 |---|---|---|
-| **LIVE** | `blender/sadot_v3_site_tie_2026-07-13.blend` | Real Z anchor (deck +55.97m) + X/Y placement bug fix — see pass 6 above. Still not site-anchored/concept-approved. |
+| **LIVE** | `blender/sadot_v4_roof_precision_2026-07-14.blend` | Rotation -105.500031° (exact) + X/Y **LOCKED** by team_00. Real per-storey filled roof (`ROOF_ground_floor`/`ROOF_upper_floor`/`ROOF_roof6_0`/`ROOF_roof6_1`, grid-rasterized + flood-filled, true wall perimeter, real per-storey height — not hull-based) replacing the earlier synthetic pieces. North arrow fixed (backwards cone + hidden collection). See pass 11 above. Still not site-anchored/concept-approved (that verification is team_00's direct inspection, not a surveyed tie). |
+| previous LIVE | `blender/sadot_v3_site_tie_2026-07-14.blend` | Superseded 2026-07-14 (Save-As'd forward same session — same lineage, not a fork). Precise Z anchor (55.97/54.5/1.47), the now-superseded synthetic hull-based per-room roofs, old-house reference material, wall-height fixes — see passes 7-10 above. Kept, not deleted. |
+| previous LIVE | `blender/sadot_v3_site_tie_2026-07-13.blend` | Superseded 2026-07-14 (Save-As'd forward once work crossed midnight — same lineage, not a fork). Real Z anchor (deck +55.97m) + X/Y placement bug fix — see pass 6 above. Kept, not deleted. |
 | previous LIVE | `blender/sadot_v1_initial.blend` | Superseded 2026-07-13 — kept, not deleted. |
 | undocumented, not adopted | `blender/sadot_v2_initial.blend` | Stray intermediate snapshot, older than v1's final state — see note above. Not part of the lineage. |
 | **Phase-render fork (frozen)** | *(TBD, if/when a render-only fork is needed)* | Follow the microgreens precedent: `Save As` a `_render` suffixed copy before any beauty-render batch; never edit the frozen fork after that. |

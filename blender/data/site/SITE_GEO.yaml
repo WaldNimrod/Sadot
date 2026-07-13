@@ -290,10 +290,16 @@ rotation_RECONSIDERED_2026-07-14: "team_00 manually rotated the house in Blender
   -- what was wrong was the assumption that IFC-native Y = real ITM Northing directly. That mapping was never
   independently verified against a real, trusted external reference; team_00's direct knowledge of how the
   house actually sits on this specific narrow lot is exactly that missing external check. Net effect: rotation
-  is NOT 0 deg between IFC-native and real ITM -- it is ~-105.5 deg (team_00-verified, not yet re-derived via
-  an independent rigorous method the way the original 0 deg claim was). Kept here rather than silently
-  overwriting the prior entry -- see also blender/CURRENT_MODEL.md for the full history including this
-  correction."
+  is NOT 0 deg between IFC-native and real ITM -- it is ~-105.5 deg (team_00-verified). Kept here rather than
+  silently overwriting the prior entry -- see also blender/CURRENT_MODEL.md for the full history including
+  this correction.
+  LOCKED 2026-07-14 (next session, explicit team_00 instruction): rotation and X/Y position are final, not
+  open for further re-derivation. Exact value read directly from the live scene's object transforms (uniform
+  rotation_euler.z across all 268 new-house walls): -105.500031 deg -- confirms team_00's manual input was a
+  clean -105.5 deg, not an approximation. Unrelated to this lock, the same session's roof-rebuild work needed
+  an IFC-native-to-Blender-world transform and validated one (matching 297 walls' combined point-cloud shape
+  to sub-centimeter accuracy, cross-checked against the independently-trusted deck slab to ~25cm) -- an
+  incidental third-method corroboration of this locked value, not a re-litigation of it."
 
 deck_absolute_elevation_2026-07-13:
   value_m: 55.97
