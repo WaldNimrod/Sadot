@@ -1,15 +1,19 @@
 # CURRENT MODEL — pointer (single source of truth for "which .blend")
 
-**LIVE = `blender/sadot_v4_roof_precision_2026-07-14.blend`** · *(2026-07-14, next session — Save-As'd from
-`sadot_v3_site_tie_2026-07-14.blend` after pass 11 (real per-storey roof rebuild, north arrow fixes) was
-verified. `sadot_v3_site_tie_2026-07-14.blend` was itself Save-As'd from `sadot_v3_site_tie_2026-07-13.blend`
-once earlier work crossed midnight into 2026-07-14; passes 7-10 (team_00's manual rotation/position
-correction, the precise Z anchor, the now-superseded synthetic per-room roofs, the old-house reference
-material, the wall-height fixes) live in that file. `sadot_v3_site_tie_2026-07-13.blend` was itself a new copy
-made from `sadot_v1_initial.blend` per team_00's explicit instruction to work only on a new copy. NOT a
-site-anchored, concept-approved model — see caveats below before treating anything in it as final. Rotation/
-X/Y position are LOCKED (see pass 11) but that is a different claim from "concept-approved" — S002 concept
-sign-off is still a separate, not-yet-reached gate.)*
+**LIVE = `blender/sadot_v5_roof_slopes_2026-07-14.blend`** · *(2026-07-14, same session — Save-As'd from
+`sadot_v4_roof_precision_2026-07-14.blend` after pass 12 (real gabled slopes, deck roof, unified
+no-double-coverage pass — team_00 rejected pass 11's flat-only roof) was verified. `sadot_v4_...` held pass 11
+(real per-storey roof rebuild, north arrow fixes), Save-As'd from `sadot_v3_site_tie_2026-07-14.blend`, which
+itself was Save-As'd from `sadot_v3_site_tie_2026-07-13.blend` once earlier work crossed midnight into
+2026-07-14; passes 7-10 (team_00's manual rotation/position correction, the precise Z anchor, the
+now-superseded synthetic per-room roofs, the old-house reference material, the wall-height fixes) live in that
+file. `sadot_v3_site_tie_2026-07-13.blend` was itself a new copy made from `sadot_v1_initial.blend` per
+team_00's explicit instruction to work only on a new copy. NOT a site-anchored, concept-approved model — see
+caveats below before treating anything in it as final. Rotation/X/Y position are LOCKED (see pass 11) but that
+is a different claim from "concept-approved" — S002 concept sign-off is still a separate, not-yet-reached
+gate. Roof is now real-slope + deck-covered (pass 12) but slope POSITION (where exactly each gable ridge sits
+relative to the architect's own design) is a defensible approximation, not a rederivation — see pass 12's
+"not attempted" note.)*
 
 **Note on `sadot_v2_initial.blend`:** this file exists on disk (created 2026-07-10 00:45, after v1's last save)
 but was **never documented or adopted as LIVE** — inspecting it (2026-07-13) found it contains an *earlier*
@@ -252,11 +256,55 @@ v1 file is a precursor/sanity-check, not that deliverable.
     - Not investigated this pass: the 4 `AXISCHECK_house_*`/`AXISCHECK_terrain_*` objects (also in the
       now-unhidden `Collection`) — undocumented anywhere in this file, purpose unknown, left as-is.
 
+12. **2026-07-14, same session — team_00 rejected pass 11's roof as "ממש ממש ממש לא בכיוון" (really,
+    really, really off), with 4 specific gaps. Rebuilt again, this time with real slope + deck coverage:**
+    - **team_00's 4 points, and what changed:**
+      1. *"Every space/part needs its own roof surface"* — kept the real per-storey/per-group construction
+         from pass 11 (not one blob), and added the new deck roof (below) as its own explicit piece.
+      2. *"The round front deck has no roof"* — added `ROOF_deck_porch`: a new roof piece over the deck's
+         own real footprint (from `DECKING_wood_front_porch`), flat, at deck-top + 2.4m — a placeholder
+         pergola clearance, **not client-confirmed**, chosen only to sit clearly below the main roofline and
+         above head height. No real source data pins this height or confirms it should be flat rather than
+         sloped; flagged, not asserted as final.
+      3. *"Not all roofs are level — some have real slope. Model accordingly"* — `ROOF_ground_floor` and
+         `ROOF_upper_floor` rebuilt as real symmetric gables (ridge along each footprint's own PCA long axis,
+         15° each side), replacing the flat pass-11 slabs. `ROOF_roof6_0`/`_1` rebuilt as 8° gables. Both
+         angles are real, not guessed: fit (least-squares plane per element) directly from the IFC's own 8
+         roof-type `IfcSlab` entities (the same ones rejected in pass 11 for being 10+ meters out of
+         position) — their *absolute placement* is untrustworthy draft data, but their *local shape*
+         (translation-independent) isn't, and each named roof design turned out to be a real symmetric
+         paired-face gable (matching slope magnitude, opposite sign) rather than a single mispositioned
+         blob. 15° matched the two `רעפים חדש2` ("tiles") elements (~62m²+~108m², real tile-roof data per
+         `HOUSE_IFC_REFERENCE.md` §5: "רעפים, 5cm clay tile... ~100m²+~62m²"); 8° matched `Generic -15new 2`,
+         which is independently storey-confirmed as belonging to the same `גג 6` storey as the `roof6_0`/`_1`
+         walls (unlike the other roof elements, which sit in storeys with zero real walls to cross-check
+         against). One tiny 7th piece (`Basic Roof:10:5857893`, ~1.5m², 29° — the non-outlier twin of the
+         130m stray) wasn't matched to anything and isn't represented.
+      4. *"Second floor still has no roof; no double-coverage — one roof per XY point, whichever contour it's
+         inside"* — rebuilt the whole set as one unified pass instead of pairwise subtraction: explicit
+         priority `roof6_0/roof6_1 > upper_floor > {ground_floor, deck_porch}`, each lower piece's mask has
+         every higher piece's mask subtracted before meshing. Verified numerically: zero pairwise-overlapping
+         grid cells across all 5 final masks (was 94 cells of `upper` vs `roof6` before this fix — `roof6_0`
+         turned out to sit entirely inside `upper`'s raw footprint). Total roofed area 154.5m².
+    - **`HOUSE_IFC_REFERENCE.md` cross-check surfaced one bug in my own earlier analysis, not in the model:**
+      I had misread `IfcBuildingStorey.Elevation` as millimeters (÷1000); the file's real unit is centimeters
+      (÷100 — confirmed in that doc's §0.5 and cross-checked against its own storey table). This only ever
+      affected my own commentary about whether "יח' הורים" was a real second story (it is — 3.1m above the
+      entrance floor, not 0.31m) — it was never used in any geometry calculation, which always used real
+      measured wall/mesh Z, not the raw `Elevation` attribute.
+    - Not attempted: precisely relocating each real roof element's own footprint onto its correct storey
+      area (only its slope magnitude was reused) — that needs a second independent anchor for roof-to-wall
+      correspondence this session didn't find; the PCA-ridge placement is a reasonable, defensible
+      approximation, not a rederivation of the architect's exact design.
+    - Verified visually (angled material-shaded screenshot): real ridge lines with two sloping faces on both
+      gables, distinct deck cap, ground/upper/roof6/deck all visually distinguishable.
+
 ## Role table
 
 | Role | File | Notes |
 |---|---|---|
-| **LIVE** | `blender/sadot_v4_roof_precision_2026-07-14.blend` | Rotation -105.500031° (exact) + X/Y **LOCKED** by team_00. Real per-storey filled roof (`ROOF_ground_floor`/`ROOF_upper_floor`/`ROOF_roof6_0`/`ROOF_roof6_1`, grid-rasterized + flood-filled, true wall perimeter, real per-storey height — not hull-based) replacing the earlier synthetic pieces. North arrow fixed (backwards cone + hidden collection). See pass 11 above. Still not site-anchored/concept-approved (that verification is team_00's direct inspection, not a surveyed tie). |
+| **LIVE** | `blender/sadot_v5_roof_slopes_2026-07-14.blend` | Rotation -105.500031° (exact) + X/Y **LOCKED** by team_00. Real per-storey/per-space roof: `ROOF_ground_floor`/`ROOF_upper_floor` (15° gables, slope from real IFC tile-roof data), `ROOF_roof6_0`/`ROOF_roof6_1` (8°, storey-confirmed), `ROOF_deck_porch` (new — the deck previously had no roof at all, team_00 flagged this). Grid-rasterized + flood-filled true footprints (not hull-based), single unified no-double-coverage priority pass. See pass 12 above. Still not site-anchored/concept-approved (that verification is team_00's direct inspection, not a surveyed tie); roof slope *position* (exact ridge placement) is a defensible approximation, not a rederivation of the architect's design. |
+| previous LIVE | `blender/sadot_v4_roof_precision_2026-07-14.blend` | Superseded 2026-07-14 (same session — team_00 rejected this pass's flat-only roof, see pass 12). Real per-storey filled roof but flat (no slope), deck excluded — see pass 11. Kept, not deleted. |
 | previous LIVE | `blender/sadot_v3_site_tie_2026-07-14.blend` | Superseded 2026-07-14 (Save-As'd forward same session — same lineage, not a fork). Precise Z anchor (55.97/54.5/1.47), the now-superseded synthetic hull-based per-room roofs, old-house reference material, wall-height fixes — see passes 7-10 above. Kept, not deleted. |
 | previous LIVE | `blender/sadot_v3_site_tie_2026-07-13.blend` | Superseded 2026-07-14 (Save-As'd forward once work crossed midnight — same lineage, not a fork). Real Z anchor (deck +55.97m) + X/Y placement bug fix — see pass 6 above. Kept, not deleted. |
 | previous LIVE | `blender/sadot_v1_initial.blend` | Superseded 2026-07-13 — kept, not deleted. |
