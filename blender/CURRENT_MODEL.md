@@ -1,10 +1,10 @@
 # CURRENT MODEL — pointer (single source of truth for "which .blend")
 
-**LIVE = `blender/sadot_v12_collections_labels_groundfill_2026-07-14.blend`** · *(2026-07-14, same session —
-pass 18: full 6-collection reorg (House/Old House/Fences and Walls/Texts and References/Ground/Planting, all
-325 objects reclassified), tree number labels ("6"/"3") + new `TREE_KEY_LEGEND_v1.0.0.md`, and a new solid-
-brown ground-fill strip connecting the real boundary edge to the new east wall near tree #3. See pass 18
-below.)*
+**LIVE = `blender/sadot_v13_solid_groundfill_locked_2026-07-14.blend`** · *(2026-07-14, same session —
+pass 19: pass 18's flat ground-fill strip rejected by team_00 and rebuilt as a real closed-manifold SOLID
+volume (`GROUND_FILL_east_solid`) whose top surface follows the terrain's own real varying slope rather than
+one flat elevation, plus the House collection (268 objects), `terrain`, and `REF_PDF_shetach_uvayit` are now
+explicitly LOCKED (location/rotation/scale) as finalized geometry. See pass 19 below.)*
 
 **Roof status: NONE.** All roof geometry was built twice (flat per-storey, then real gabled/sloped) and both
 attempts were rejected and deleted (pass 11-13) — team_00 asked for a different approach, not tried yet. Do
@@ -456,11 +456,45 @@ v1 file is a precursor/sanity-check, not that deliverable.
       flat height used throughout (54.91m, as team_00 stated), not a sloped interpolation — a reasonable
       simplification for a first pass, open to refinement if more spot elevations are given. In `Ground`.
 
+19. **2026-07-14, same session — pass 18's flat ground fill rejected, rebuilt as a real solid volume; House/
+    terrain/PDF-reference locked (team_00 direct instruction).** team_00 rejected the flat strip: "לא טוב - שים
+    לב יש לנו פני שטח - אנחנו צריכים להמשיך אותם - לא לגעת במקורי שקיבלנו מהמודד אבל לייצר אובייקט עם נפח מלא -
+    המקביל לפני השטח מהמודד בחלק העליון וממשיך עד לחומה המזרחית" (not good — we have a terrain surface, we need
+    to continue it — don't touch the original from the surveyor, but produce an object with real full volume,
+    matching the surveyor's terrain surface at the top and continuing to the east wall). Explicit reasoning
+    given: this fill will later be **sculpted** (volume added/removed) as the primary step of landscape/grading
+    design, so it needs genuine volume, not a flat plate.
+    - **Old `GROUND_FILL_east_tree03_area` (flat, single elevation 54.91m) deleted** — did not touch the
+      surveyor's original `terrain` object, per instruction.
+    - **New object `GROUND_FILL_east_solid`**, a real closed-manifold solid (16 vertices, 14 faces, 0
+      non-manifold edges, verified via `bmesh`): at each of 4 Y-positions along the wall's footprint, the
+      terrain's real edge point (interpolated linearly along the surveyed 2G→3G boundary edge, matching this
+      session's established terrain-interpolation method) sets the TOP-terrain-side height; the TOP-wall-side
+      height at the same Y is set to the **same** value (i.e. the top surface is continued/extruded outward
+      at the terrain's own real local elevation, not sloped down to a fixed number) — confirmed numerically:
+      top_terrain and top_wall real elevations printed as identical lists at all 4 stations (54.981m, 55.752m,
+      55.751m, 56.544m). Bottom held flat at real 52.5m (well below the lowest real terrain point, ~54.47m),
+      giving ~4.04m of genuine sculptable depth throughout (world Z range 52.50–56.54m real). Built with top
+      strip + bottom strip + terrain-side wall + wall-side wall + 2 end caps (14 faces total), normals
+      recalculated, reuses the existing `MAT_ground_fill_solid_brown` material (not recreated), linked into
+      `Ground`. Verified visually: angled and side-orthographic viewport screenshots both show a real-thickness
+      brown mass (not a plate) whose top edge visibly rises with the terrain from south to north.
+    - **Locking, per the same message's second instruction**: "את הבית עצמו, הpdf לרפרנס ופני השטח המקוריים יש
+      לנעול לשינוי מיקום או גודל - הם כבר בנויים" (lock the house itself, the PDF reference, and the original
+      terrain surface against position/size change — they're already built). Applied `lock_location`,
+      `lock_rotation`, and `lock_scale` (all 3 axes each) to: all 268 `House` collection objects, `terrain`,
+      and `REF_PDF_shetach_uvayit` — 270 objects total. Verified programmatically (all 270 read back fully
+      locked on all three transform types) — full lock, not just location/scale, matching this session's
+      standing convention of protecting "already built" geometry completely once team_00 declares it final.
+    - **Not touched**: `GROUND_FILL_east_solid` itself is deliberately NOT locked (it's the object meant to be
+      sculpted next); the two `Fences and Walls` east-wall segments are also not locked (no instruction to).
+
 ## Role table
 
 | Role | File | Notes |
 |---|---|---|
-| **LIVE** | `blender/sadot_v12_collections_labels_groundfill_2026-07-14.blend` | Full 6-collection reorg (`House`/`Old House`/`Fences and Walls`/`Texts and References`/`Ground`/`Planting`, all 325 objects sorted — see pass 18). Tree number labels + `TREE_KEY_LEGEND_v1.0.0.md`. New solid-brown ground fill near tree #3, real 54.91m, connecting the boundary edge to the east wall. Olive tree (site-plan #3) repositioned + joined by team_00 directly — current state confirmed correct by team_00. World origin at the plot's SW corner (pass 14). Rotation -105.500031° (exact) + X/Y **LOCKED** by team_00. **Still no roof geometry** — see pass 13. Note: the wall object used for the new east wall (`walls_119777_Basic_Wall:...6071941`, no suffix) was previously the precisely-fixed south-edge wall — that position is no longer represented in the scene (flagged to team_00, not yet resolved). Still not site-anchored/concept-approved. |
+| **LIVE** | `blender/sadot_v13_solid_groundfill_locked_2026-07-14.blend` | Ground fill near tree #3 rebuilt as a real solid volume (`GROUND_FILL_east_solid`, 16v/14f, top surface follows the terrain's real slope, ~4.04m sculptable depth) — supersedes pass 18's flat strip, which was rejected. `House` (268 objects), `terrain`, and `REF_PDF_shetach_uvayit` (270 objects total) now explicitly **LOCKED** (location/rotation/scale) as finalized geometry — see pass 19. Full 6-collection reorg (`House`/`Old House`/`Fences and Walls`/`Texts and References`/`Ground`/`Planting` — see pass 18) and tree number labels + `TREE_KEY_LEGEND_v1.0.0.md` carried forward unchanged. World origin at the plot's SW corner (pass 14). Rotation -105.500031° (exact) + X/Y **LOCKED** by team_00. **Still no roof geometry** — see pass 13. Note: the wall object used for the new east wall (`walls_119777_Basic_Wall:...6071941`, no suffix) was previously the precisely-fixed south-edge wall — that position is no longer represented in the scene (flagged to team_00, not yet resolved). Still not site-anchored/concept-approved. |
+| previous LIVE | `blender/sadot_v12_collections_labels_groundfill_2026-07-14.blend` | Superseded 2026-07-14 (same session — see pass 19). Full 6-collection reorg, tree number labels + legend — see pass 18. Flat ground-fill strip (54.91m) — rejected by team_00, replaced in pass 19. Kept, not deleted. |
 | previous LIVE | `blender/sadot_v11_tree_fix_english_collections_2026-07-14.blend` | Superseded 2026-07-14 (same session — see pass 18). Pre-reorg collection structure (`Planting`/`Trees` only), olive tree fix — see pass 17. Kept, not deleted. |
 | previous LIVE | `blender/sadot_v10_planting_collection_2026-07-14.blend` | Superseded 2026-07-14 (same session — see pass 17). Hebrew collection names (`צמחיה`/`עצים`); olive tree not yet fixed. Kept, not deleted. |
 | previous LIVE | `blender/sadot_v9_tree03_olive_2026-07-14.blend` | Superseded 2026-07-14 (same session — see pass 17). Had tree #6 + site-plan tree #3, both still loose in the house collection — see pass 16. Kept, not deleted. |
