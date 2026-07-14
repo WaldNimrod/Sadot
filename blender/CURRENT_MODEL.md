@@ -1,19 +1,19 @@
 # CURRENT MODEL — pointer (single source of truth for "which .blend")
 
-**LIVE = `blender/sadot_v9_tree03_olive_2026-07-14.blend`** · *(2026-07-14, same session — pass 16: second
-planting object (site-plan tree #3, olive) — uses a DIFFERENT tree-numbering scheme than tree #6, see pass 16
-for the distinction. Save-As'd from `sadot_v8_tree06_east_wall_2026-07-14.blend` (pass 15: first planting
-object, existing tree #6, real position/height/canopy from team_00's on-site observation) + the
-manually-built east boundary wall's peak height corrected to real 55.83m. Save-As'd from
-`sadot_v7_origin_at_sw_corner_2026-07-14.blend` (pass 14: world origin reset to the plot's SW corner
-(`BOUNDARY_4G`), team_00 direct instruction). Every object
-rigidly shifted by the same vector — verified zero relative drift. See pass 14 below.)*
+**LIVE = `blender/sadot_v10_planting_collection_2026-07-14.blend`** · *(2026-07-14, same session — pass 17:
+planting collection structure — `צמחיה` (top) > `עצים` (trees), all 4 tree objects moved in from the house
+collection. See pass 17 below.)*
 
 **Roof status: NONE.** All roof geometry was built twice (flat per-storey, then real gabled/sloped) and both
 attempts were rejected and deleted (pass 11-13) — team_00 asked for a different approach, not tried yet. Do
 not add a roof without new direction.
 
-*(Fuller lineage, condensed — full detail in the numbered passes below: `sadot_v6_roof_removed` (pass 13,
+*(Fuller lineage, condensed — full detail in the numbered passes below: `sadot_v10_planting_collection` (pass
+17, collection structure) ← `sadot_v9_tree03_olive` (pass 16, second planting object — site-plan tree #3,
+olive, a DIFFERENT numbering scheme than tree #6, see pass 16) ← `sadot_v8_tree06_east_wall` (pass 15: first
+planting object/tree #6 + east wall peak height corrected to real 55.83m) ← `sadot_v7_origin_at_sw_corner`
+(pass 14: world origin reset to the plot's SW corner, `BOUNDARY_4G`, team_00 direct instruction — every
+object rigidly shifted by the same vector, verified zero relative drift) ← `sadot_v6_roof_removed` (pass 13,
 roof deleted) ← `sadot_v5_roof_slopes` (pass 12, roof rejected) ← `sadot_v4_roof_precision` (pass 11, roof
 rejected) ← `sadot_v3_site_tie_2026-07-14` (passes 7-10: team_00's manual rotation/position correction, the
 precise Z anchor, old-house reference material, wall-height fixes) ← `sadot_v3_site_tie_2026-07-13` ←
@@ -390,11 +390,20 @@ v1 file is a precursor/sanity-check, not that deliverable.
       unsurveyed, not presented as real data the way tree #6's dimensions are.
     - Verified visually: sits near the house/deck area, plausible position.
 
+17. **2026-07-14, same session — collection structure for planting (team_00 direct instruction):** "כל העצים
+    צריכים להיות בקולקשן משל עצמם - קולקשן ראשי - צמחיה בפנים - עצים" (all trees need their own collection —
+    main collection "צמחיה" [vegetation], inside it "עצים" [trees]). Created `צמחיה` (top-level, linked to the
+    scene) with `עצים` nested inside it; moved all 4 existing `TREE_*` objects (previously loose inside
+    `HouseShell_v1_PROVISIONAL`, mixed with house geometry) into `עצים`. **Convention going forward: any new
+    tree object goes in `עצים`; other planting types (shrubs, ground cover, etc., once modeled) should get
+    their own sibling collection under `צמחיה`, not dumped into `עצים` or the house collection.**
+
 ## Role table
 
 | Role | File | Notes |
 |---|---|---|
-| **LIVE** | `blender/sadot_v9_tree03_olive_2026-07-14.blend` | Two planting objects now: tree #6 (Neem, 2023-survey numbering) + site-plan tree #3 (olive, the site-plan sheet's OWN separate numbering — see pass 16, do not conflate the two schemes). East boundary wall's peak height corrected to real 55.83m — see pass 15. World origin at the plot's SW corner (pass 14). Rotation -105.500031° (exact) + X/Y **LOCKED** by team_00. **Still no roof geometry** — see pass 13. Note: the wall object used for the new east wall (`walls_119777_Basic_Wall:...6071941`, no suffix) was previously the precisely-fixed south-edge wall — that position is no longer represented in the scene (flagged to team_00, not yet resolved). Still not site-anchored/concept-approved. |
+| **LIVE** | `blender/sadot_v10_planting_collection_2026-07-14.blend` | Planting now organized in `צמחיה` > `עצים` collections (see pass 17) — both tree objects (tree #6/Neem, 2023-survey numbering; site-plan tree #3/olive, a separate numbering scheme — see pass 16, do not conflate) moved out of the house collection. East boundary wall's peak height corrected to real 55.83m — see pass 15. World origin at the plot's SW corner (pass 14). Rotation -105.500031° (exact) + X/Y **LOCKED** by team_00. **Still no roof geometry** — see pass 13. Note: the wall object used for the new east wall (`walls_119777_Basic_Wall:...6071941`, no suffix) was previously the precisely-fixed south-edge wall — that position is no longer represented in the scene (flagged to team_00, not yet resolved). Still not site-anchored/concept-approved. |
+| previous LIVE | `blender/sadot_v9_tree03_olive_2026-07-14.blend` | Superseded 2026-07-14 (same session — see pass 17). Had tree #6 + site-plan tree #3, both still loose in the house collection — see pass 16. Kept, not deleted. |
 | previous LIVE | `blender/sadot_v8_tree06_east_wall_2026-07-14.blend` | Superseded 2026-07-14 (same session — see pass 16). Had tree #6 + east wall height fix — see pass 15. Kept, not deleted. |
 | previous LIVE | `blender/sadot_v7_origin_at_sw_corner_2026-07-14.blend` | Superseded 2026-07-14 (same session — see pass 15). World origin reset to the plot's SW corner — see pass 14. Kept, not deleted. |
 | previous LIVE | `blender/sadot_v6_roof_removed_2026-07-14.blend` | Superseded 2026-07-14 (same session — world origin reset, see pass 14). No roof geometry — team_00 rejected pass 12's roof, asked for a different approach (pass 13). Kept, not deleted. |
