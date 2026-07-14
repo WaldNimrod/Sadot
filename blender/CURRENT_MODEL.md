@@ -1,8 +1,9 @@
 # CURRENT MODEL — pointer (single source of truth for "which .blend")
 
-**LIVE = `blender/sadot_v10_planting_collection_2026-07-14.blend`** · *(2026-07-14, same session — pass 17:
-planting collection structure — `צמחיה` (top) > `עצים` (trees), all 4 tree objects moved in from the house
-collection. See pass 17 below.)*
+**LIVE = `blender/sadot_v11_tree_fix_english_collections_2026-07-14.blend`** · *(2026-07-14, same session —
+pass 17 continued: collections renamed to English (`Planting` > `Trees`); found and fixed the olive tree
+(site-plan #3) sitting 42.586m off-position from a stray accidental move, now fixed and locked; Neem tree's
+canopy missing / trunk moved — flagged, not touched. See pass 17 below.)*
 
 **Roof status: NONE.** All roof geometry was built twice (flat per-storey, then real gabled/sloped) and both
 attempts were rejected and deleted (pass 11-13) — team_00 asked for a different approach, not tried yet. Do
@@ -392,17 +393,35 @@ v1 file is a precursor/sanity-check, not that deliverable.
 
 17. **2026-07-14, same session — collection structure for planting (team_00 direct instruction):** "כל העצים
     צריכים להיות בקולקשן משל עצמם - קולקשן ראשי - צמחיה בפנים - עצים" (all trees need their own collection —
-    main collection "צמחיה" [vegetation], inside it "עצים" [trees]). Created `צמחיה` (top-level, linked to the
-    scene) with `עצים` nested inside it; moved all 4 existing `TREE_*` objects (previously loose inside
-    `HouseShell_v1_PROVISIONAL`, mixed with house geometry) into `עצים`. **Convention going forward: any new
-    tree object goes in `עצים`; other planting types (shrubs, ground cover, etc., once modeled) should get
-    their own sibling collection under `צמחיה`, not dumped into `עצים` or the house collection.**
+    main collection "צמחיה" [vegetation], inside it "עצים" [trees]). Created a top-level collection (linked to
+    the scene) with a nested "trees" collection inside it; moved all 4 existing `TREE_*` objects (previously
+    loose inside `HouseShell_v1_PROVISIONAL`, mixed with house geometry) into it. **Renamed to English same
+    session** (team_00: "שמות קולקשנים באנגלית בבקשה" — collection names in English please): `Planting` (top)
+    > `Trees` (nested). **Convention going forward: any new tree object goes in `Trees`; other planting types
+    (shrubs, ground cover, etc., once modeled) should get their own sibling collection under `Planting`, not
+    dumped into `Trees` or the house collection.**
+    - **Same message — team_00 reported the olive tree (site-plan #3) "not appearing."** Found why: its trunk
+      and canopy had both been shifted +42.586m in X (a stray leftover "Move X: 42.586m" operator was still
+      showing in the redo panel) — landing the tree at X≈50.6, nowhere near the house, while its Y/Z stayed
+      correct. Not something this session's own scripted work did (verified immediately after creation last
+      pass, at the correct X=7.994) — almost certainly an accidental drag in the live GUI. Fixed (X restored
+      to 7.994, Y/Z untouched) and **locked** (location/rotation/scale, all 3 axes) so it can't silently drift
+      again — new objects don't inherit the whole-scene lock from pass "lock everything except the PDF plane"
+      earlier in this session, a real gap now closed for these two objects.
+    - **Also found, not fixed, flagged only:** `TREE_06_existing_neem_canopy` (the Neem tree's canopy) no
+      longer exists in the scene at all, and `TREE_06_existing_neem_trunk` has moved from its set position
+      (6.054, 7.798, ...) to (4.856, 7.963, ...). A large (2×2×4m, non-uniformly scaled) green sphere now
+      sits near the trunk's new position — possibly a replacement canopy the user is actively building by
+      hand. Did not touch any of this — unclear whether it's accidental or deliberate rework in progress;
+      team_00 didn't ask about it this message. `TREE_06_existing_neem_trunk` was locked anyway (see above) to
+      stop further silent drift, but its current position is not asserted as correct.
 
 ## Role table
 
 | Role | File | Notes |
 |---|---|---|
-| **LIVE** | `blender/sadot_v10_planting_collection_2026-07-14.blend` | Planting now organized in `צמחיה` > `עצים` collections (see pass 17) — both tree objects (tree #6/Neem, 2023-survey numbering; site-plan tree #3/olive, a separate numbering scheme — see pass 16, do not conflate) moved out of the house collection. East boundary wall's peak height corrected to real 55.83m — see pass 15. World origin at the plot's SW corner (pass 14). Rotation -105.500031° (exact) + X/Y **LOCKED** by team_00. **Still no roof geometry** — see pass 13. Note: the wall object used for the new east wall (`walls_119777_Basic_Wall:...6071941`, no suffix) was previously the precisely-fixed south-edge wall — that position is no longer represented in the scene (flagged to team_00, not yet resolved). Still not site-anchored/concept-approved. |
+| **LIVE** | `blender/sadot_v11_tree_fix_english_collections_2026-07-14.blend` | Planting organized in `Planting` > `Trees` collections, English names (see pass 17). Olive tree (site-plan #3) found 42.586m off-position (stray accidental move), fixed + locked. Neem tree (#6, 2023-survey numbering) canopy missing / trunk moved — flagged, not fixed. East boundary wall's peak height corrected to real 55.83m — see pass 15. World origin at the plot's SW corner (pass 14). Rotation -105.500031° (exact) + X/Y **LOCKED** by team_00. **Still no roof geometry** — see pass 13. Note: the wall object used for the new east wall (`walls_119777_Basic_Wall:...6071941`, no suffix) was previously the precisely-fixed south-edge wall — that position is no longer represented in the scene (flagged to team_00, not yet resolved). Still not site-anchored/concept-approved. |
+| previous LIVE | `blender/sadot_v10_planting_collection_2026-07-14.blend` | Superseded 2026-07-14 (same session — see pass 17). Hebrew collection names (`צמחיה`/`עצים`); olive tree not yet fixed. Kept, not deleted. |
 | previous LIVE | `blender/sadot_v9_tree03_olive_2026-07-14.blend` | Superseded 2026-07-14 (same session — see pass 17). Had tree #6 + site-plan tree #3, both still loose in the house collection — see pass 16. Kept, not deleted. |
 | previous LIVE | `blender/sadot_v8_tree06_east_wall_2026-07-14.blend` | Superseded 2026-07-14 (same session — see pass 16). Had tree #6 + east wall height fix — see pass 15. Kept, not deleted. |
 | previous LIVE | `blender/sadot_v7_origin_at_sw_corner_2026-07-14.blend` | Superseded 2026-07-14 (same session — see pass 15). World origin reset to the plot's SW corner — see pass 14. Kept, not deleted. |
