@@ -1,11 +1,10 @@
 # CURRENT MODEL — pointer (single source of truth for "which .blend")
 
-**LIVE = `blender/sadot_v15_south_wall_groundfill_2026-07-14.blend`** · *(2026-07-14, same session —
-pass 21: team_00 completed a real third east-wall segment (`...6071941.299`, south end, near `3G`) directly
-in the live session; `GROUND_BASE_solid_full_plot` re-extended to reach it, replacing the pentagon's own
-southbreak→3G boundary wall with a detour out to this new wall's real outer footprint, same "continue the
-terrain's real edge height outward" rule as the rest of the ground base. Still one closed-manifold solid,
-still 0 non-manifold edges. See pass 21 below.)*
+**LIVE = `blender/sadot_v16_ground_5m_margin_2026-07-14.blend`** · *(2026-07-14, same session —
+pass 22: `GROUND_BASE_solid_full_plot` expanded with a ≥5m outward margin all the way around the real plot
+perimeter (mitered polygon offset, one reflex/near-180° corner beveled to avoid a spike), same real heights
+continued flatly outward, so the model reads in surrounding context rather than as an isolated island. Still
+one closed-manifold solid, still 0 non-manifold edges. See pass 22 below.)*
 
 **Roof status: NONE.** All roof geometry was built twice (flat per-storey, then real gabled/sloped) and both
 attempts were rejected and deleted (pass 11-13) — team_00 asked for a different approach, not tried yet. Do
@@ -569,11 +568,47 @@ v1 file is a precursor/sanity-check, not that deliverable.
       screenshot shows the ground's outline now hugging the new wall's real footprint down to `3G`, no gap,
       no overlap. `terrain`, `REF_PDF_shetach_uvayit`, and `House` untouched, still locked.
 
+22. **2026-07-14, same session — ground base expanded 5m outward all around, for visual/site context (team_00
+    direct instruction).** "כדאי לקבל תחושה טובה יותר - נרחיב את האדמה מסביב למגרש באותם גבהים לרוחב של 5 מטר
+    לפחות מסביב סביב" (to get a better feel, let's expand the ground around the plot at the same heights, at
+    least 5m wide, all the way around).
+    - **Method:** took the ground base's full real outer perimeter as it stood after pass 21 (13 points: the
+      pentagon's 5 real corners plus the 8 wall-related transition/detour points from passes 20-21) and
+      computed a proper **mitered polygon offset** at 5m — for each vertex, the outward normal of each
+      adjacent edge, bisected, with miter length = `5 / cos(half-angle)`; height ("same heights", per
+      instruction) carried straight across from each original boundary point to its offset copy, unchanged —
+      this is the exact same "continue the real edge height outward flatly" rule used for the wall extensions
+      in passes 19-21, now applied to the whole perimeter at once.
+    - **One real problem case, caught by computing miter length numerically rather than assuming a simple
+      formula always works:** `southbreak` (the point where the wall's south end meets the survey line before
+      the new south-wall extension begins) has its two adjacent edges pointing almost exactly opposite each
+      other (dot product -0.994) — a near-180° fold, not a normal corner. A plain miter there would have shot
+      out to ~91m, an obvious spike. Fixed with a standard **bevel fallback**: any vertex whose miter length
+      exceeds a 15m cap (chosen well above the next-largest real corner, 14.46m, so it only triggers on the
+      genuine outlier) gets two separate offset points instead of one sharp miter point, bridged by a short
+      flat connector face — confirmed by re-running the same 0-non-manifold-edge check used throughout this
+      whole ground-base build, not accepted on visual judgement alone. Needed 2 small additional "wedge" faces
+      (top + bottom) at that one bevel to fully close the resulting notch — found via the same non-manifold
+      check, same iterate-until-0 discipline as passes 20-21.
+    - **Result: `GROUND_BASE_solid_full_plot` rebuilt** — 56 vertices, 68 faces, **0 non-manifold edges**.
+      Plan footprint grew from 21.4×52.4m to 34.8×63.0m; every side confirmed ≥5m beyond the previous
+      boundary (spot-checked: west edge +5.35m, south edge +5.01m, north edge +5.61m; sharper corners extend
+      further, e.g. up to ~14.5m at the wall's own kink point, which still satisfies "at least 5m," just more
+      generously at that one corner). Real elevation range unchanged (52.50–56.76m). Same
+      `MAT_ground_fill_solid_brown` material, same `Ground` collection, still deliberately unlocked (still the
+      object meant to be sculpted). All interior geometry (the real terrain fan, the wall-extension surfaces)
+      is untouched — only the outer boundary changed.
+    - **Verified:** numerically (vertex/face/manifold counts, bounding-box growth on all 4 sides) and visually
+      (top-down and angled screenshots) — clean, single, non-self-intersecting expanded outline with visible
+      margin on every side of the house/plot, no spikes or gaps at any corner including the beveled one.
+      `terrain`, `REF_PDF_shetach_uvayit`, and `House` re-confirmed still locked, untouched by this pass.
+
 ## Role table
 
 | Role | File | Notes |
 |---|---|---|
-| **LIVE** | `blender/sadot_v15_south_wall_groundfill_2026-07-14.blend` | Ground base re-extended to reach a third, newly-completed east-wall segment (`...6071941.299`, near `3G`) that team_00 added directly in the live session — `GROUND_BASE_solid_full_plot` rebuilt (28v/39f, 0 non-manifold edges), same real elevation range (52.50–56.76m) and plan footprint (21.4×52.4m). See pass 21. `Fences and Walls` now has 3 wall segments. `House` (268 objects), `terrain`, and `REF_PDF_shetach_uvayit` remain **LOCKED**, untouched. Full 6-collection reorg (pass 18) and tree number labels + `TREE_KEY_LEGEND_v1.0.0.md` carried forward unchanged. World origin at the plot's SW corner (pass 14). Rotation -105.500031° (exact) + X/Y **LOCKED** by team_00. **Still no roof geometry** — see pass 13. Note: the wall object used for the first east-wall segment (`walls_119777_Basic_Wall:...6071941`, no suffix) was previously the precisely-fixed south-edge wall — that position is no longer represented in the scene (flagged to team_00, not yet resolved). Still not site-anchored/concept-approved. |
+| **LIVE** | `blender/sadot_v16_ground_5m_margin_2026-07-14.blend` | Ground base expanded with a real, mitered ≥5m outward margin around the entire plot perimeter, for visual/site context — `GROUND_BASE_solid_full_plot` rebuilt (56v/68f, 0 non-manifold edges), plan footprint grown to 34.8×63.0m, real elevation range unchanged (52.50–56.76m). One near-180° corner (`southbreak`) beveled to avoid a miter spike. See pass 22. `House` (268 objects), `terrain`, and `REF_PDF_shetach_uvayit` remain **LOCKED**, untouched. Full 6-collection reorg (pass 18) and tree number labels + `TREE_KEY_LEGEND_v1.0.0.md` carried forward unchanged. World origin at the plot's SW corner (pass 14). Rotation -105.500031° (exact) + X/Y **LOCKED** by team_00. **Still no roof geometry** — see pass 13. Note: the wall object used for the first east-wall segment (`walls_119777_Basic_Wall:...6071941`, no suffix) was previously the precisely-fixed south-edge wall — that position is no longer represented in the scene (flagged to team_00, not yet resolved). Still not site-anchored/concept-approved. |
+| previous LIVE | `blender/sadot_v15_south_wall_groundfill_2026-07-14.blend` | Superseded 2026-07-14 (same session — see pass 22). Ground base re-extended to reach the third east-wall segment (`...6071941.299`) — see pass 21. Kept, not deleted. |
 | previous LIVE | `blender/sadot_v14_fullplot_groundbase_2026-07-14.blend` | Superseded 2026-07-14 (same session — see pass 21). Ground base solid covering the whole plot as then known (2 wall segments) — see pass 20. Kept, not deleted. |
 | previous LIVE | `blender/sadot_v13_solid_groundfill_locked_2026-07-14.blend` | Superseded 2026-07-14 (same session — see pass 20). Ground fill solid but only the narrow east strip (`GROUND_FILL_east_solid`) — team_00 asked for the whole plot, extended in pass 20. House/terrain/PDF locking — see pass 19. Kept, not deleted. |
 | previous LIVE | `blender/sadot_v12_collections_labels_groundfill_2026-07-14.blend` | Superseded 2026-07-14 (same session — see pass 19). Full 6-collection reorg, tree number labels + legend — see pass 18. Flat ground-fill strip (54.91m) — rejected by team_00, replaced in pass 19. Kept, not deleted. |
