@@ -1,10 +1,10 @@
 # CURRENT MODEL — pointer (single source of truth for "which .blend")
 
-**LIVE = `blender/sadot_v13_solid_groundfill_locked_2026-07-14.blend`** · *(2026-07-14, same session —
-pass 19: pass 18's flat ground-fill strip rejected by team_00 and rebuilt as a real closed-manifold SOLID
-volume (`GROUND_FILL_east_solid`) whose top surface follows the terrain's own real varying slope rather than
-one flat elevation, plus the House collection (268 objects), `terrain`, and `REF_PDF_shetach_uvayit` are now
-explicitly LOCKED (location/rotation/scale) as finalized geometry. See pass 19 below.)*
+**LIVE = `blender/sadot_v14_fullplot_groundbase_2026-07-14.blend`** · *(2026-07-14, same session —
+pass 20: pass 19's ground-fill solid (only the narrow east strip) extended into a single closed-manifold
+solid covering the ENTIRE plot footprint (`GROUND_BASE_solid_full_plot`) — real pentagon interior + east-wall
+bump-out, top surface flush with the surveyor's terrain everywhere, ~4-4.3m of real sculptable depth
+throughout. The original `terrain` object is untouched (read-only source), still locked. See pass 20 below.)*
 
 **Roof status: NONE.** All roof geometry was built twice (flat per-storey, then real gabled/sloped) and both
 attempts were rejected and deleted (pass 11-13) — team_00 asked for a different approach, not tried yet. Do
@@ -489,11 +489,56 @@ v1 file is a precursor/sanity-check, not that deliverable.
     - **Not touched**: `GROUND_FILL_east_solid` itself is deliberately NOT locked (it's the object meant to be
       sculpted next); the two `Fences and Walls` east-wall segments are also not locked (no instruction to).
 
+20. **2026-07-14, same session — pass 19's ground solid was only the east strip; extended to cover the ENTIRE
+    plot (team_00 direct instruction).** "אחלה אבל הקרקע צריכה להיות מתחת לכל המגרש לא רק בתוספת החסרה באלמנט
+    התחסית המקורי - מזכיר - המקורי הוא רפרנס תכנוני ואנחנו נועלים אותו ולא נוגעים בו" (great, but the ground
+    needs to be under the WHOLE plot, not just in the addition/gap of the original terrain element — reminder,
+    the original is a planning reference, locked, not touched).
+    - **Real shape discovery, made while building this:** the `terrain` object's 6 real survey points are NOT
+      a hexagon — they're a real **pentagon boundary** (`1G→2G→3G→4G→5G→1G`, confirmed by edge-adjacency
+      analysis: exactly 5 boundary edges, 5 interior spoke edges all touching `6G`) **plus `6G` as an interior
+      spot-elevation point** used only to refine the interior slope triangulation (its 5 "faces" are a fan from
+      `6G` to all 5 real perimeter vertices, not a 6-sided outer boundary as previously assumed by name alone).
+      This matters directly for wall construction: the solid's outer side walls follow the 5 real perimeter
+      edges, not 6.
+    - **Method:** built a second solid (matching the terrain's own real fan-triangulation exactly, top flush
+      with `terrain`'s true vertices, bottom flat at the same real 52.5m used in pass 19) covering the pentagon
+      interior, then **merged it with pass 19's east-strip piece into one unified object** rather than leaving
+      two disconnected pieces — matching "the ground" being one continuous base, since it will be sculpted as
+      one landscape-design step. The shared seam (the real `2G→3G` boundary edge, split at the wall's own
+      south/north attachment points) required care: the pentagon's own top/bottom triangulation was subdivided
+      at those exact 2 points (reusing pass 19's stored coordinates bit-for-bit, not recomputed, to guarantee
+      an exact weld) so the two pieces' top surfaces meet with zero gap and zero overlap.
+    - **Two real bugs caught and fixed during construction, both against the closed-manifold check (0
+      non-manifold edges is the pass/fail bar, not a visual judgement call):** (1) first attempt kept pass 19's
+      OLD end-cap faces (needed when that piece stood alone) after welding — these became redundant internal
+      faces once the pentagon piece attached there, causing edges shared by 3 faces instead of 2. (2) second
+      attempt's wall-side connector faces paired the wrong stations (`wallNorth` accidentally wired to
+      `wallMid1` instead of `wallMid2`, skipping a real ~3cm kink in the wall's own surveyed path). Both fixed
+      by rebuilding the side-wall face list to match the verified true point adjacency exactly, re-checked by
+      recomputing `bmesh` non-manifold-edge count after every attempt until it read exactly 0 — not accepted on
+      visual inspection alone.
+    - **Final object: `GROUND_BASE_solid_full_plot`** — 24 vertices, 33 faces, **0 non-manifold edges**
+      (verified closed 2-manifold). Real elevation range 52.50–56.76m (varies with the real terrain everywhere,
+      not flat) — 4.04 to 4.26m of genuine sculptable depth throughout. Dimensions 21.4 × 52.4m in plan,
+      matching the real plot's own extent. Reuses `MAT_ground_fill_solid_brown` (unchanged). Supersedes/renames
+      pass 19's `GROUND_FILL_east_solid`, which no longer exists as a separate object (absorbed into this one).
+      Deliberately left **unlocked** — this is the object meant to be sculpted next.
+    - **Cleanup**: purged 536 pre-existing orphaned (0-user) mesh datablocks accumulated from earlier
+      session work (deleted roof attempts, superseded ground-fill iterations) — a safe, standard
+      `outliner.orphans_purge`, touches no live object.
+    - **Verified**: numerically (vertex/face/manifold counts above) and visually — top-down orthographic
+      screenshot shows the solid's outline exactly tracing the real plot boundary plus the east bump-out;
+      angled screenshot shows genuine wedge-shaped volume/thickness under the whole footprint, house and trees
+      sitting correctly on top. `terrain`, `REF_PDF_shetach_uvayit`, and all 268 `House` objects re-confirmed
+      still locked and untouched by this pass.
+
 ## Role table
 
 | Role | File | Notes |
 |---|---|---|
-| **LIVE** | `blender/sadot_v13_solid_groundfill_locked_2026-07-14.blend` | Ground fill near tree #3 rebuilt as a real solid volume (`GROUND_FILL_east_solid`, 16v/14f, top surface follows the terrain's real slope, ~4.04m sculptable depth) — supersedes pass 18's flat strip, which was rejected. `House` (268 objects), `terrain`, and `REF_PDF_shetach_uvayit` (270 objects total) now explicitly **LOCKED** (location/rotation/scale) as finalized geometry — see pass 19. Full 6-collection reorg (`House`/`Old House`/`Fences and Walls`/`Texts and References`/`Ground`/`Planting` — see pass 18) and tree number labels + `TREE_KEY_LEGEND_v1.0.0.md` carried forward unchanged. World origin at the plot's SW corner (pass 14). Rotation -105.500031° (exact) + X/Y **LOCKED** by team_00. **Still no roof geometry** — see pass 13. Note: the wall object used for the new east wall (`walls_119777_Basic_Wall:...6071941`, no suffix) was previously the precisely-fixed south-edge wall — that position is no longer represented in the scene (flagged to team_00, not yet resolved). Still not site-anchored/concept-approved. |
+| **LIVE** | `blender/sadot_v14_fullplot_groundbase_2026-07-14.blend` | Ground base solid extended from pass 19's narrow east strip to cover the **entire real plot** — `GROUND_BASE_solid_full_plot` (24v/33f, 0 non-manifold edges, real elevation 52.50–56.76m, ~4-4.3m sculptable depth throughout, 21.4×52.4m in plan). Discovered the terrain's real shape is a pentagon (1G-5G) + interior spot point 6G, not a hexagon — see pass 20. `House` (268 objects), `terrain`, and `REF_PDF_shetach_uvayit` remain **LOCKED**, untouched by this pass. Full 6-collection reorg (pass 18) and tree number labels + `TREE_KEY_LEGEND_v1.0.0.md` carried forward unchanged. World origin at the plot's SW corner (pass 14). Rotation -105.500031° (exact) + X/Y **LOCKED** by team_00. **Still no roof geometry** — see pass 13. Note: the wall object used for the new east wall (`walls_119777_Basic_Wall:...6071941`, no suffix) was previously the precisely-fixed south-edge wall — that position is no longer represented in the scene (flagged to team_00, not yet resolved). Still not site-anchored/concept-approved. |
+| previous LIVE | `blender/sadot_v13_solid_groundfill_locked_2026-07-14.blend` | Superseded 2026-07-14 (same session — see pass 20). Ground fill solid but only the narrow east strip (`GROUND_FILL_east_solid`) — team_00 asked for the whole plot, extended in pass 20. House/terrain/PDF locking — see pass 19. Kept, not deleted. |
 | previous LIVE | `blender/sadot_v12_collections_labels_groundfill_2026-07-14.blend` | Superseded 2026-07-14 (same session — see pass 19). Full 6-collection reorg, tree number labels + legend — see pass 18. Flat ground-fill strip (54.91m) — rejected by team_00, replaced in pass 19. Kept, not deleted. |
 | previous LIVE | `blender/sadot_v11_tree_fix_english_collections_2026-07-14.blend` | Superseded 2026-07-14 (same session — see pass 18). Pre-reorg collection structure (`Planting`/`Trees` only), olive tree fix — see pass 17. Kept, not deleted. |
 | previous LIVE | `blender/sadot_v10_planting_collection_2026-07-14.blend` | Superseded 2026-07-14 (same session — see pass 17). Hebrew collection names (`צמחיה`/`עצים`); olive tree not yet fixed. Kept, not deleted. |
