@@ -103,6 +103,31 @@ existing_trees:
     TREE_06_existing_neem_canopy — see design/CANONICAL/COLOR_CODING_CANON_v1.0.0.md for the new planting
     category and design/CANONICAL/03_MASTER_PARTS_REGISTER.md §G for the parts-register split."
 
+# IMPORTANT — a SECOND, SEPARATE tree-numbering scheme exists, do not conflate with existing_trees.table above.
+# existing_trees.table above = the 2023 survey's own לוח עצים schedule (1-14, skipping 11). Tree #6 (Neem,
+# above) matches THAT scheme, per explicit confirmation in the team_120 relay message. The entry below uses a
+# DIFFERENT numbering — team_00 explicitly clarified (2026-07-14): "אני מתייחס לסימון העצים המופיע בPDF" (I'm
+# referring to the tree marking that appears IN THE PDF) — meaning the site-plan sheet's own tree symbols
+# (raw-materials/from-client/שטח ובית.pdf), not the 2023 survey schedule. Confirmed distinct: this scheme's
+# "#3" is an olive, 2m tall; existing_trees.table's own #3 entry (no: 3, height_m: 3.00, species: "עץ") is a
+# generic tree, different height AND species — cannot be the same tree.
+siteplan_trees:
+  note: "Trees identified by their symbol/number on the site-plan sheet (שטח ובית.pdf), a scheme separate
+    from and not reconcilable with existing_trees.table's 2023-survey numbering (see warning above)."
+  entries:
+    - id: "siteplan_03"
+      species: "זית (olive)"
+      height_m: 2.00
+      height_source: "team_00 direct on-site observation, 2026-07-14 — no canopy/trunk diameter given this
+        time; the Blender object uses assumed placeholder proportions (canopy 1.4m, trunk 0.10m), flagged as
+        such, not surveyed."
+      position_world_xy_2026_07_14: [7.994, 19.264]
+      position_source: "Extracted from שטח ובית.pdf: located the '3' tree symbol on the site plan, fit a
+        3-point (1G/5G/4G) affine transform (PDF-pixel → current Blender-world) — exact fit, 0.000m residual
+        on all 3 calibration points. Real base elevation 55.36m, interpolated from the terrain's own
+        triangulated survey mesh."
+      blender_objects: ["TREE_siteplan03_existing_olive_trunk", "TREE_siteplan03_existing_olive_canopy"]
+
 blender_datum:
   blend_live: "blender/CURRENT_MODEL.md — see LIVE pointer"
   object_name: "BOUNDARY_4G"
