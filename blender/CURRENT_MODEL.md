@@ -1,9 +1,10 @@
 # CURRENT MODEL — pointer (single source of truth for "which .blend")
 
-**LIVE = `blender/sadot_v11_tree_fix_english_collections_2026-07-14.blend`** · *(2026-07-14, same session —
-pass 17 continued: collections renamed to English (`Planting` > `Trees`); found and fixed the olive tree
-(site-plan #3) sitting 42.586m off-position from a stray accidental move, now fixed and locked; Neem tree's
-canopy missing / trunk moved — flagged, not touched. See pass 17 below.)*
+**LIVE = `blender/sadot_v12_collections_labels_groundfill_2026-07-14.blend`** · *(2026-07-14, same session —
+pass 18: full 6-collection reorg (House/Old House/Fences and Walls/Texts and References/Ground/Planting, all
+325 objects reclassified), tree number labels ("6"/"3") + new `TREE_KEY_LEGEND_v1.0.0.md`, and a new solid-
+brown ground-fill strip connecting the real boundary edge to the new east wall near tree #3. See pass 18
+below.)*
 
 **Roof status: NONE.** All roof geometry was built twice (flat per-storey, then real gabled/sloped) and both
 attempts were rejected and deleted (pass 11-13) — team_00 asked for a different approach, not tried yet. Do
@@ -416,11 +417,51 @@ v1 file is a precursor/sanity-check, not that deliverable.
       team_00 didn't ask about it this message. `TREE_06_existing_neem_trunk` was locked anyway (see above) to
       stop further silent drift, but its current position is not asserted as correct.
 
+18. **2026-07-14, same session — full collection reorganization, tree number labels + legend, ground fill near
+    tree #3 (team_00, 3-part instruction).**
+    - **Tree #3 (olive) re-confirmed by team_00**: "מיקמתי את העץ 3 מחדש מדוייק וביצעתי לו join" (repositioned
+      tree 3 again, precisely, and joined it) — "זה המצב הנכון" (this is the correct state). Trunk+canopy are
+      now one object (`TREE_siteplan03_existing_olive_canopy` — name is a holdover from before the join, kept
+      as the object's identity, not a claim it's canopy-only), world bbox now X[12.17,13.57] Y[17.75,19.15]
+      Z[0.60,2.60]. Not re-verified independently — team_00's own direct placement is treated as ground truth,
+      matching this project's standing convention for stated facts overriding computed ones.
+    - **Collection structure rebuilt from scratch**, per: "כל חלק בטוח במקום שלו - כל השמות באנגלית: בית / בית
+      אחורי / גדרות וחומות / טקסטים ורפרנסים כולל pdf / קרקע / צמחיה." Six top-level collections (English
+      names), all 325 objects reclassified by material/type/name-pattern, verified count-complete:
+      `House` (268, the real IFC house walls) · `Old House` (29, the `MAT_old_house_REFERENCE_ONLY` cluster —
+      **"בית אחורי" interpreted as this reference cluster; not explicitly confirmed, flag if wrong**) ·
+      `Fences and Walls` (2 — both manually-built east-wall segments, identified as the only *unlocked*
+      `MAT_house_concrete` objects, i.e. touched since the whole-scene lock) · `Texts and References` (15 —
+      boundary/north-arrow labels, north arrow geometry, the PDF reference plane, the 4 `AXISCHECK_*`
+      diagnostic objects, the south-edge-ref empty) · `Ground` (9 — terrain, decking, the 6 `BOUNDARY_*`
+      corner empties, and the previously-unidentified `Plane.001`) · `Planting` (existing, `Trees` nested
+      inside, 4 objects incl. the 2 new number labels below). The old `Collection`/`Collection 4`/
+      `HouseShell_v1_PROVISIONAL`/`Terrain_RealSurvey` collections were left empty by the move and deleted.
+      **Not re-litigated**: the older, still-open question of whether ~20 of the 268 `House` walls are
+      actually oversized boundary/retaining elements (see the "Known limitations" wall-export bullet above) —
+      out of scope for a collection-org pass, deferred.
+    - **Tree number labels + legend**, per: "לכל עץ להוסיף מספר שיופיע בתעוד וגם במודל בצבע + לייצר רשימת
+      מפתח עצים." Added `TREE_06_number_label` ("6") and `TREE_siteplan03_number_label` ("3") — `FONT`
+      objects matching the boundary-corner label style exactly (`MAT_labels_glow_yellow`, size 0.6), centered
+      above each tree's current top, in `Trees`. New canonical doc:
+      `design/CANONICAL/TREE_KEY_LEGEND_v1.0.0.md` — explains and formally locks in the two-numbering-scheme
+      distinction (survey schedule vs. site-plan sheet) already found this session, with a convention for
+      adding future trees without repeating the mix-up.
+    - **Ground fill near tree #3**, per: "הקרקע באיזור זה בגובה 54.91. יש 'למלא' אדמה ולהשלים את שכבת
+      הterrain עד לחומה שיצרנו ממזרח... לצבוע שכבה זו בצבע חום מלא." New object `GROUND_FILL_east_tree03_area`:
+      a flat strip at real 54.91m connecting the real surveyed boundary edge (interpolated along 2G→3G at
+      matching Y-values) to the new east wall's own outer (east-facing) footprint edge, covering the wall's
+      full Y-extent (~10.6m to ~46.4m). New material `MAT_ground_fill_solid_brown` — solid/opaque, deliberately
+      distinct from the existing terrain's 50%-transparent survey-reference material (see color canon). Single
+      flat height used throughout (54.91m, as team_00 stated), not a sloped interpolation — a reasonable
+      simplification for a first pass, open to refinement if more spot elevations are given. In `Ground`.
+
 ## Role table
 
 | Role | File | Notes |
 |---|---|---|
-| **LIVE** | `blender/sadot_v11_tree_fix_english_collections_2026-07-14.blend` | Planting organized in `Planting` > `Trees` collections, English names (see pass 17). Olive tree (site-plan #3) found 42.586m off-position (stray accidental move), fixed + locked. Neem tree (#6, 2023-survey numbering) canopy missing / trunk moved — flagged, not fixed. East boundary wall's peak height corrected to real 55.83m — see pass 15. World origin at the plot's SW corner (pass 14). Rotation -105.500031° (exact) + X/Y **LOCKED** by team_00. **Still no roof geometry** — see pass 13. Note: the wall object used for the new east wall (`walls_119777_Basic_Wall:...6071941`, no suffix) was previously the precisely-fixed south-edge wall — that position is no longer represented in the scene (flagged to team_00, not yet resolved). Still not site-anchored/concept-approved. |
+| **LIVE** | `blender/sadot_v12_collections_labels_groundfill_2026-07-14.blend` | Full 6-collection reorg (`House`/`Old House`/`Fences and Walls`/`Texts and References`/`Ground`/`Planting`, all 325 objects sorted — see pass 18). Tree number labels + `TREE_KEY_LEGEND_v1.0.0.md`. New solid-brown ground fill near tree #3, real 54.91m, connecting the boundary edge to the east wall. Olive tree (site-plan #3) repositioned + joined by team_00 directly — current state confirmed correct by team_00. World origin at the plot's SW corner (pass 14). Rotation -105.500031° (exact) + X/Y **LOCKED** by team_00. **Still no roof geometry** — see pass 13. Note: the wall object used for the new east wall (`walls_119777_Basic_Wall:...6071941`, no suffix) was previously the precisely-fixed south-edge wall — that position is no longer represented in the scene (flagged to team_00, not yet resolved). Still not site-anchored/concept-approved. |
+| previous LIVE | `blender/sadot_v11_tree_fix_english_collections_2026-07-14.blend` | Superseded 2026-07-14 (same session — see pass 18). Pre-reorg collection structure (`Planting`/`Trees` only), olive tree fix — see pass 17. Kept, not deleted. |
 | previous LIVE | `blender/sadot_v10_planting_collection_2026-07-14.blend` | Superseded 2026-07-14 (same session — see pass 17). Hebrew collection names (`צמחיה`/`עצים`); olive tree not yet fixed. Kept, not deleted. |
 | previous LIVE | `blender/sadot_v9_tree03_olive_2026-07-14.blend` | Superseded 2026-07-14 (same session — see pass 17). Had tree #6 + site-plan tree #3, both still loose in the house collection — see pass 16. Kept, not deleted. |
 | previous LIVE | `blender/sadot_v8_tree06_east_wall_2026-07-14.blend` | Superseded 2026-07-14 (same session — see pass 16). Had tree #6 + east wall height fix — see pass 15. Kept, not deleted. |
