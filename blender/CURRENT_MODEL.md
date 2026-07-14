@@ -1,10 +1,8 @@
 # CURRENT MODEL — pointer (single source of truth for "which .blend")
 
-**LIVE = `blender/sadot_v16_ground_5m_margin_2026-07-14.blend`** · *(2026-07-14, same session —
-pass 22: `GROUND_BASE_solid_full_plot` expanded with a ≥5m outward margin all the way around the real plot
-perimeter (mitered polygon offset, one reflex/near-180° corner beveled to avoid a spike), same real heights
-continued flatly outward, so the model reads in surrounding context rather than as an isolated island. Still
-one closed-manifold solid, still 0 non-manifold edges. See pass 22 below.)*
+**LIVE = `blender/sadot_v17_ground_darker_2026-07-14.blend`** · *(2026-07-14, same session —
+pass 23: `MAT_ground_fill_solid_brown` darkened ~35% (`#4D2E17` → `#321E0F`, team_00: "a bit darker please") —
+material-only change, no geometry touched. See pass 23 below.)*
 
 **Roof status: NONE.** All roof geometry was built twice (flat per-storey, then real gabled/sloped) and both
 attempts were rejected and deleted (pass 11-13) — team_00 asked for a different approach, not tried yet. Do
@@ -603,11 +601,19 @@ v1 file is a precursor/sanity-check, not that deliverable.
       margin on every side of the house/plot, no spikes or gaps at any corner including the beveled one.
       `terrain`, `REF_PDF_shetach_uvayit`, and `House` re-confirmed still locked, untouched by this pass.
 
+23. **2026-07-14, same session — ground color darkened (team_00: "יותר כהה קצת בבקשה" — a bit darker please).**
+    `MAT_ground_fill_solid_brown`'s Principled BSDF base color reduced by a uniform 35% per channel:
+    `(0.30, 0.18, 0.09)` → `(0.195, 0.117, 0.059)`, i.e. `#4D2E17` → `#321E0F`. Material-only change (one
+    shared material, per this project's own color-canon convention — see
+    `design/CANONICAL/COLOR_CODING_CANON_v1.0.0.md`), so it applies automatically to whatever currently uses
+    it (`GROUND_BASE_solid_full_plot`) with no geometry edits. Verified visually in Material Preview shading.
+
 ## Role table
 
 | Role | File | Notes |
 |---|---|---|
-| **LIVE** | `blender/sadot_v16_ground_5m_margin_2026-07-14.blend` | Ground base expanded with a real, mitered ≥5m outward margin around the entire plot perimeter, for visual/site context — `GROUND_BASE_solid_full_plot` rebuilt (56v/68f, 0 non-manifold edges), plan footprint grown to 34.8×63.0m, real elevation range unchanged (52.50–56.76m). One near-180° corner (`southbreak`) beveled to avoid a miter spike. See pass 22. `House` (268 objects), `terrain`, and `REF_PDF_shetach_uvayit` remain **LOCKED**, untouched. Full 6-collection reorg (pass 18) and tree number labels + `TREE_KEY_LEGEND_v1.0.0.md` carried forward unchanged. World origin at the plot's SW corner (pass 14). Rotation -105.500031° (exact) + X/Y **LOCKED** by team_00. **Still no roof geometry** — see pass 13. Note: the wall object used for the first east-wall segment (`walls_119777_Basic_Wall:...6071941`, no suffix) was previously the precisely-fixed south-edge wall — that position is no longer represented in the scene (flagged to team_00, not yet resolved). Still not site-anchored/concept-approved. |
+| **LIVE** | `blender/sadot_v17_ground_darker_2026-07-14.blend` | `MAT_ground_fill_solid_brown` darkened ~35% (`#4D2E17`→`#321E0F`) — material-only change, see pass 23. Ground base still `GROUND_BASE_solid_full_plot` (56v/68f, 0 non-manifold edges, ≥5m margin around the whole plot — pass 22), plan footprint 34.8×63.0m, real elevation range 52.50–56.76m. `House` (268 objects), `terrain`, and `REF_PDF_shetach_uvayit` remain **LOCKED**, untouched. Full 6-collection reorg (pass 18) and tree number labels + `TREE_KEY_LEGEND_v1.0.0.md` carried forward unchanged. World origin at the plot's SW corner (pass 14). Rotation -105.500031° (exact) + X/Y **LOCKED** by team_00. **Still no roof geometry** — see pass 13. Note: the wall object used for the first east-wall segment (`walls_119777_Basic_Wall:...6071941`, no suffix) was previously the precisely-fixed south-edge wall — that position is no longer represented in the scene (flagged to team_00, not yet resolved). Still not site-anchored/concept-approved. |
+| previous LIVE | `blender/sadot_v16_ground_5m_margin_2026-07-14.blend` | Superseded 2026-07-14 (same session — see pass 23). Ground base expanded with a ≥5m outward margin around the whole plot — see pass 22. Kept, not deleted. |
 | previous LIVE | `blender/sadot_v15_south_wall_groundfill_2026-07-14.blend` | Superseded 2026-07-14 (same session — see pass 22). Ground base re-extended to reach the third east-wall segment (`...6071941.299`) — see pass 21. Kept, not deleted. |
 | previous LIVE | `blender/sadot_v14_fullplot_groundbase_2026-07-14.blend` | Superseded 2026-07-14 (same session — see pass 21). Ground base solid covering the whole plot as then known (2 wall segments) — see pass 20. Kept, not deleted. |
 | previous LIVE | `blender/sadot_v13_solid_groundfill_locked_2026-07-14.blend` | Superseded 2026-07-14 (same session — see pass 20). Ground fill solid but only the narrow east strip (`GROUND_FILL_east_solid`) — team_00 asked for the whole plot, extended in pass 20. House/terrain/PDF locking — see pass 19. Kept, not deleted. |
