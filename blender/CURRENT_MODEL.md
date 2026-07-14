@@ -1,7 +1,10 @@
 # CURRENT MODEL — pointer (single source of truth for "which .blend")
 
-**LIVE = `blender/sadot_v7_origin_at_sw_corner_2026-07-14.blend`** · *(2026-07-14, same session — pass 14:
-world origin (0,0,0) reset to the plot's SW corner (`BOUNDARY_4G`), team_00 direct instruction. Every object
+**LIVE = `blender/sadot_v8_tree06_east_wall_2026-07-14.blend`** · *(2026-07-14, same session — pass 15: first
+planting object (existing tree #6, real position/height/canopy from team_00's on-site observation) + the
+manually-built east boundary wall's peak height corrected to real 55.83m. Save-As'd from
+`sadot_v7_origin_at_sw_corner_2026-07-14.blend` (pass 14: world origin reset to the plot's SW corner
+(`BOUNDARY_4G`), team_00 direct instruction). Every object
 rigidly shifted by the same vector — verified zero relative drift. See pass 14 below.)*
 
 **Roof status: NONE.** All roof geometry was built twice (flat per-storey, then real gabled/sloped) and both
@@ -345,11 +348,35 @@ v1 file is a precursor/sanity-check, not that deliverable.
     - Full technical record: `blender/data/site/SITE_GEO.yaml` → `blender_datum` (updated from its prior TBD
       placeholder, which had speculated 1G or plot-centroid — superseded by this direct instruction for 4G).
 
+15. **2026-07-14, same session — first planting object: existing tree #6 (team_00 on-site species/size
+    observation, relayed via `_COMMUNICATION/team_110/MSG_team_120_TO_team_110_TREE6_SPECIES_ID_2026-07-14_v1.0.0.md`).**
+    Working species ID: Neem (*Azadirachta indica*), not yet confirmed — a new species for this project. Real
+    data: height 4.00m (team_00 fresh observation; survey recorded 5.00m in 2023 — height discrepancy flagged
+    and kept on record, not resolved), canopy diameter 2.00m (new measurement axis; the survey's existing
+    0.20m `diameter_m` is trunk diameter, not a conflict). Position extracted from the same source survey PDF
+    (`raw-materials/from-client/10111TD122 (1).pdf`) that supplies `boundary_itm`: located tree #6's symbol on
+    the site plan, fit a 3-point (1G/4G/3G) 2D affine transform from PDF-pixel to current Blender-world
+    coordinates — **exact fit, 0.000m residual on all 3 calibration points**, independently cross-checked
+    against the known 3G-4G survey edge length (fit implied 10.098m vs. surveyed 10.099m — matches). First
+    fit attempt (pure rotation+uniform-scale, no reflection) failed badly (up to 10m residual) — a rendered
+    top-down map requires a reflection relative to world XY (image-row-down ≠ a proper rotation of
+    world-north-up), not a bug in the pixel readings; switching to a general affine model (allows reflection)
+    fixed it immediately. Real base elevation (54.93m) interpolated from the terrain's own triangulated survey
+    mesh at that XY (not assumed flat — found which of the terrain's 5 real triangles contains the point,
+    barycentric-interpolated its Z). Built as two objects, `TREE_06_existing_neem_trunk` (0.20m diameter
+    cylinder, matching the tree's own surveyed trunk diameter) + `TREE_06_existing_neem_canopy` (2.00m diameter
+    icosphere, top reaching exactly 4.00m above the real base) — a new "planting" color category defined for
+    this in `COLOR_CODING_CANON_v1.0.0.md` (natural trunk-brown/canopy-green, not the abstract scheme palette).
+    Verified visually: sits in front of the house near the deck, matching the survey sheet's depiction.
+    `SITE_GEO.yaml` `existing_trees.table` and `03_MASTER_PARTS_REGISTER.md` §G updated (tree #6 split out of
+    the ×12 generic bucket, following the existing olive-tree row as template).
+
 ## Role table
 
 | Role | File | Notes |
 |---|---|---|
-| **LIVE** | `blender/sadot_v7_origin_at_sw_corner_2026-07-14.blend` | World origin (0,0,0) reset to the plot's SW corner (`BOUNDARY_4G`), team_00 direct instruction — see pass 14. Rotation -105.500031° (exact) + X/Y **LOCKED** by team_00, unaffected (a whole-scene rigid shift preserves every relative position/rotation by construction — verified). **Still no roof geometry** — see pass 13. Still not site-anchored/concept-approved. |
+| **LIVE** | `blender/sadot_v8_tree06_east_wall_2026-07-14.blend` | First planting object (existing tree #6 — working-ID Neem, real position/height/canopy) + manually-built east boundary wall's peak height corrected to real 55.83m — see pass 15. World origin at the plot's SW corner (pass 14). Rotation -105.500031° (exact) + X/Y **LOCKED** by team_00. **Still no roof geometry** — see pass 13. Note: the wall object used for the new east wall (`walls_119777_Basic_Wall:...6071941`, no suffix) was previously the precisely-fixed south-edge wall — that position is no longer represented in the scene (flagged to team_00, not yet resolved). Still not site-anchored/concept-approved. |
+| previous LIVE | `blender/sadot_v7_origin_at_sw_corner_2026-07-14.blend` | Superseded 2026-07-14 (same session — see pass 15). World origin reset to the plot's SW corner — see pass 14. Kept, not deleted. |
 | previous LIVE | `blender/sadot_v6_roof_removed_2026-07-14.blend` | Superseded 2026-07-14 (same session — world origin reset, see pass 14). No roof geometry — team_00 rejected pass 12's roof, asked for a different approach (pass 13). Kept, not deleted. |
 | previous LIVE | `blender/sadot_v5_roof_slopes_2026-07-14.blend` | Superseded 2026-07-14 (same session — team_00 rejected this pass's roof too, see pass 13). Had real gabled/sloped per-storey roof + deck roof — see pass 12. Kept, not deleted. |
 | previous LIVE | `blender/sadot_v4_roof_precision_2026-07-14.blend` | Superseded 2026-07-14 (same session — team_00 rejected this pass's flat-only roof, see pass 12). Real per-storey filled roof but flat (no slope), deck excluded — see pass 11. Kept, not deleted. |

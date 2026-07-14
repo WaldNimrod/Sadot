@@ -26,12 +26,14 @@ in Blender — not the other way around, so the convention stays discoverable an
 | Terrain / original ground | Light brown, 50% transparent | `#C29A6B` @ 50% alpha | The surveyed 6-point terrain polygon (`terrain` object). |
 | Roof — **REMOVED 2026-07-14, open problem** | n/a — no roof geometry currently exists in the model | `#59544D` (was) | Tried twice (pass 11: flat per-storey; pass 12: real gabled slopes fit from the IFC's own roof elements, plus a deck roof) — team_00 rejected both, the second time explicitly asking for a different approach rather than another iteration of the same method ("נצטרך למצוא דרך אחרת"). Both attempts deleted. Full history (kept for whatever the next approach draws on, but none of it reflects the current scene): `blender/CURRENT_MODEL.md` passes 11-13. |
 | Decking (wood) | Warm wood brown | `#734A26` | `DECKING_wood_front_porch` — 15cm layer on the concrete front deck (2026-07-14, team_00 instruction), real elevation 55.97m (concrete) to 56.12m (finished decking surface). |
+| Planting / existing trees | Natural: trunk warm brown, canopy matte green (not the abstract label/structure palette — trees read better in natural tones) | Trunk `#4D3320`, canopy `#356929` | New category, defined 2026-07-14 (first planting object: `TREE_06_existing_neem_trunk`/`_canopy`, real position/height/canopy-diameter from team_00's on-site observation — see `SITE_GEO.yaml` `tree_6_update_2026-07-14`). Applies to all existing/preserved site trees modeled going forward; new-design planting may warrant its own sub-convention later (not yet needed). |
 
 ## Still open (not yet defined — ask before assuming)
 
 - Boundary-corner markers (the `BOUNDARY_*` empties themselves, as opposed to their text labels)
 - North arrow geometry (as opposed to its label, already covered above)
-- Future modeled elements: tire fence, rockery/terracing, pool, planting
+- Future modeled elements: tire fence, rockery/terracing, pool
+- New-design planting (as opposed to existing/preserved trees, now covered above) — may need its own palette once S002/S003 planting plan exists
 
 ## Applying this in Blender
 

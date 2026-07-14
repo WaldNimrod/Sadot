@@ -75,7 +75,7 @@ existing_trees:
     - {no: 3, height_m: 3.00, diameter_m: 0.12, species: "עץ"}
     - {no: 4, height_m: 3.00, diameter_m: 0.12, species: "עץ"}
     - {no: 5, height_m: 5.50, diameter_m: 0.21, species: "עץ"}
-    - {no: 6, height_m: 5.00, diameter_m: 0.20, species: "עץ"}
+    - {no: 6, height_m: 5.00, diameter_m: 0.20, species: "עץ", species_id: "Neem (עץ ניר הודי, Azadirachta indica) — WORKING ID, not independently confirmed", height_asobserved_m: 4.00, canopy_diameter_m: 2.00, position_world_xy_2026_07_14: [6.054, 7.798]}
     - {no: 7, height_m: 3.50, diameter_m: 0.18, species: "עץ"}
     - {no: 8, height_m: 2.50, diameter_m: 0.11, species: "עץ"}
     - {no: 9, height_m: 3.00, diameter_m: 0.17, species: "עץ"}
@@ -84,6 +84,24 @@ existing_trees:
     - {no: 13, height_m: 6.50, diameter_m: 0.34, species: "עץ"}
     - {no: 14, height_m: 5.50, diameter_m: 0.32, species: "עץ"}
   note: "Full table transcribed directly from the source PDF (raw-materials/from-client/10111TD122 (1).pdf) לוח עצים. Species codes beyond 'generic tree' vs. olive are not given by the survey — a proper species ID would need an on-site arborist visit, not inferrable from this drawing."
+  tree_6_update_2026-07-14: "team_00 direct on-site observation (relayed via
+    _COMMUNICATION/team_110/MSG_team_120_TO_team_110_TREE6_SPECIES_ID_2026-07-14_v1.0.0.md): 'עץ 6 - קיים בשטח
+    - עץ נים בוגר - גובה 4 מ נוף 2 מ קוטר' (tree 6, exists on site, mature Neem tree, height 4m, canopy 2m
+    diameter). Species (Neem, Azadirachta indica) is a WORKING ID pending confirmation, not currently in
+    knowledge/ or the parts register — a new species for this project. HEIGHT DISCREPANCY, flagged not
+    resolved: survey (2023) = 5.00m; team_00 fresh observation (2026) = 4.00m. Both kept on record (survey in
+    the main table row above as originally transcribed; fresh figure in height_asobserved_m) rather than
+    silently overwriting — plausibly 3 years' growth/pruning or a different measurement method, not
+    investigated further. diameter_m (0.20, the table's existing column) is TRUNK diameter per the table's own
+    convention (matches the olive tree's 0.35m trunk pattern); canopy_diameter_m (2.00) is a NEW measurement
+    axis team_00 supplied (נוף = canopy), not a conflict with the trunk figure. Position extracted 2026-07-14
+    from the same source survey PDF (this file's own boundary_itm source), via a 3-point (1G/4G/3G) affine fit
+    from PDF-pixel to current Blender-world coordinates — exact fit, 0.000m residual on all 3 calibration
+    points, independently validated against the known 3G-4G survey edge length (fit implied 10.098m vs.
+    surveyed 10.099m). Real elevation at the tree's base: 54.93m, interpolated from the terrain's own
+    triangulated survey mesh (not assumed flat). Blender object: TREE_06_existing_neem_trunk +
+    TREE_06_existing_neem_canopy — see design/CANONICAL/COLOR_CODING_CANON_v1.0.0.md for the new planting
+    category and design/CANONICAL/03_MASTER_PARTS_REGISTER.md §G for the parts-register split."
 
 blender_datum:
   blend_live: "blender/CURRENT_MODEL.md — see LIVE pointer"
