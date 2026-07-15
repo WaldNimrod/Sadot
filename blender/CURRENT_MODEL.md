@@ -1,6 +1,14 @@
 # CURRENT MODEL — pointer (single source of truth for "which .blend")
 
-**LIVE = `blender/sadot_v17_ground_darker_2026-07-14.blend`** · *(2026-07-14, same session —
+**TRACKED SSoT (publish-lean, Team-00 2026-07-15) = `blender/milestones/sadot_current.blend`**
+(~492 KB on disk — BlenderKit assets are **LINKED** from gitignored `blender/assets/models/`, not baked).
+This is the only `.blend` that may be committed (see `.gitignore` exception `!blender/milestones/*.blend`).
+
+**LOCAL WORKING (heavy, off-git) = `blender/sadot_v25_contour_lines_2026-07-15.blend`** (~554 MB —
+fully baked BlenderKit appends; keep for day-to-day editing + off-git backup via
+`scripts/backup_blender_binaries.sh`). Re-linkable from `blender/assets/` if needed.
+
+**Prior pointer (superseded as LIVE for git):** `blender/sadot_v17_ground_darker_2026-07-14.blend` · *(2026-07-14 —
 pass 23: `MAT_ground_fill_solid_brown` darkened ~35% (`#4D2E17` → `#321E0F`, team_00: "a bit darker please") —
 material-only change, no geometry touched. See pass 23 below.)*
 

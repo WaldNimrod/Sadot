@@ -22,8 +22,10 @@ __pycache__/
 *.blend2
 blender/sadot_v1_*.png
 
-# ── Blender working binaries: kept OFF git (Team-00 policy 2026-07-15) ──
+# ── Blender heavy working saves: OFF git (baked assets) — Team-00 policy 2026-07-15 ──
 *.blend
+# EXCEPT lean committable milestones (<100 MB, assets LINKED not baked) — publish-lean canon
+!blender/milestones/*.blend
 
 # ── Off-git local binary backups (never commit) ──
 /_BACKUPS_OFFGIT/

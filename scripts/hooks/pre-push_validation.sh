@@ -91,7 +91,7 @@ _run_repo_tests() {
 }
 
 if _run_repo_tests; then
-  log "OK — push allowed."
+  log "OK — validate + tests."
 else
   trc=$?
   if [ "${AOS_PREPUSH_TESTS:-strict}" = "strict" ]; then
@@ -101,4 +101,22 @@ else
   log "WARNING: repo tests FAILED (rc=$trc) — ADVISORY mode, push ALLOWED."
   log "  (validate_aos.sh governance gate already passed; set AOS_PREPUSH_TESTS=strict to block on tests.)"
 fi
+
+# ── 3. Tracked .blend size guard (publish-lean / GH001 prevention) ─────────────
+# Team-00 2026-07-15: only lean milestones may be tracked; fail if any tracked
+# *.blend exceeds ~95 MB so GitHub's 100 MB hard limit can never recur.
+BLEND_MAX_BYTES=$((95 * 1024 * 1024))
+while IFS= read -r blend; do
+  [ -z "$blend" ] && continue
+  [ -f "$REPO_ROOT/$blend" ] || continue
+  sz=$(wc -c < "$REPO_ROOT/$blend" | tr -d ' ')
+  if [ "$sz" -gt "$BLEND_MAX_BYTES" ]; then
+    log "tracked .blend exceeds 95 MB ($sz bytes): $blend — push blocked (publish-lean / GH001 guard)."
+    exit 1
+  fi
+done <<EOF
+$(git -C "$REPO_ROOT" ls-files '*.blend' ':(glob)**/*.blend')
+EOF
+
+log "OK — push allowed."
 exit 0
