@@ -21,3 +21,9 @@ __pycache__/
 *.blend1
 *.blend2
 blender/sadot_v1_*.png
+
+# ── Blender working binaries: kept OFF git (Team-00 policy 2026-07-15) ──
+*.blend
+
+# ── Off-git local binary backups (never commit) ──
+/_BACKUPS_OFFGIT/
