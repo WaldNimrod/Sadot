@@ -29,3 +29,6 @@ blender/sadot_v1_*.png
 
 # ── Off-git local binary backups (never commit) ──
 /_BACKUPS_OFFGIT/
+
+# Unpacked Blender textures (local; not milestones) ──
+/blender/textures/
