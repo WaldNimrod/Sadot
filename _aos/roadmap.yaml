@@ -38,8 +38,8 @@ project:
   lean_kit_version: "3.4.0+20e2011"
   created: "2026-07-08"
   owner: "sadot_sd"         # system_designer team ID
-  active_milestone: "S001"   # currently active milestone
-  notes: "Roadmap refined + populated by team_110 2026-07-08 per HANDOFF_TO_NEXT_team_110_SADOT_BUILDOUT_2026-07-08_v1.0.0.md (ADR045 full execution authority). S001 broadened from team_120's placeholder ('Initial domain research and environment bootstrap') to cover environment/KB completion + research + site-analysis/brief — no WP had ever been registered against the old S001 label, so no renumbering occurred (WP-ID stage numbers are frozen-forward per WP_ID_STANDARD.md, but an empty stage's description is not)."
+  active_milestone: "S002"   # Layer-2 Pre-Revit (pivot 2026-07-28)
+  notes: "LAYER-2 PIVOT 2026-07-28 (team_00 ratified; team_100 authored) + LOD200 PUSH same day: advance hard before Michal Revit — vegetation zones LOD200, irrigation+cabinets LOD200, dual-level fish/plant pond that irrigates swim-deck concrete/perlite planters (P006), swim-pool tech (P002). Priority S002: P001→P002→P006→P007→P004→P003→P005. Layer-1=Michal/Revit; Layer-2=Sadot. Gate: S002→Michal→STOP+convert S003→dress S004→S005 (BOQ mandatory). Narrative+process: _COMMUNICATION/team_100/NARRATIVE_LAYER2_PIVOT_2026-07-28_v1.0.0.md + PROCESS_WP_DEPENDENCY_MAP_2026-07-28_v1.0.0.md. API unreachable at first write — spoke YAML local; deploy_cascade when API back."
 
 # WP ID FORMAT: S[stage]-P[program]-WP[number]  (id: field carries an additional SDT- prefix — see note above)
 #
@@ -333,7 +333,7 @@ work_packages:
     stage_mapping: "Stage 0 (Concept)"
     spec_ref: "_aos/work_packages/S001/LOD300_milestone.md"
     gate_history: []
-    notes: "CLASS=CONTENT. UNBLOCKED 2026-07-08: design/CLIENT_BRIEF_NIV_SADOT_v1.0.0.md drafted from the client's voice-note brief + concept sketches; survey/IFC data folded into 02_SPATIAL_SSOT_and_GEOMETRY.md. Remaining: client confirmation of the open items listed in the brief §9 before this can be marked COMPLETE and S002 concept design can start cleanly."
+    notes: "CLASS=CONTENT. UNBLOCKED 2026-07-08: design/CLIENT_BRIEF_NIV_SADOT_v1.0.0.md drafted. LAYER2-PIVOT 2026-07-28: remaining §9 client confirmations execute under SDT-S002-P005-WP001 (not a hard gate on starting S002 Layer-2 work). Mark COMPLETE when §9 closed via P005."
 
   - id: "SDT-S001-P003-WP003"
     label: "Transcribe + curate client voice-note recordings"
@@ -355,76 +355,167 @@ work_packages:
     notes: "CLASS=CONTENT. 4 recordings transcribed locally (Whisper, Hebrew, small model — imperfect ASR) and curated into design/CLIENT_BRIEF_NIV_SADOT_v1.0.0.md. Raw transcripts kept git-ignored at raw-materials/working/transcripts/. Flagged for human verification, not treated as final without review."
 
   # ============================================================
-  # S002 — Concept Design (PLANNED — all BLOCKED on S001 site-analysis/brief output)
+  # S002 — Layer-2 Pre-Revit LOD200 push (ACTIVE — expanded 2026-07-28)
+  # Priority: P001 → P002 → P006 → P007 → P004 → P003 → P005
   # ============================================================
 
   - id: "SDT-S002-P001-WP001"
-    label: "Concept narrative + precedent/mood board"
+    label: "Revit export contract for Michal (one-page, minimum overhead)"
+    status: PLANNED
+    track: A
+    current_lean_gate: L-GATE_ELIGIBILITY
+    lod_status: LOD100
+    assigned_builder: "sadot_arch"
+    assigned_validator: "sadot_val"
+    created_at: "2026-07-08"
+    milestone_ref: "S002"
+    stage_mapping: "Stage 0 (Concept) + Layer-2 prep"
+    spec_ref: "_aos/work_packages/S002/LOD300_milestone.md"
+    gate_history: []
+    notes: "CLASS=CONTENT. LAYER2-PIVOT 2026-07-28: ID reused — prior label 'Concept narrative + mood board' SUPERSEDED (never started). Research Revit→Blender/IFC/DWG; deliver ONE short export checklist for Michal (format, units, datum, required categories: paths/levels/pools/deck/stairs/retaining walls/terraces). No overhead."
+
+  - id: "SDT-S002-P001-WP002"
+    label: "SUPERSEDED — Concept massing / schematic site diagram"
+    status: COMPLETE
+    track: A
+    current_lean_gate: COMPLETE
+    lod_status: LOD100
+    assigned_builder: "sadot_build"
+    assigned_validator: "sadot_val"
+    created_at: "2026-07-08"
+    milestone_ref: "S002"
+    stage_mapping: "Stage 0 (Concept) — SUPERSEDED"
+    spec_ref: "_aos/work_packages/S002/LOD300_milestone.md"
+    gate_history: []
+    notes: "CLASS=SUPERSEDED. LAYER2-PIVOT 2026-07-28: schematic massing no longer a Sadot gate — Layer-1 site massing is Michal/Revit; existing Blender = coarse conceptual reference only."
+
+  - id: "SDT-S002-P002-WP001"
+    label: "Swim-pool technical design LOD200 (structure, materials, sections)"
+    status: PLANNED
+    track: A
+    current_lean_gate: L-GATE_ELIGIBILITY
+    lod_status: LOD200
+    assigned_builder: "sadot_doc"
+    assigned_validator: "sadot_val"
+    created_at: "2026-07-28"
+    milestone_ref: "S002"
+    stage_mapping: "Stage 1 (Asset Spec) — Layer-2"
+    spec_ref: "_aos/work_packages/S002/LOD300_milestone.md"
+    gate_history: []
+    notes: "CLASS=CONTENT. Swim pool ONLY (בריכת שחייה) — COMPLETELY SEPARATE from fish/plant system (P006). NOT blocked on Revit. team_00 supplies dims + height deltas. Michal supplies final location+size. No hydraulic link to P006. Draws on team_80 pool research."
+
+  - id: "SDT-S002-P003-WP001"
+    label: "Terrace construction details + materials (location/heights from Michal)"
+    status: PLANNED
+    track: A
+    current_lean_gate: L-GATE_ELIGIBILITY
+    lod_status: LOD200
+    assigned_builder: "sadot_doc"
+    assigned_validator: "sadot_val"
+    created_at: "2026-07-28"
+    milestone_ref: "S002"
+    stage_mapping: "Stage 1 (Asset Spec) — Layer-2"
+    spec_ref: "_aos/work_packages/S002/LOD300_milestone.md"
+    gate_history: []
+    notes: "CLASS=CONTENT. Build method + materials (kurkar/basalt etc.); not location/height. Feeds from team_80 rockery/tire-fence research."
+
+  - id: "SDT-S002-P004-WP001"
+    label: "Vegetation zones + initial plant distribution LOD200 (research + zone map)"
+    status: PLANNED
+    track: A
+    current_lean_gate: L-GATE_ELIGIBILITY
+    lod_status: LOD200
+    assigned_builder: "sadot_doc"
+    assigned_validator: "sadot_val"
+    created_at: "2026-07-28"
+    milestone_ref: "S002"
+    stage_mapping: "Stage 1 (Asset Spec) — Layer-2"
+    spec_ref: "_aos/work_packages/S002/LOD300_milestone.md"
+    gate_history: []
+    notes: "CLASS=CONTENT. EXPANDED 2026-07-28: not concept-only — deliver LOD200 zone division + initial plant allocation (research-backed). Exact bed geometry on final levels waits for S003/S004. Soft-deps: P005 remaining §9; couples to P007 irrigation zones."
+
+  - id: "SDT-S002-P005-WP001"
+    label: "Close remaining client brief §9 (Adas, climbing boundary, refs, sketch) — fish pond DECIDED"
     status: PLANNED
     track: A
     current_lean_gate: L-GATE_ELIGIBILITY
     lod_status: LOD100
     assigned_builder: "sadot_doc"
     assigned_validator: "sadot_val"
-    created_at: "2026-07-08"
+    created_at: "2026-07-28"
     milestone_ref: "S002"
-    stage_mapping: "Stage 0 (Concept)"
-    spec_ref: "TBD"
+    stage_mapping: "Stage 0 (Concept) — brief closeout"
+    spec_ref: "_aos/work_packages/S002/LOD300_milestone.md"
     gate_history: []
-    notes: "CLASS=CONTENT. BLOCKED on S001-P003-WP002 (client brief)."
+    notes: "CLASS=CONTENT. UPDATE 2026-07-28 team_00: dual-level fish/plant pond is IN SCOPE (see P006) — ornamental-pond §9 item treated as decided YES pending Niv confirm if needed. Remaining: Adas, climbing boundary, plant refs, sketch confirm. Draft: _COMMUNICATION/team_70/DRAFT_WHATSAPP_TO_NIV_CLARIFICATIONS_v1.0.0.md."
 
-  - id: "SDT-S002-P001-WP002"
-    label: "Concept massing / schematic site diagram (non-delegatable team_00 concept sign-off)"
+  - id: "SDT-S002-P006-WP001"
+    label: "Dual-level fish/plant pond LOD200 + hydroponic feed to deck planters"
     status: PLANNED
     track: A
     current_lean_gate: L-GATE_ELIGIBILITY
-    lod_status: LOD100
-    assigned_builder: "sadot_build"
+    lod_status: LOD200
+    assigned_builder: "sadot_doc"
     assigned_validator: "sadot_val"
-    created_at: "2026-07-08"
+    created_at: "2026-07-28"
     milestone_ref: "S002"
-    stage_mapping: "Stage 0 (Concept) + Stage 1 (Asset Spec)"
-    spec_ref: "TBD"
+    stage_mapping: "Stage 1 (Asset Spec) — Layer-2 water systems"
+    spec_ref: "_aos/work_packages/S002/LOD300_milestone.md"
     gate_history: []
-    notes: "CLASS=CONTENT+3D-light. BLOCKED on SDT-S002-P001-WP001. Team 00 concept sign-off is non-delegatable per PLA_3D_CREATIVE."
+    notes: "CLASS=CONTENT. team_00 2026-07-28 CLARIFIED: (1) ZERO coupling to swim pool (P002) — separate systems entirely. (2) TWO levels — upper vegetation / lower fish. (3) Concrete planters on the deck are irrigated HYDROPONICALLY from the fish pond (not from swim pool; not from garden irrigation P007). Location/envelope from Michal; LOD200 = structure + aquaponic/hydroponic loop + planter spec. Cross-ref P007 only to avoid double-counting deck-planter water (P006 owns that loop)."
+
+  - id: "SDT-S002-P007-WP001"
+    label: "Irrigation system LOD200 — zones, main lines, irrigation cabinets/controllers"
+    status: PLANNED
+    track: A
+    current_lean_gate: L-GATE_ELIGIBILITY
+    lod_status: LOD200
+    assigned_builder: "sadot_doc"
+    assigned_validator: "sadot_val"
+    created_at: "2026-07-28"
+    milestone_ref: "S002"
+    stage_mapping: "Stage 1 (Asset Spec) — Layer-2 irrigation"
+    spec_ref: "_aos/work_packages/S002/LOD300_milestone.md"
+    gate_history: []
+    notes: "CLASS=CONTENT. NEW 2026-07-28 team_00: full LOD200 irrigation plan — zone schedule, cabinet/controller locations (schematic), main/branch intent, low-maintenance constraint from client brief §1. Couples to P004 vegetation zones. Does NOT include deck-planter hydroponics from fish pond — that loop is owned by P006 only (systems are separate)."
 
   # ============================================================
-  # S003 — Detailed Design: planting plan + finish materials + site-anchored 3D model (PLANNED — BLOCKED on S002)
+  # S003 — Revit → Blender conversion + lock site base (BLOCKED on Michal)
   # ============================================================
 
   - id: "SDT-S003-P001-WP001"
-    label: "Planting plan (species, layout, schedule)"
-    status: PLANNED
+    label: "SUPERSEDED — Planting plan (species, layout, schedule) as S003 scope"
+    status: COMPLETE
     track: A
-    current_lean_gate: L-GATE_ELIGIBILITY
+    current_lean_gate: COMPLETE
     lod_status: LOD100
     assigned_builder: "sadot_doc"
     assigned_validator: "sadot_val"
     created_at: "2026-07-08"
     milestone_ref: "S003"
-    stage_mapping: "Stage 1 (Asset Spec)"
+    stage_mapping: "SUPERSEDED → S002-P004 concept + S004 in-situ"
     spec_ref: "TBD"
     gate_history: []
-    notes: "CLASS=CONTENT. Draws on SDT-S001-P002-WP002/WP003 (plant shortlist, permaculture principles). BLOCKED on S002 approval."
+    notes: "CLASS=SUPERSEDED. LAYER2-PIVOT 2026-07-28: planting concept = SDT-S002-P004-WP001; final layout = S004 after Revit lock."
 
   - id: "SDT-S003-P002-WP001"
-    label: "Finish materials / hardscape specification"
-    status: PLANNED
+    label: "SUPERSEDED — Finish materials / hardscape specification as S003 scope"
+    status: COMPLETE
     track: A
-    current_lean_gate: L-GATE_ELIGIBILITY
+    current_lean_gate: COMPLETE
     lod_status: LOD100
     assigned_builder: "sadot_doc"
     assigned_validator: "sadot_val"
     created_at: "2026-07-08"
     milestone_ref: "S003"
-    stage_mapping: "Stage 1 (Asset Spec)"
+    stage_mapping: "SUPERSEDED → S002-P003 + S004"
     spec_ref: "TBD"
     gate_history: []
-    notes: "CLASS=CONTENT. BLOCKED on S002 approval."
+    notes: "CLASS=SUPERSEDED. LAYER2-PIVOT 2026-07-28: terrace/materials Layer-2 = SDT-S002-P003-WP001; in-situ application = S004."
 
   - id: "SDT-S003-P003-WP001"
-    label: "Site-anchored 3D model — asset spec + build"
-    status: PLANNED
+    label: "Convert Michal Revit site model → Blender + lock Layer-1 base"
+    status: BLOCKED
     track: A
     current_lean_gate: L-GATE_ELIGIBILITY
     lod_status: LOD100
@@ -432,29 +523,29 @@ work_packages:
     assigned_validator: "sadot_val"
     created_at: "2026-07-08"
     milestone_ref: "S003"
-    stage_mapping: "Stage 1 (Asset Spec) + Stage 2 (3D Modeling)"
+    stage_mapping: "Stage 2 (3D Modeling) — Revit import"
     spec_ref: "TBD"
     gate_history: []
-    notes: "CLASS=3D_CREATIVE. Uses harvested blender/lib/geo_itm.py + blender/scripts/site/ to true-scale-anchor the real plot once survey data exists. BLOCKED on S002 approval + plot data. Tooling prep done 2026-07-08/09: real IFC house-model extraction (design/CANONICAL/HOUSE_IFC_REFERENCE.md, via ifcopenshell), terrain TIN/contour tool (blender/scripts/site/generate_terrain_tin.py), house-shell build plan (design/CANONICAL/BLENDER_SHELL_BUILD_PLAN_v1.0.0.md). Real deck candidate found 2026-07-09 (IfcSlab #51836, round-edged, kitchen-adjacent). Survey PDF's structure labels confirmed OBSOLETE 2026-07-09 (show the old, replaced house) — IFC is the sole current-house source. Two precise house reference corners identified via IFC geometry (blender/data/site/SITE_GEO.yaml `house_reference_corners`) — AWAITING team_00's on-site tie-measurement (4 distances to 2 known survey boundary points) to reconcile IFC-vs-ITM coordinates. Still open: Bonsai install (now optional, not required for the shell-build plan's primary approach); parents'-balcony + one children's-balcony geometry not yet found in IFC. UPDATE 2026-07-13: new site-tied sheet from Michal (שטח ובית.pdf) + re-exported IFC received — real absolute deck elevation (+55.97m) applied to a new provisional copy (blender/sadot_v3_site_tie_2026-07-13.blend); a real pre-existing X/Y placement bug (house sat entirely outside the plot footprint) found and fixed during verification (rough re-centering, not a precise tie). IFC diff confirms building envelope/rotation/site-placement unchanged from the prior export. Full writeup: design/CANONICAL/SITE_HOUSE_TIE_ANALYSIS_2026-07-13_v1.0.0.md. Still BLOCKED on S002 approval + the real X/Y tie-measurement (now with a cheaper path: asked Michal for the DWG/DXF or her stated offset, see _COMMUNICATION/team_70/DRAFT_MESSAGE_TO_MICHAL_SITE_PLAN_v1.0.0.md). The 'current MCP-connected Blender has unsaved microgreens work' caveat above was checked 2026-07-13 and cleared (bpy.data.is_dirty was False) before opening the Sadot file."
+    notes: "CLASS=3D_CREATIVE. LAYER2-PIVOT 2026-07-28: REPLACES prior 'build site-anchored model from scratch in Blender'. BLOCKED on Michal final Revit. Import per S002-P001 export contract; lock paths/levels/pools/deck/stairs/retaining walls/terraces. Prior Blender = reference only. Roof/DWG site-tie precision path FROZEN."
 
   - id: "SDT-S003-P003-WP002"
-    label: "Render validation + export (mandatory team_00 visual sign-off)"
-    status: PLANNED
+    label: "SUPERSEDED — Render validation under old S003 framing"
+    status: COMPLETE
     track: A
-    current_lean_gate: L-GATE_ELIGIBILITY
+    current_lean_gate: COMPLETE
     lod_status: LOD100
     assigned_builder: "sadot_build"
     assigned_validator: "sadot_val"
     created_at: "2026-07-08"
     milestone_ref: "S003"
-    stage_mapping: "Stage 4 (Render Validation) + Stage 5 (Export)"
+    stage_mapping: "SUPERSEDED → S004-P002"
     spec_ref: "TBD"
     gate_history: []
-    notes: "CLASS=3D_CREATIVE. Team 00 visual approval is non-delegatable per PLA_3D_CREATIVE Stage 4. BLOCKED on SDT-S003-P003-WP001."
+    notes: "CLASS=SUPERSEDED. LAYER2-PIVOT 2026-07-28: renders move to SDT-S004-P002-WP001 after Layer-2 dress."
 
   - id: "SDT-S003-P003-WP003"
-    label: "Model documentation + archive"
-    status: PLANNED
+    label: "Conversion documentation + archive of pre-Revit conceptual Blender"
+    status: BLOCKED
     track: A
     current_lean_gate: L-GATE_ELIGIBILITY
     lod_status: LOD100
@@ -462,56 +553,135 @@ work_packages:
     assigned_validator: "sadot_val"
     created_at: "2026-07-08"
     milestone_ref: "S003"
-    stage_mapping: "Stage 6 (Documentation) + Stage 7 (Archive)"
+    stage_mapping: "Stage 6 (Documentation)"
     spec_ref: "TBD"
     gate_history: []
-    notes: "CLASS=3D_CREATIVE→CONTENT. BLOCKED on SDT-S003-P003-WP002."
+    notes: "CLASS=3D_CREATIVE→CONTENT. BLOCKED on SDT-S003-P003-WP001. Archive conceptual blend; update CURRENT_MODEL.md to locked post-Revit pointer."
 
   # ============================================================
-  # S004 — Design Dossier + BOQ + Client Submissions (PLANNED — BLOCKED on S003)
+  # S004 — Dress Layer-2 onto locked model + in-situ completion + renders
   # ============================================================
 
   - id: "SDT-S004-P001-WP001"
-    label: "Design dossier compilation (drawing set, spatial SSOT, contractor package)"
+    label: "Dress Layer-2 specs onto locked Revit→Blender base (pools tech, terraces, planting, irrigation)"
     status: PLANNED
     track: A
     current_lean_gate: L-GATE_ELIGIBILITY
     lod_status: LOD100
-    assigned_builder: "sadot_doc"
+    assigned_builder: "sadot_build"
     assigned_validator: "sadot_val"
     created_at: "2026-07-08"
     milestone_ref: "S004"
-    stage_mapping: "Stage 6 (Documentation) + Stage 7 (Archive)"
+    stage_mapping: "Stage 2–3 (Modeling + detail)"
     spec_ref: "TBD"
     gate_history: []
-    notes: "CLASS=CONTENT. BLOCKED on S003 completion."
+    notes: "CLASS=3D_CREATIVE+CONTENT. LAYER2-PIVOT 2026-07-28: ID reused — prior 'design dossier' moved to S005. BLOCKED on S003 conversion. Apply all S002 Layer-2 work (P002 swim pool standalone, P006 fish+hydroponic deck planters, P003 terraces, P004 vegetation zones, P007 garden irrigation) onto locked site; complete in-situ layout. Never merge P002/P006 hydraulics."
+
+  - id: "SDT-S004-P002-WP001"
+    label: "Presentation renders + team_00 visual sign-off"
+    status: PLANNED
+    track: A
+    current_lean_gate: L-GATE_ELIGIBILITY
+    lod_status: LOD100
+    assigned_builder: "sadot_build"
+    assigned_validator: "sadot_val"
+    created_at: "2026-07-28"
+    milestone_ref: "S004"
+    stage_mapping: "Stage 4 (Render Validation)"
+    spec_ref: "TBD"
+    gate_history: []
+    notes: "CLASS=3D_CREATIVE. Team 00 visual approval non-delegatable. BLOCKED on SDT-S004-P001-WP001."
 
   - id: "SDT-S004-P001-WP002"
-    label: "Bill of Quantities (BOQ) — derived partly from 3D model export"
-    status: PLANNED
+    label: "SUPERSEDED — BOQ under old S004 framing (moved to S005)"
+    status: COMPLETE
     track: A
-    current_lean_gate: L-GATE_ELIGIBILITY
+    current_lean_gate: COMPLETE
     lod_status: LOD100
     assigned_builder: "sadot_doc"
     assigned_validator: "sadot_val"
     created_at: "2026-07-08"
     milestone_ref: "S004"
-    stage_mapping: "Stage 6 (Documentation) + Stage 7 (Archive)"
+    stage_mapping: "SUPERSEDED → S005-P001-WP002"
     spec_ref: "TBD"
     gate_history: []
-    notes: "CLASS=CONTENT (mixed w/ 3D export data). BLOCKED on S003 completion."
+    notes: "CLASS=SUPERSEDED. LAYER2-PIVOT 2026-07-28: BOQ is mandatory deliverable under SDT-S005-P001-WP002."
 
   - id: "SDT-S004-P001-WP003"
-    label: "Client submission package + hub delivery (raw-materials/to-client/, hub/)"
+    label: "SUPERSEDED — Client hub package under old S004 framing (moved to S005)"
+    status: COMPLETE
+    track: A
+    current_lean_gate: COMPLETE
+    lod_status: LOD100
+    assigned_builder: "sadot_doc"
+    assigned_validator: "sadot_val"
+    created_at: "2026-07-08"
+    milestone_ref: "S004"
+    stage_mapping: "SUPERSEDED → S005-P001-WP003"
+    spec_ref: "TBD"
+    gate_history: []
+    notes: "CLASS=SUPERSEDED. LAYER2-PIVOT 2026-07-28: minimal hub delivery = SDT-S005-P001-WP003."
+
+  # ============================================================
+  # S005 — Delivery package: execution plans, BOQ, procurement, presentations, minimal hub
+  # ============================================================
+
+  - id: "SDT-S005-P001-WP001"
+    label: "Garden execution plans (drawing set / contractor package)"
     status: PLANNED
     track: A
     current_lean_gate: L-GATE_ELIGIBILITY
     lod_status: LOD100
     assigned_builder: "sadot_doc"
     assigned_validator: "sadot_val"
-    created_at: "2026-07-08"
-    milestone_ref: "S004"
-    stage_mapping: "Stage 6 (Documentation) + Stage 7 (Archive)"
+    created_at: "2026-07-28"
+    milestone_ref: "S005"
+    stage_mapping: "Stage 6 (Documentation)"
     spec_ref: "TBD"
     gate_history: []
-    notes: "CLASS=CONTENT. BLOCKED on SDT-S004-P001-WP001/WP002."
+    notes: "CLASS=CONTENT. BLOCKED on S004. All plans needed to build the garden."
+
+  - id: "SDT-S005-P001-WP002"
+    label: "Bill of Quantities (BOQ) — mandatory"
+    status: PLANNED
+    track: A
+    current_lean_gate: L-GATE_ELIGIBILITY
+    lod_status: LOD100
+    assigned_builder: "sadot_doc"
+    assigned_validator: "sadot_val"
+    created_at: "2026-07-28"
+    milestone_ref: "S005"
+    stage_mapping: "Stage 6 (Documentation)"
+    spec_ref: "TBD"
+    gate_history: []
+    notes: "CLASS=CONTENT. BOQ is MANDATORY (team_00 2026-07-28). Derived from dressed model + Layer-2 specs. BLOCKED on S004."
+
+  - id: "SDT-S005-P001-WP003"
+    label: "Procurement lists (plants, equipment) + minimal client hub delivery"
+    status: PLANNED
+    track: A
+    current_lean_gate: L-GATE_ELIGIBILITY
+    lod_status: LOD100
+    assigned_builder: "sadot_doc"
+    assigned_validator: "sadot_val"
+    created_at: "2026-07-28"
+    milestone_ref: "S005"
+    stage_mapping: "Stage 6–7 (Documentation + Archive)"
+    spec_ref: "TBD"
+    gate_history: []
+    notes: "CLASS=CONTENT. Hub stays MINIMAL (team_00). raw-materials/to-client/ + hub/. BLOCKED on SDT-S005-P001-WP001/WP002."
+
+  - id: "SDT-S005-P001-WP004"
+    label: "Client presentation package (slides + selected renders)"
+    status: PLANNED
+    track: A
+    current_lean_gate: L-GATE_ELIGIBILITY
+    lod_status: LOD100
+    assigned_builder: "sadot_doc"
+    assigned_validator: "sadot_val"
+    created_at: "2026-07-28"
+    milestone_ref: "S005"
+    stage_mapping: "Stage 6 (Documentation)"
+    spec_ref: "TBD"
+    gate_history: []
+    notes: "CLASS=CONTENT. Uses S004 render outputs. BLOCKED on SDT-S004-P002-WP001."

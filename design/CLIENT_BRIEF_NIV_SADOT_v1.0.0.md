@@ -111,8 +111,9 @@ on dense ground-cover/rock-pile placement near walkways and seating areas.
 
 ## 9. Open items requiring direct client confirmation before S002 (concept design) proceeds
 
-- [ ] **Ornamental pond decision** — in addition to the confirmed swimming pool, does Niv want a separate
-      ornamental/fish pond (§4)? Not yet decided either way.
+- [x] **Ornamental / fish pond — DECIDED in scope (team_00 2026-07-28):** dual-level system (upper vegetation /
+      lower fish), **completely separate** from the swimming pool. Concrete planters on the deck irrigated
+      **hydroponically from the fish pond**. Tracked as `SDT-S002-P006-WP001`. Brief Niv confirm still useful.
 - [ ] The rising water-feature mention (§4) — still not confirmed as a real request or an ASR artifact
 - [ ] "עדאס" (Adas) in §8 — still unconfirmed (Tasi=west, Pierre=back are now resolved, but Adas is a separate
       name/direction, associated with the bedroom-window screening-tree request)
