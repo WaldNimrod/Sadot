@@ -1,0 +1,4 @@
+# Regenerable smoke outputs (re-run blender/scripts/ingest/)
+*.obj
+*.json
+!fixtures/
